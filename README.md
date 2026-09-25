@@ -1,131 +1,377 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
-<head>
+<html lang="en" data-theme="dark" style="color-scheme: dark;"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ten Weeks of Science by Canaya Hans</title>
 <style>
-  :root {
-    --paper: #eee8da;
-    --folder: #d7c7a3;
-    --folder-dark: #c6b287;
-    --ink: #23303a;
-    --rust: #b5622e;
-    --orbit: #2e7d6b;
-    --line: #c7bca0;
-    --card-bg: #fff;
-    --card-text: #3a3a3a;
+  :root{
+    --paper:#EEE8DA; --folder:#D7C7A3; --folder-dark:#C6B287;
+    --ink:#23303A; --rust:#B5622E; --orbit:#2E7D6B; --line:#c7bca0;
+    --card-bg:#ffffff; --card-text:#3a3a3a;
   }
-  [data-theme="light"] { --paper:#f4f1ea; --folder:#e4d7b4; --folder-dark:#d1c29b; --line:#d3c8af; }
-  [data-theme="dark"] { --paper:#1e1b16; --ink:#ede6d6; --folder:#4a3f2e; --folder-dark:#5a4c38; --line:#3a3326; --card-bg:#262119; --card-text:#d8d0bf; }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { min-width: 0; }
-  body {
-    margin: 0; min-height: 100vh; padding: clamp(1.25rem, 4vw, 3rem) 1rem 3rem;
-    color: var(--ink); font-family: "Iowan Old Style", Georgia, serif;
-    background: var(--paper); transition: background .3s ease, color .3s ease;
+  [data-theme="light"]{
+    --paper:#F4F1EA; --ink:#23303A; --folder:#E4D7B4; --folder-dark:#D1C29B;
+    --line:#d3c8af; --card-bg:#ffffff; --card-text:#3a3a3a;
   }
-  .header-container, main { width: min(100%, 900px); margin: 0 auto; }
-  .header-container { position: relative; margin-bottom: clamp(1.5rem, 4vw, 2.25rem); padding: 0 5rem; text-align: center; }
-  h1 { margin: 0 0 .35rem; font-size: clamp(1.55rem, 5vw, 2.2rem); font-weight: 650; }
-  .sub, .badge { margin: 0; opacity: .72; }
-  .sub { font-size: clamp(.9rem, 2.5vw, 1rem); }
-  .badge { margin-top: .45rem; font-size: .78rem; letter-spacing: .02em; }
-  .theme-toggle { position: absolute; top: 0; right: 0; padding: .55rem .75rem; border: 1px solid var(--line); border-radius: 8px; background: var(--folder); color: var(--ink); cursor: pointer; font: inherit; font-size: .8rem; }
-  .theme-toggle:hover { background: var(--folder-dark); }
-  .rack { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-  .folder-btn {
-    position: relative; display: flex; align-items: center; gap: .65rem; min-width: 0; min-height: 88px;
-    padding: 1.2rem 1rem 1rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    border-radius: 10px; background: linear-gradient(160deg, var(--folder), var(--folder-dark)); color: var(--ink);
-    cursor: pointer; text-align: left; font: inherit; font-size: 1rem; box-shadow: 0 3px 8px rgba(0,0,0,.12);
-    transition: transform .2s ease, box-shadow .2s ease;
+  [data-theme="dark"]{
+    --paper:#1E1B16; --ink:#EDE6D6; --folder:#4A3F2E; --folder-dark:#5A4C38;
+    --line:#3a3326; --card-bg:#262119; --card-text:#d8d0bf;
   }
-  .folder-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.18); }
-  .folder-btn.active { color: var(--paper); background: linear-gradient(160deg, var(--orbit), #235c4f); box-shadow: 0 3px 8px rgba(0,0,0,.14); }
-  .folder-btn:focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
-  .atom { flex: 0 0 26px; opacity: .8; }
-  .folder-btn.active .atom { opacity: 1; }
-  .atom circle { fill: var(--rust); } .atom ellipse { stroke: var(--ink); }
-  .folder-btn.active .atom circle { fill: var(--paper); } .folder-btn.active .atom ellipse { stroke: var(--paper); }
-  .folder-label { min-width: 0; overflow-wrap: anywhere; }
-  .wk { display: block; margin-bottom: .15rem; opacity: .72; font-size: .73rem; letter-spacing: .02em; }
-  .viewer { min-height: 180px; padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 10px; background: var(--card-bg); color: var(--card-text); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
-  .viewer-inner { animation: viewerIn .3s ease both; }
-  .viewer h2 { margin: 0 0 .8rem; color: var(--ink); font-size: clamp(1.25rem, 4vw, 1.5rem); }
-  .viewer p { margin: 0; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
-  @keyframes viewerIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @media (max-width: 600px) {
-    body { padding-left: .75rem; padding-right: .75rem; }
-    .header-container { padding: 0; }
-    .theme-toggle { position: static; display: block; margin: 0 auto 1rem; }
-    .rack { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
-    .folder-btn { min-height: 74px; padding: .9rem .7rem; font-size: .92rem; }
-    .atom { flex-basis: 22px; width: 22px; height: 22px; }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; color:var(--ink);
+    font-family:"Iowan Old Style","Georgia",serif;
+    padding: max(2rem, env(safe-area-inset-top)) 1.5rem 3rem;
+    background:
+      repeating-linear-gradient(180deg,
+        rgba(181,98,46,.03) 0 2px,
+        transparent 2px 34px),
+      var(--paper);
+    transition: background .3s ease, color .3s ease;
   }
-  @media (max-width: 360px) { .rack { grid-template-columns: 1fr; } }
+
+  .header-container{
+    max-width:900px; margin:0 auto 2rem; position:relative;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  h1{
+    font-size:1.8rem; font-weight:600; text-align:center;
+    margin:0 0 .3rem;
+  }
+  .sub{ text-align:center; opacity:.7; margin:0 0 .5rem; font-size:.95rem; }
+  .badge{
+    display:block; text-align:center; font-size:.75rem;
+    opacity:.7; margin:0; letter-spacing:.02em;
+  }
+  .badge.owner{ color:var(--orbit); opacity:1; }
+
+  .theme-toggle{
+    position:absolute; top:0; right:0;
+    background:var(--folder); border:1px solid var(--line);
+    color:var(--ink); padding:.4rem .8rem; border-radius:4px;
+    cursor:pointer; font-family:inherit; font-size:.8rem;
+    transition: background .2s ease;
+  }
+  .theme-toggle:hover{ background:var(--folder-dark); }
+
+  .rack{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap: 1.5rem 1rem;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+  }
+
+  .folder-btn{
+    position:relative;
+    background: linear-gradient(180deg, var(--folder) 0%, var(--folder-dark) 100%);
+    border:none;
+    padding: 1.6rem 1rem 1rem;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:1.05rem;
+    color:var(--ink);
+    text-align:left;
+    border-radius: 2px 8px 4px 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.15);
+    transition: transform .25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow .25s ease;
+    display:flex; align-items:center; gap:.6rem;
+    overflow: visible;
+  }
+  .folder-btn::before{
+    content:"";
+    position:absolute; top:-10px; left:12px;
+    width:46%; height:14px;
+    background:var(--folder);
+    border-radius:4px 6px 0 0;
+    z-index:2;
+  }
+  .folder-btn::after{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:6px;
+    background: linear-gradient(180deg, rgba(255,255,255,.3) 0%, transparent 100%);
+    border-radius:3px 3px 0 0;
+    z-index:4;
+  }
+
+  /* Papers nested securely inside pocket with smooth medium-paced transition */
+  .paper-container {
+    position: absolute;
+    top: 6px; left: 12px; right: 12px; height: 0px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .paper {
+    position: absolute;
+    left: 4px; right: 4px; height: 20px;
+    background: #ffffff; border: 1px solid #dcd6cd;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 -1px 2px rgba(0,0,0,.05);
+    bottom: 0px;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .paper.p1{ z-index: 1; }
+  .paper.p2{ z-index: 2; }
+  .paper.p3{ z-index: 3; }
+
+  .folder-btn > svg, .folder-btn > span{ position:relative; z-index:5; }
+
+  /* Hover state */
+  .folder-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,.2);
+  }
+
+  /* Active/Clicked State: Cover dips down, papers slide up smoothly and gradually */
+  .folder-btn.active{
+    background: linear-gradient(180deg, var(--orbit) 0%, #235c4f 100%);
+    color:var(--paper);
+    transform: translateY(4px); 
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  }
+  .folder-btn.active::before{ background:var(--orbit) !important; }
+
+  /* Smooth, well-paced sliding animation */
+  .folder-btn.active .paper.p1{ transform: translateY(-10px); }
+  .folder-btn.active .paper.p2{ transform: translateY(-15px); }
+  .folder-btn.active .paper.p3{ transform: translateY(-20px); }
+
+  .folder-btn:focus-visible{ outline:3px solid var(--rust); outline-offset:2px; }
+
+  .atom{ flex:0 0 auto; opacity:.8; }
+  .folder-btn.active .atom{ opacity:1; }
+  .atom circle.e{ fill:var(--rust); }
+  .folder-btn.active .atom circle.e{ fill:var(--paper); }
+  .atom ellipse{ stroke:var(--ink); }
+  .folder-btn.active .atom ellipse{ stroke:var(--paper); }
+
+  .wk{ display:block; font-size:.75rem; letter-spacing:.02em; opacity:.7; margin-bottom:.1rem;}
+
+  .viewer{
+    max-width:900px; margin:0 auto;
+    background:var(--card-bg); border:1px solid var(--line);
+    border-radius:6px; padding:2rem;
+    min-height:180px; box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    transition: background .3s ease, border-color .3s ease;
+  }
+  .viewer h2{ margin:0 0 .6rem; font-size:1.4rem; color:var(--ink); }
+  .viewer p{ 
+    line-height:1.65; 
+    color:var(--card-text); 
+    white-space: pre-wrap; 
+  }
+  .placeholder{ opacity:.6; font-style:italic; }
+
+  .viewer-inner{ animation: viewerIn .4s ease .1s both; }
+  @keyframes viewerIn{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .edit-btn{
+    margin-top:1rem; font-family:inherit; font-size:.85rem;
+    background:var(--paper); border:1px solid var(--line); color:var(--ink);
+    padding:.4rem .9rem; border-radius:4px; cursor:pointer;
+    transition: background .2s ease;
+  }
+  .edit-btn:hover{ opacity:.85; }
+  .edit-form input, .edit-form textarea{
+    width:100%; font-family:inherit; font-size:1rem;
+    border:1px solid var(--line); border-radius:4px; padding:.6rem;
+    margin-bottom:.7rem; color:var(--ink); background:var(--paper);
+  }
+  .edit-form textarea{ min-height:160px; resize:vertical; }
+  .edit-form .row{ display:flex; gap:.6rem; }
+  .save-btn{
+    background:var(--orbit); color:#fff; border:none;
+    padding:.5rem 1.1rem; border-radius:4px; cursor:pointer; font-family:inherit;
+  }
+  .cancel-btn{
+    background:var(--paper); border:1px solid var(--line); color:var(--ink);
+    padding:.5rem 1.1rem; border-radius:4px; cursor:pointer; font-family:inherit;
+  }
 </style>
 </head>
 <body>
-<header class="header-container">
-  <button class="theme-toggle" id="theme-toggle" type="button">🌓 Theme</button>
+
+<div class="header-container">
+  <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
   <h1>Ten Weeks of Science</h1>
-  <p class="sub">by Canaya Hans · click a folder to open that week</p>
-  <p class="badge">Published science study hub</p>
-</header>
-<main>
-  <nav class="rack" id="rack" aria-label="Science folders"></nav>
-  <section class="viewer" id="viewer" aria-live="polite"></section>
-</main>
+  <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open that week</p>
+  <p class="badge" id="badge">Connecting to global cloud...</p>
+</div>
+
+<div class="rack" id="rack"></div>
+
+<div class="viewer" id="viewer"><p class="placeholder">Loading live folder data…</p></div>
+
 <script>
-  // Keep each note in a template literal so quotes and apostrophes in your text render correctly.
-  const content = {
-    1: { label: "Week 1", title: "Week 1", body: `Scientists mentioned:\n\n• Louis de Broglie\n– Proposed that electrons can behave like waves.\n– Developed the matter-wave theory.\n– His work helped explain wave-particle duality.` },
-    2: { label: "Week 2", title: "Week 2", body: `Add your Week 2 notes or project links here.` },
-    3: { label: "Week 3", title: "Week 3", body: `Add your Week 3 notes or project links here.` },
-    4: { label: "Week 4", title: "Week 4", body: `Add your Week 4 notes or project links here.` },
-    5: { label: "Week 5", title: "Week 5", body: `Add your Week 5 notes or project links here.` },
-    6: { label: "Week 6", title: "Week 6", body: `Add your Week 6 notes or project links here.` },
-    7: { label: "Week 7", title: "Week 7", body: `Add your Week 7 notes or project links here.` },
-    8: { label: "Week 8", title: "Week 8", body: `Add your Week 8 notes or project links here.` },
-    9: { label: "Week 9", title: "Week 9", body: `Add your Week 9 notes or project links here.` },
-    10: { label: "Week 10", title: "Week 10", body: `Add your Week 10 notes or project links here.` },
-    me: { label: "About", title: "Myself and My Experiences in Science", body: `Welcome to My Study Hub!\n\nBefore taking the entrance exam, I thought Laguna Science National High School would be just like any ordinary school. Once I stepped onto the campus, I discovered a new world of learning and science.` }
+  // Cloud Database Configuration (JSONbin.io)
+  const BIN_ID = "YOUR_BIN_ID_HERE";       // <-- Paste your JSONbin ID here
+  const API_KEY = "YOUR_API_KEY_HERE";     // <-- Paste your JSONbin Master Key here
+
+  let content = {
+    "1": {
+      "label": "No. 01",
+      "title": "Week 1",
+      "body": "Scientists mentioned:\n\n• Louis de Broglie\n– Proposed that electrons can behave like waves.\n– Developed the matter-wave theory.\n– His work helped explain the wave-particle duality of electrons.\n– Contributed to the development of the quantum mechanical model of the atom.\n– Helped scientists understand how electrons behave around the nucleus.\n\n• Werner Heisenberg\n– Developed an important form of quantum mechanics.\n– Proposed the Heisenberg Uncertainty Principle.\n– Stated that the exact position and momentum of an electron cannot both be known at the same time.\n– Showed that electrons do not move in simple, fixed paths.\n– Helped establish the modern understanding of electron behavior.\n\n• Erwin Schrödinger\n– Developed the Schrödinger equation.\n– Used mathematics to describe the behavior of electrons.\n– Introduced the concept of electron orbitals.\n– Explained the probability of finding an electron in a certain region around the nucleus.\n– His work helped develop the modern quantum mechanical model of the atom."
+    },
+    "2": { "label": "No. 02", "title": "Week 2", "body": "Add your Week 2 notes or project links here." },
+    "3": { "label": "No. 03", "title": "Week 3", "body": "Add your Week 3 notes or project links here." },
+    "4": { "label": "No. 04", "title": "Week 4", "body": "Add your Week 4 notes or project links here." },
+    "5": { "label": "No. 05", "title": "Week 5", "body": "Add your Week 5 notes or project links here." },
+    "6": { "label": "No. 06", "title": "Week 6", "body": "Add your Week 6 notes or project links here." },
+    "7": { "label": "No. 07", "title": "Week 7", "body": "Add your Week 7 notes or project links here." },
+    "8": { "label": "No. 08", "title": "Week 8", "body": "Add your Week 8 notes or project links here." },
+    "9": { "label": "No. 09", "title": "Week 9", "body": "Add your Week 9 notes or project links here." },
+    "10": { "label": "No. 10", "title": "Week 10", "body": "Add your Week 10 notes or project links here." },
+    "me": {
+      "label": "About",
+      "title": "Myself and My Experiences in Science",
+      "body": "Welcome to My Study Hub!\n\nBefore taking the entrance exam, I thought Laguna Science National High School would be just like any ordinary school. But once I stepped onto the campus, my perspective changed. The engaging teaching style of the teachers made me feel right at home. As I advanced to higher grade levels, science became even more enjoyable through exciting experiments and collaborative group tasks. That is why I created this website to serve as a helpful study guide and reviewer for my academic journey.\n\n— Hans Fredric F. Canaya"
+    }
   };
-  const items = ["me", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const rack = document.getElementById("rack");
-  const viewer = document.getElementById("viewer");
+
+  const items = ["me", 1,2,3,4,5,6,7,8,9,10];
+  const rack = document.getElementById('rack');
+  const viewer = document.getElementById('viewer');
+  const badge = document.getElementById('badge');
+  
+  let isOwner = localStorage.getItem('science_owner_authenticated') === 'true';
   let activeKey = 1;
-  const atomSVG = `<svg class="atom" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true"><ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1"/><ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1" transform="rotate(60 13 13)"/><ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1" transform="rotate(120 13 13)"/><circle cx="13" cy="13" r="2.4"/></svg>`;
-  function renderRack() {
-    rack.replaceChildren();
-    items.forEach((key) => {
-      const folder = content[key];
-      const button = document.createElement("button");
-      button.type = "button"; button.className = "folder-btn";
-      button.setAttribute("aria-pressed", String(key === activeKey));
-      if (key === activeKey) button.classList.add("active");
-      button.innerHTML = atomSVG;
-      const label = document.createElement("span"); label.className = "folder-label";
-      const number = document.createElement("span"); number.className = "wk"; number.textContent = folder.label;
-      label.append(number, document.createTextNode(key === "me" ? "Myself" : folder.title));
-      button.append(label); button.addEventListener("click", () => openFolder(key)); rack.append(button);
+
+  // Theme Handling
+  const currentTheme = localStorage.getItem('science_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('science_theme', nextTheme);
+  });
+
+  const atomSVG = `<svg class="atom" width="26" height="26" viewBox="0 0 26 26" fill="none">
+    <ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1"/>
+    <ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1" transform="rotate(60 13 13)"/>
+    <ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1" transform="rotate(120 13 13)"/>
+    <circle class="e" cx="13" cy="13" r="2.4"/>
+  </svg>`;
+
+  async function loadCloudData() {
+    try {
+      const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Master-Key': API_KEY }
+      });
+      const result = await response.json();
+      if (result && result.record) {
+        content = result.record;
+      }
+    } catch (e) {
+      console.log('Using local fallback data due to network connection.');
+    }
+    renderRack();
+    openFolder(activeKey);
+    updateBadge();
+  }
+
+  function renderRack(){
+    rack.innerHTML = '';
+    items.forEach(key => {
+      const c = content[key] || { label: "", title: "" };
+      const papers = `<div class="paper-container"><span class="paper p1"></span><span class="paper p2"></span><span class="paper p3"></span></div>`;
+      const btn = document.createElement('button');
+      btn.className = 'folder-btn';
+      if (String(key) === String(activeKey)) btn.classList.add('active');
+      btn.innerHTML = `${papers}${atomSVG}<span><span class="wk">${c.label}</span>${key === 'me' ? 'Myself' : c.title}</span>`;
+      btn.addEventListener('click', () => openFolder(key));
+      rack.appendChild(btn);
     });
   }
-  function openFolder(key) {
-    activeKey = key; renderRack(); const folder = content[key]; viewer.replaceChildren();
-    const inner = document.createElement("div"); inner.className = "viewer-inner";
-    const heading = document.createElement("h2"); heading.textContent = folder.title;
-    const body = document.createElement("p"); body.textContent = folder.body;
-    inner.append(heading, body); viewer.append(inner);
+
+  function openFolder(key){
+    activeKey = key;
+    renderRack();
+    const c = content[key];
+    
+    let editBtn = '';
+    if (isOwner) {
+      editBtn = `<button class="edit-btn" id="edit-btn">Edit this folder</button>`;
+    } else {
+      editBtn = `<button class="edit-btn" id="auth-btn" style="background:var(--orbit); color:#fff;">🔐 Owner Login to Edit</button>`;
+    }
+
+    viewer.innerHTML = `<div class="viewer-inner"><h2>${c.title}</h2><p>${c.body}</p>${editBtn}</div>`;
+    
+    if (isOwner) {
+      document.getElementById('edit-btn').addEventListener('click', () => openEditor(key));
+    } else {
+      document.getElementById('auth-btn').addEventListener('click', promptOwnerLogin);
+    }
   }
-  const savedTheme = localStorage.getItem("science_theme");
-  document.documentElement.dataset.theme = savedTheme === "light" ? "light" : "dark";
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = nextTheme; localStorage.setItem("science_theme", nextTheme);
-  });
-  openFolder(activeKey);
+
+  function promptOwnerLogin() {
+    const pass = prompt("Enter owner password to unlock editing:");
+    if (pass === "HansScience2026") {
+      isOwner = true;
+      localStorage.setItem('science_owner_authenticated', 'true');
+      alert("Unlocked successfully! You can now edit your notes globally.");
+      updateBadge();
+      openFolder(activeKey);
+    } else if (pass !== null) {
+      alert("Incorrect password.");
+    }
+  }
+
+  function updateBadge() {
+    if (isOwner) {
+      badge.textContent = "You are logged in as owner — updates will save globally for everyone";
+      badge.classList.add('owner');
+    } else {
+      badge.textContent = "View-only mode (Click 'Owner Login to Edit' inside any folder)";
+      badge.classList.remove('owner');
+    }
+  }
+
+  function openEditor(key){
+    const c = content[key];
+    viewer.innerHTML = `
+      <div class="viewer-inner edit-form">
+        <input id="ed-title" value="${c.title.replace(/"/g,'&quot;')}">
+        <textarea id="ed-body">${c.body}</textarea>
+        <div class="row">
+          <button class="save-btn" id="ed-save">Save & Sync Globally</button>
+          <button class="cancel-btn" id="ed-cancel">Cancel</button>
+        </div>
+      </div>`;
+    document.getElementById('ed-cancel').addEventListener('click', () => openFolder(key));
+    document.getElementById('ed-save').addEventListener('click', () => saveFolder(key));
+  }
+
+  async function saveFolder(key){
+    content[key].title = document.getElementById('ed-title').value || content[key].title;
+    content[key].body = document.getElementById('ed-body').value || content[key].body;
+    viewer.innerHTML = '<p class="placeholder">Syncing to global cloud storage…</p>';
+
+    try {
+      await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': API_KEY
+        },
+        body: JSON.stringify(content)
+      });
+      alert("Successfully synced and updated for everyone!");
+    } catch (e) {
+      alert("Failed to sync to cloud. Check your connection or API keys.");
+    }
+
+    openFolder(key);
+  }
+
+  // Initialize App on load
+  loadCloudData();
 </script>
-</body>
-</html>
+
+</body></html>
