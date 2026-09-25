@@ -23,66 +23,72 @@
   body{
     margin:0; color:var(--ink);
     font-family:"Iowan Old Style","Georgia",serif;
-    padding: max(2rem, env(safe-area-inset-top)) 1.5rem 3rem;
+    padding: max(3rem, env(safe-area-inset-top)) 1.5rem 4rem;
     background:
       repeating-linear-gradient(180deg,
-        rgba(181,98,46,.03) 0 2px,
-        transparent 2px 34px),
+        rgba(181,98,46,.02) 0 2px,
+        transparent 2px 36px),
       var(--paper);
-    transition: background .3s ease, color .3s ease;
+    transition: background .4s cubic-bezier(0.16, 1, 0.3, 1), color .4s ease;
   }
 
   .header-container{
-    max-width:900px; margin:0 auto 2rem; position:relative;
+    max-width:900px; margin:0 auto 3rem; position:relative;
     display:flex; flex-direction:column; align-items:center;
+    padding-top: 1rem;
   }
   h1{
-    font-size:1.8rem; font-weight:600; text-align:center;
-    margin:0 0 .3rem;
+    font-size:2.1rem; font-weight:600; text-align:center;
+    margin:0 0 .4rem; letter-spacing: -0.01em;
   }
-  .sub{ text-align:center; opacity:.7; margin:0 0 .5rem; font-size:.95rem; }
+  .sub{ text-align:center; opacity:.75; margin:0 0 .8rem; font-size:1rem; }
   .badge{
-    display:block; text-align:center; font-size:.75rem;
-    opacity:.7; margin:0; letter-spacing:.02em;
+    display:inline-block; text-align:center; font-size:.78rem;
+    opacity:.65; margin:0; letter-spacing:.04em; text-transform: uppercase;
+    background: var(--folder); padding: 0.25rem 0.75rem; border-radius: 20px;
+    border: 1px solid var(--line);
   }
 
   .theme-toggle{
     position:absolute; top:0; right:0;
     background:var(--folder); border:1px solid var(--line);
-    color:var(--ink); padding:.4rem .8rem; border-radius:4px;
-    cursor:pointer; font-family:inherit; font-size:.8rem;
-    transition: background .2s ease;
+    color:var(--ink); padding:.5rem 1rem; border-radius:6px;
+    cursor:pointer; font-family:inherit; font-size:.85rem;
+    transition: background .25s ease, transform .2s ease;
   }
-  .theme-toggle:hover{ background:var(--folder-dark); }
+  .theme-toggle:hover{ background:var(--folder-dark); transform: translateY(-1px); }
 
+  /* Flexible grid with clean auto-alignment preventing overlapping */
   .rack{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
-    gap: 1.5rem 1rem;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.75rem 1.25rem;
     max-width: 900px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 2.5rem;
+    align-items: stretch;
   }
 
   .folder-btn{
     position:relative;
     background: linear-gradient(180deg, var(--folder) 0%, var(--folder-dark) 100%);
     border:none;
-    padding: 1.6rem 1rem 1rem;
+    padding: 1.8rem 1.1rem 1.1rem;
     cursor:pointer;
     font-family:inherit;
     font-size:1.05rem;
     color:var(--ink);
     text-align:left;
-    border-radius: 2px 8px 4px 4px;
-    box-shadow: 0 4px 8px rgba(0,0,0,.15);
-    transition: transform .25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow .25s ease;
-    display:flex; align-items:center; gap:.6rem;
+    border-radius: 3px 10px 6px 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display:flex; align-items:center; gap:.75rem;
     overflow: visible;
+    min-height: 76px;
   }
   .folder-btn::before{
     content:"";
-    position:absolute; top:-10px; left:12px;
-    width:46%; height:14px;
+    position:absolute; top:-10px; left:14px;
+    width:42%; height:14px;
     background:var(--folder);
     border-radius:4px 6px 0 0;
     z-index:2;
@@ -90,26 +96,26 @@
   .folder-btn::after{
     content:"";
     position:absolute; top:0; left:0; right:0; height:6px;
-    background: linear-gradient(180deg, rgba(255,255,255,.3) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,.35) 0%, transparent 100%);
     border-radius:3px 3px 0 0;
     z-index:4;
   }
 
   .paper-container {
     position: absolute;
-    top: 6px; left: 12px; right: 12px; height: 0px;
+    top: 6px; left: 14px; right: 14px; height: 0px;
     z-index: 1;
     pointer-events: none;
   }
   .paper {
     position: absolute;
-    left: 4px; right: 4px; height: 20px;
+    left: 4px; right: 4px; height: 22px;
     background: #ffffff; border: 1px solid #dcd6cd;
-    border-radius: 2px 2px 0 0;
-    box-shadow: 0 -1px 2px rgba(0,0,0,.05);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 -2px 4px rgba(0,0,0,.04);
     bottom: 0px;
     transform: translateY(0);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .paper.p1{ z-index: 1; }
   .paper.p2{ z-index: 2; }
@@ -118,51 +124,63 @@
   .folder-btn > svg, .folder-btn > span{ position:relative; z-index:5; }
 
   .folder-btn:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
   }
 
   .folder-btn.active{
-    background: linear-gradient(180deg, var(--orbit) 0%, #235c4f 100%);
+    background: linear-gradient(180deg, var(--orbit) 0%, #21594d 100%);
     color:var(--paper);
     transform: translateY(4px); 
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,.12);
   }
   .folder-btn.active::before{ background:var(--orbit) !important; }
 
-  .folder-btn.active .paper.p1{ transform: translateY(-10px); }
-  .folder-btn.active .paper.p2{ transform: translateY(-15px); }
-  .folder-btn.active .paper.p3{ transform: translateY(-20px); }
+  .folder-btn.active .paper.p1{ transform: translateY(-12px); }
+  .folder-btn.active .paper.p2{ transform: translateY(-18px); }
+  .folder-btn.active .paper.p3{ transform: translateY(-24px); }
 
   .folder-btn:focus-visible{ outline:3px solid var(--rust); outline-offset:2px; }
 
-  .atom{ flex:0 0 auto; opacity:.8; }
-  .folder-btn.active .atom{ opacity:1; }
-  .atom circle.e{ fill:var(--rust); }
+  .atom{ flex:0 0 auto; opacity:.75; transition: opacity .3s ease; }
+  .folder-btn:hover .atom, .folder-btn.active .atom{ opacity:1; }
+  .atom circle.e{ fill:var(--rust); transition: fill .3s ease; }
   .folder-btn.active .atom circle.e{ fill:var(--paper); }
-  .atom ellipse{ stroke:var(--ink); }
+  .atom ellipse{ stroke:var(--ink); transition: stroke .3s ease; }
   .folder-btn.active .atom ellipse{ stroke:var(--paper); }
 
-  .wk{ display:block; font-size:.75rem; letter-spacing:.02em; opacity:.7; margin-bottom:.1rem;}
+  .wk{ display:block; font-size:.72rem; letter-spacing:.04em; opacity:.7; margin-bottom:.15rem; text-transform: uppercase;}
 
+  /* Main content viewer container with comfortable breathing room */
   .viewer{
     max-width:900px; margin:0 auto;
     background:var(--card-bg); border:1px solid var(--line);
-    border-radius:6px; padding:2rem;
-    min-height:180px; box-shadow: 0 4px 12px rgba(0,0,0,.05);
-    transition: background .3s ease, border-color .3s ease;
+    border-radius:10px; padding:2.5rem;
+    min-height:220px; box-shadow: 0 8px 24px rgba(0,0,0,.04);
+    transition: background .4s ease, border-color .4s ease, box-shadow .4s ease;
   }
-  .viewer h2{ margin:0 0 .6rem; font-size:1.4rem; color:var(--ink); }
+  .viewer h2{ margin:0 0 1rem; font-size:1.55rem; color:var(--ink); font-weight: 600; }
   .viewer p{ 
-    line-height:1.65; 
+    line-height:1.75; 
     color:var(--card-text); 
     white-space: pre-wrap; 
+    font-size: 1.05rem;
+    margin: 0;
   }
 
-  .viewer-inner{ animation: viewerIn .4s ease .1s both; }
+  .viewer-inner{ animation: viewerIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
   @keyframes viewerIn{
-    from{ opacity:0; transform:translateY(12px); }
-    to{ opacity:1; transform:translateY(0); }
+    from{ opacity:0; transform:translateY(16px); filter: blur(2px); }
+    to{ opacity:1; transform:translateY(0); filter: blur(0); }
+  }
+
+  /* Responsive tweaks for smaller screens */
+  @media (max-width: 600px) {
+    body { padding: 1.5rem 1rem 3rem; }
+    .rack { grid-template-columns: repeat(2, 1fr); gap: 1rem 0.75rem; }
+    .viewer { padding: 1.5rem; }
+    .theme-toggle { position: static; margin-bottom: 1rem; }
+    .header-container { align-items: stretch; text-align: center; }
   }
 </style>
 </head>
@@ -180,7 +198,6 @@
 <div class="viewer" id="viewer"></div>
 
 <script>
-  // Content Data Source
   const content = {
     "1": {
       "label": "No. 01",
@@ -209,7 +226,6 @@
   
   let activeKey = 1;
 
-  // Theme Handling
   const currentTheme = localStorage.getItem('science_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', currentTheme);
 
@@ -247,7 +263,6 @@
     viewer.innerHTML = `<div class="viewer-inner"><h2>${c.title}</h2><p>${c.body}</p></div>`;
   }
 
-  // Initialize App on load
   renderRack();
   openFolder(activeKey);
 </script>
