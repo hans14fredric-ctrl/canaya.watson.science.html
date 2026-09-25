@@ -95,7 +95,6 @@
     z-index:4;
   }
 
-  /* Papers nested securely inside pocket with smooth medium-paced transition */
   .paper-container {
     position: absolute;
     top: 6px; left: 12px; right: 12px; height: 0px;
@@ -118,22 +117,19 @@
 
   .folder-btn > svg, .folder-btn > span{ position:relative; z-index:5; }
 
-  /* Hover state */
   .folder-btn:hover{
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,.2);
   }
 
-  /* Active/Clicked State: Cover dips down, papers slide up smoothly and gradually */
   .folder-btn.active{
     background: linear-gradient(180deg, var(--orbit) 0%, #235c4f 100%);
     color:var(--paper);
-    transform: translateY(4px); 
+    transform: translateY(4px);
     box-shadow: 0 2px 4px rgba(0,0,0,.1);
   }
   .folder-btn.active::before{ background:var(--orbit) !important; }
 
-  /* Smooth, well-paced sliding animation */
   .folder-btn.active .paper.p1{ transform: translateY(-10px); }
   .folder-btn.active .paper.p2{ transform: translateY(-15px); }
   .folder-btn.active .paper.p3{ transform: translateY(-20px); }
@@ -157,10 +153,10 @@
     transition: background .3s ease, border-color .3s ease;
   }
   .viewer h2{ margin:0 0 .6rem; font-size:1.4rem; color:var(--ink); }
-  .viewer p{ 
-    line-height:1.65; 
-    color:var(--card-text); 
-    white-space: pre-wrap; 
+  .viewer p{
+    line-height:1.65;
+    color:var(--card-text);
+    white-space: pre-wrap;
   }
   .placeholder{ opacity:.6; font-style:italic; }
 
@@ -200,23 +196,19 @@
   <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
   <h1>Ten Weeks of Science</h1>
   <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open that week</p>
-  <p class="badge" id="badge">Connecting to global cloud...</p>
+  <p class="badge" id="badge">Local data mode</p>
 </div>
 
 <div class="rack" id="rack"></div>
 
-<div class="viewer" id="viewer"><p class="placeholder">Loading live folder data…</p></div>
+<div class="viewer" id="viewer"><p class="placeholder">Loading folder data…</p></div>
 
 <script>
-  // Cloud Database Configuration (JSONbin.io)
-  const BIN_ID = "YOUR_BIN_ID_HERE";       // <-- Paste your JSONbin ID here
-  const API_KEY = "YOUR_API_KEY_HERE";     // <-- Paste your JSONbin Master Key here
-
   let content = {
     "1": {
       "label": "No. 01",
       "title": "Week 1",
-      "body": "Scientists mentioned:\n\n• Louis de Broglie\n– Proposed that electrons can behave like waves.\n– Developed the matter-wave theory.\n– His work helped explain the wave-particle duality of electrons.\n– Contributed to the development of the quantum mechanical model of the atom.\n– Helped scientists understand how electrons behave around the nucleus.\n\n• Werner Heisenberg\n– Developed an important form of quantum mechanics.\n– Proposed the Heisenberg Uncertainty Principle.\n– Stated that the exact position and momentum of an electron cannot both be known at the same time.\n– Showed that electrons do not move in simple, fixed paths.\n– Helped establish the modern understanding of electron behavior.\n\n• Erwin Schrödinger\n– Developed the Schrödinger equation.\n– Used mathematics to describe the behavior of electrons.\n– Introduced the concept of electron orbitals.\n– Explained the probability of finding an electron in a certain region around the nucleus.\n– His work helped develop the modern quantum mechanical model of the atom."
+      "body": "Scientists mentioned:\n\n• Louis de Broglie\n– Proposed that electrons can behave like waves.\n– Developed the matter-wave theory.\n– His work helped explain the wave-particle duality of matter.\n\n• Erwin Schrödinger\n– Created the Schrödinger equation.\n– Described how quantum particles behave as wave functions.\n– Helped explain the behavior of electrons in atoms.\n\n• Max Born\n– Interpreted the wave function as a probability amplitude.\n– Connected quantum mechanics to statistical predictions.\n\n• Werner Heisenberg\n– Introduced the uncertainty principle.\n– Showed that exact position and momentum cannot both be known at once."
     },
     "2": { "label": "No. 02", "title": "Week 2", "body": "Add your Week 2 notes or project links here." },
     "3": { "label": "No. 03", "title": "Week 3", "body": "Add your Week 3 notes or project links here." },
@@ -230,7 +222,7 @@
     "me": {
       "label": "About",
       "title": "Myself and My Experiences in Science",
-      "body": "Welcome to My Study Hub!\n\nBefore taking the entrance exam, I thought Laguna Science National High School would be just like any ordinary school. But once I stepped onto the campus, my perspective changed. The engaging teaching style of the teachers made me feel right at home. As I advanced to higher grade levels, science became even more enjoyable through exciting experiments and collaborative group tasks. That is why I created this website to serve as a helpful study guide and reviewer for my academic journey.\n\n— Hans Fredric F. Canaya"
+      "body": "Welcome to My Study Hub!\n\nBefore taking the entrance exam, I thought Laguna Science National High School would be just like any ordinary school. But once I stepped onto the campus, my mindset began to change. I realized that science is not just a subject — it is a way of thinking and asking questions about the world.\n\nThis site is a reflection of that journey. It helps me organize the different ideas, scientists, and discoveries I learn each week."
     }
   };
 
@@ -238,11 +230,10 @@
   const rack = document.getElementById('rack');
   const viewer = document.getElementById('viewer');
   const badge = document.getElementById('badge');
-  
+
   let isOwner = localStorage.getItem('science_owner_authenticated') === 'true';
   let activeKey = 1;
 
-  // Theme Handling
   const currentTheme = localStorage.getItem('science_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', currentTheme);
 
@@ -259,18 +250,17 @@
     <circle class="e" cx="13" cy="13" r="2.4"/>
   </svg>`;
 
-  async function loadCloudData() {
-    try {
-      const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-        headers: { 'X-Master-Key': API_KEY }
-      });
-      const result = await response.json();
-      if (result && result.record) {
-        content = result.record;
+  function loadLocalData() {
+    const savedContent = localStorage.getItem('science_content');
+
+    if (savedContent) {
+      try {
+        content = JSON.parse(savedContent);
+      } catch (e) {
+        console.warn('Saved local data could not be loaded.');
       }
-    } catch (e) {
-      console.log('Using local fallback data due to network connection.');
     }
+
     renderRack();
     openFolder(activeKey);
     updateBadge();
@@ -294,7 +284,7 @@
     activeKey = key;
     renderRack();
     const c = content[key];
-    
+
     let editBtn = '';
     if (isOwner) {
       editBtn = `<button class="edit-btn" id="edit-btn">Edit this folder</button>`;
@@ -303,7 +293,7 @@
     }
 
     viewer.innerHTML = `<div class="viewer-inner"><h2>${c.title}</h2><p>${c.body}</p>${editBtn}</div>`;
-    
+
     if (isOwner) {
       document.getElementById('edit-btn').addEventListener('click', () => openEditor(key));
     } else {
@@ -316,7 +306,7 @@
     if (pass === "HansScience2026") {
       isOwner = true;
       localStorage.setItem('science_owner_authenticated', 'true');
-      alert("Unlocked successfully! You can now edit your notes globally.");
+      alert("Unlocked successfully! You can now edit your notes locally.");
       updateBadge();
       openFolder(activeKey);
     } else if (pass !== null) {
@@ -326,10 +316,10 @@
 
   function updateBadge() {
     if (isOwner) {
-      badge.textContent = "You are logged in as owner — updates will save globally for everyone";
+      badge.textContent = "You are logged in as owner — edits are saved on this device";
       badge.classList.add('owner');
     } else {
-      badge.textContent = "View-only mode (Click 'Owner Login to Edit' inside any folder)";
+      badge.textContent = "Local-only mode (Click 'Owner Login to Edit' inside any folder)";
       badge.classList.remove('owner');
     }
   }
@@ -341,7 +331,7 @@
         <input id="ed-title" value="${c.title.replace(/"/g,'&quot;')}">
         <textarea id="ed-body">${c.body}</textarea>
         <div class="row">
-          <button class="save-btn" id="ed-save">Save & Sync Globally</button>
+          <button class="save-btn" id="ed-save">Save Locally</button>
           <button class="cancel-btn" id="ed-cancel">Cancel</button>
         </div>
       </div>`;
@@ -349,27 +339,20 @@
     document.getElementById('ed-save').addEventListener('click', () => saveFolder(key));
   }
 
-  async function saveFolder(key){
+  function saveFolder(key){
     content[key].title = document.getElementById('ed-title').value || content[key].title;
     content[key].body = document.getElementById('ed-body').value || content[key].body;
-    viewer.innerHTML = '<p class="placeholder">Syncing to global cloud storage…</p>';
 
-    try {
-      await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': API_KEY
-        },
-        body: JSON.stringify(content)
-      });
-      alert("Successfully synced and updated for everyone!");
-    } catch (e) {
-      alert("Failed to sync to cloud. Check your connection or API keys.");
-    }
+    localStorage.setItem('science_content', JSON.stringify(content));
 
+    alert("Saved locally on this device.");
     openFolder(key);
   }
+
+  loadLocalData();
+</script>
+
+</body></html>
 
   // Initialize App on load
   loadCloudData();
