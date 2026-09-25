@@ -353,9 +353,3 @@
 </script>
 
 </body></html>
-
-  // Initialize App on load
-  loadCloudData();
-</script>
-
-</body></html>
