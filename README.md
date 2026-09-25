@@ -1,6 +1,5 @@
 # CANAYA.WATSON.SCIENCE8
 [Hans-G8SCIENCEwatson1790255233828 (1).html](https://github.com/user-attachments/files/32651050/Hans-G8SCIENCEwatson1790255233828.1.html)
-<!DOCTYPE html>
 <html lang="en" data-theme="dark" style="color-scheme: dark;"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
