@@ -419,6 +419,66 @@
     .book-header { padding: 0.6rem 1rem; }
     .book-footer { padding: 0.5rem 1rem; }
   }
+
+  /* ---------- Duck strip (decorative, non-interactive) ---------- */
+  body{ padding-bottom: 6.5rem; }
+  .duck-strip{
+    position:fixed; left:0; right:0; bottom:0; height:72px;
+    z-index:60; pointer-events:none; user-select:none; -webkit-user-select:none;
+    overflow:hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background:
+      linear-gradient(180deg, transparent 0, color-mix(in srgb, var(--folder) 55%, transparent) 100%);
+    border-top:1px solid var(--line);
+    --water-a:#7fc8d6; --water-b:#4fa3b8;
+    --nz1:#ef7fa0; --nz2:#f2b544; --nz3:#5cc2a7; --nz4:#8d8be0; --nz5:#ee8a5a;
+  }
+  [data-theme="dark"] .duck-strip{ --water-a:#3f8797; --water-b:#2c6474; }
+  .duck-strip .water{
+    position:absolute; left:0; right:0; bottom:0; height:16px;
+    background: linear-gradient(180deg, var(--water-a), var(--water-b));
+    opacity:.85;
+  }
+  .duck-strip .water::before{
+    content:""; position:absolute; left:0; right:0; top:-5px; height:8px;
+    background:
+      radial-gradient(circle at 8px 8px, var(--water-a) 7px, transparent 7.5px) 0 0/16px 8px repeat-x;
+    animation: ripple 3.2s linear infinite;
+  }
+  @keyframes ripple{ to{ background-position-x:-16px; } }
+  .duck-strip .sparkle{
+    position:absolute; bottom:3px; width:3px; height:3px; border-radius:50%;
+    background:#fff; opacity:.0; animation: spark 3.6s ease-in-out infinite;
+  }
+  @keyframes spark{ 0%,100%{opacity:0; transform:scale(.5)} 50%{opacity:.8; transform:scale(1)} }
+
+  .duck{
+    position:absolute; left:20%; bottom:12px; width:34px; height:30px;
+    transform-origin: 50% 100%; will-change: transform;
+  }
+  .duck svg{ width:100%; height:100%; display:block; overflow:visible; }
+  .duck-shadow{
+    position:absolute; left:calc(20% + 3px); bottom:10px; width:28px; height:5px;
+    border-radius:50%; background:rgba(0,0,0,.22); filter:blur(1.5px);
+  }
+  .noodle{
+    position:absolute; bottom:13px; border-radius:999px; will-change: transform;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 45%),
+      var(--c);
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.14), 0 1px 2px rgba(0,0,0,.18);
+  }
+  .noodle::before{
+    content:""; position:absolute; left:2px; top:50%; width:34%; height:56%;
+    transform:translateY(-50%); border-radius:50%;
+    background: radial-gradient(circle, rgba(0,0,0,.28) 0 35%, rgba(255,255,255,.25) 40% 100%);
+    max-width:12px; aspect-ratio:1;
+  }
+  .duck-strip::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: linear-gradient(90deg, var(--paper) 0, transparent 12%, transparent 88%, var(--paper) 100%);
+    opacity:.9;
+  }
 </style>
 </head>
 <body>
@@ -847,5 +907,84 @@
   renderRack();
 </script>
 
+
+<div class="duck-strip" aria-hidden="true" role="presentation">
+  <div class="water"></div>
+  <span class="sparkle" style="left:12%;animation-delay:.2s"></span>
+  <span class="sparkle" style="left:37%;animation-delay:1.4s"></span>
+  <span class="sparkle" style="left:63%;animation-delay:.8s"></span>
+  <span class="sparkle" style="left:86%;animation-delay:2.2s"></span>
+  <div class="duck-shadow" id="duckShadow"></div>
+  <div class="duck" id="duck">
+    <svg viewBox="0 0 34 30" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 17c0-5 4-8 9-8h7c5 0 9 3 9 8 0 5-5 9-11 9h-3C7 26 3 22 3 17z" fill="#FFD23F"/>
+      <path d="M5 15c-2-2-3-4-2-5 2 0 3 1 4 3z" fill="#FFD23F"/>
+      <circle cx="23" cy="9" r="6.5" fill="#FFD23F"/>
+      <path d="M28 8.5c3 0 5 1 5 2.2s-2 2.2-5 2.2z" fill="#F08A24"/>
+      <circle cx="24.6" cy="7.6" r="1.25" fill="#2a2a2a"/>
+      <circle cx="25" cy="7.2" r=".4" fill="#fff"/>
+      <circle cx="21.2" cy="11" r="1.5" fill="#FF9AA8" opacity=".6"/>
+      <path d="M10 15c2-2 8-2 10 1-1 4-8 5-10-1z" fill="#F2B824"/>
+    </svg>
+  </div>
+</div>
+<script>
+(function(){
+  const strip=document.querySelector('.duck-strip');
+  const duck=document.getElementById('duck');
+  const shadow=document.getElementById('duckShadow');
+  const cols=['--nz1','--nz2','--nz3','--nz4','--nz5'];
+  const sizes=[{w:26,h:11},{w:38,h:15},{w:52,h:20},{w:64,h:27}];
+  const DW=34, V=105, GAP_MIN=270;
+  let noodles=[], y=0, vy=0, g=0, airborne=false, squash=0, spawnX=0, last=0, duckX=0, jumpT=0, t=0;
+
+  function measure(){
+    duckX=duck.offsetLeft;
+    if(!noodles.length) spawnX=strip.clientWidth+40;
+  }
+  function spawn(){
+    const s=sizes[Math.floor(Math.random()*sizes.length)];
+    const el=document.createElement('div');
+    el.className='noodle';
+    el.style.width=s.w+'px'; el.style.height=s.h+'px';
+    el.style.setProperty('--c',getComputedStyle(strip).getPropertyValue(cols[Math.floor(Math.random()*cols.length)]));
+    strip.insertBefore(el,duck);
+    noodles.push({el,x:Math.max(spawnX,strip.clientWidth+20),w:s.w,h:s.h,done:false});
+    spawnX=noodles[noodles.length-1].x+s.w+GAP_MIN+Math.random()*180;
+  }
+  function frame(now){
+    const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt;
+    const W=strip.clientWidth;
+    spawnX-=V*dt;
+    if(spawnX<W+10) spawn();
+    const cx=duckX+DW/2;
+    for(const n of noodles){
+      n.x-=V*dt;
+      n.el.style.transform='translateX('+n.x.toFixed(1)+'px)';
+      if(!airborne && !n.done && n.x>duckX){
+        const T=(n.w+DW+18)/V, apex=n.h+9;
+        if((n.x+n.w/2)-cx <= V*T/2){
+          n.done=true; airborne=true; jumpT=T; g=8*apex/(T*T); vy=4*apex/T;
+        }
+      }
+    }
+    noodles=noodles.filter(n=>{ if(n.x+n.w<-20){n.el.remove();return false;} return true; });
+    if(airborne){
+      vy-=g*dt; y+=vy*dt;
+      if(y<=0){ y=0; vy=0; airborne=false; squash=1; }
+    }
+    squash=Math.max(0,squash-dt*5);
+    let sx=1, sy=1, rot=0;
+    if(airborne){ const k=Math.min(1,Math.abs(vy)/60); sx=1-.1*k; sy=1+.14*k; rot=-Math.max(-14,Math.min(14,vy*.16)); }
+    else{ sx=1+.16*squash; sy=1-.2*squash; sy+=Math.sin(t*3)*.012; }
+    duck.style.transform='translateY('+(-y).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+sx.toFixed(3)+','+sy.toFixed(3)+')';
+    const sc=Math.max(.45,1-y/70);
+    shadow.style.transform='scale('+sc.toFixed(2)+')'; shadow.style.opacity=sc;
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize',measure);
+  measure(); requestAnimationFrame(t0=>{last=t0;frame(t0);});
+})();
+</script>
 </body>
 </html>
