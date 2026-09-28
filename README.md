@@ -421,62 +421,27 @@
   }
 
   /* ---------- Duck strip (decorative, non-interactive) ---------- */
-  body{ padding-bottom: 6.5rem; }
+  body{ padding-bottom: 7.5rem; }
   .duck-strip{
-    position:fixed; left:0; right:0; bottom:0; height:72px;
+    position:fixed; left:0; right:0; bottom:0; height:96px;
     z-index:60; pointer-events:none; user-select:none; -webkit-user-select:none;
     overflow:hidden;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    background:
-      linear-gradient(180deg, transparent 0, color-mix(in srgb, var(--folder) 55%, transparent) 100%);
-    border-top:1px solid var(--line);
-    --water-a:#7fc8d6; --water-b:#4fa3b8;
-    --nz1:#ef7fa0; --nz2:#f2b544; --nz3:#5cc2a7; --nz4:#8d8be0; --nz5:#ee8a5a;
+    --water-a:#8fd3df; --water-b:#4a9fb6;
+    background: linear-gradient(180deg, transparent 0, color-mix(in srgb, var(--folder) 38%, transparent) 100%);
   }
-  [data-theme="dark"] .duck-strip{ --water-a:#3f8797; --water-b:#2c6474; }
-  .duck-strip .water{
-    position:absolute; left:0; right:0; bottom:0; height:16px;
-    background: linear-gradient(180deg, var(--water-a), var(--water-b));
-    opacity:.85;
-  }
-  .duck-strip .water::before{
-    content:""; position:absolute; left:0; right:0; top:-5px; height:8px;
-    background:
-      radial-gradient(circle at 8px 8px, var(--water-a) 7px, transparent 7.5px) 0 0/16px 8px repeat-x;
-    animation: ripple 3.2s linear infinite;
-  }
-  @keyframes ripple{ to{ background-position-x:-16px; } }
-  .duck-strip .sparkle{
-    position:absolute; bottom:3px; width:3px; height:3px; border-radius:50%;
-    background:#fff; opacity:.0; animation: spark 3.6s ease-in-out infinite;
-  }
-  @keyframes spark{ 0%,100%{opacity:0; transform:scale(.5)} 50%{opacity:.8; transform:scale(1)} }
-
+  [data-theme="dark"] .duck-strip{ --water-a:#4a97a8; --water-b:#245a6b; }
+  .duck-strip canvas{ position:absolute; left:0; bottom:0; width:100%; height:96px; }
+  #wBack{ z-index:1; } #wFront{ z-index:4; }
   .duck{
-    position:absolute; left:20%; bottom:12px; width:34px; height:30px;
+    position:absolute; left:20%; bottom:12px; width:34px; height:30px; z-index:3;
     transform-origin: 50% 100%; will-change: transform;
   }
   .duck svg{ width:100%; height:100%; display:block; overflow:visible; }
-  .duck-shadow{
-    position:absolute; left:calc(20% + 3px); bottom:10px; width:28px; height:5px;
-    border-radius:50%; background:rgba(0,0,0,.22); filter:blur(1.5px);
-  }
-  .noodle{
-    position:absolute; bottom:13px; border-radius:999px; will-change: transform;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 45%),
-      var(--c);
-    box-shadow: inset 0 -3px 0 rgba(0,0,0,.14), 0 1px 2px rgba(0,0,0,.18);
-  }
-  .noodle::before{
-    content:""; position:absolute; left:2px; top:50%; width:34%; height:56%;
-    transform:translateY(-50%); border-radius:50%;
-    background: radial-gradient(circle, rgba(0,0,0,.28) 0 35%, rgba(255,255,255,.25) 40% 100%);
-    max-width:12px; aspect-ratio:1;
-  }
+  .noodle{ position:absolute; bottom:10px; z-index:2; will-change: transform; }
+  .noodle svg{ display:block; overflow:visible; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.22)); }
   .duck-strip::after{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background: linear-gradient(90deg, var(--paper) 0, transparent 12%, transparent 88%, var(--paper) 100%);
+    content:""; position:absolute; inset:0; z-index:5; pointer-events:none;
+    background: linear-gradient(90deg, var(--paper) 0, transparent 8%, transparent 92%, var(--paper) 100%);
     opacity:.9;
   }
 </style>
@@ -909,12 +874,7 @@
 
 
 <div class="duck-strip" aria-hidden="true" role="presentation">
-  <div class="water"></div>
-  <span class="sparkle" style="left:12%;animation-delay:.2s"></span>
-  <span class="sparkle" style="left:37%;animation-delay:1.4s"></span>
-  <span class="sparkle" style="left:63%;animation-delay:.8s"></span>
-  <span class="sparkle" style="left:86%;animation-delay:2.2s"></span>
-  <div class="duck-shadow" id="duckShadow"></div>
+  <canvas id="wBack"></canvas>
   <div class="duck" id="duck">
     <svg viewBox="0 0 34 30" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 17c0-5 4-8 9-8h7c5 0 9 3 9 8 0 5-5 9-11 9h-3C7 26 3 22 3 17z" fill="#FFD23F"/>
@@ -927,63 +887,192 @@
       <path d="M10 15c2-2 8-2 10 1-1 4-8 5-10-1z" fill="#F2B824"/>
     </svg>
   </div>
+  <canvas id="wFront"></canvas>
 </div>
 <script>
 (function(){
   const strip=document.querySelector('.duck-strip');
   const duck=document.getElementById('duck');
-  const shadow=document.getElementById('duckShadow');
-  const cols=['--nz1','--nz2','--nz3','--nz4','--nz5'];
-  const sizes=[{w:26,h:11},{w:38,h:15},{w:52,h:20},{w:64,h:27}];
-  const DW=34, V=105, GAP_MIN=270;
-  let noodles=[], y=0, vy=0, g=0, airborne=false, squash=0, spawnX=0, last=0, duckX=0, jumpT=0, t=0;
+  const cvB=document.getElementById('wBack'), cvF=document.getElementById('wFront');
+  const cB=cvB.getContext('2d'), cF=cvF.getContext('2d');
+  const H=96, BASE=17, DW=34, V=105, GAP_MIN=270, VW=900, A=36;
+  const PAL=['#ef7fa0','#f2b544','#5cc2a7','#8d8be0','#ee8a5a','#6bb6ea'];
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
 
-  function measure(){
-    duckX=duck.offsetLeft;
-    if(!noodles.length) spawnX=strip.clientWidth+40;
+  let W=0, dpr=1, duckX=0, t=0, last=0;
+  let noodles=[], spawnX=0;
+  let y=0, vy=0, g=0, airborne=false, squash=0;
+  let wst='idle', crestX=-999, wAmp=0, waveTimer=6+Math.random()*4;
+  let duckPosX=0, carryOff=0, carryT=0, carryLift=0, crashT=0, retP=0, retFrom=0;
+  let cA=[143,211,223], cBc=[74,159,182], colT=0;
+
+  /* ---------- water ---------- */
+  const LY=[{amp:3.2,wl:120,s:.6,ph:0},{amp:2.6,wl:70,s:-.9,ph:1.7},{amp:1.8,wl:44,s:1.3,ph:3.1}];
+  const wv=(L,x)=>L.amp*Math.sin(x*6.2832/L.wl + t*L.s + L.ph);
+  const off=x=>wv(LY[0],x)+wv(LY[1],x);
+  function bump(x){
+    if(wAmp<.01) return 0;
+    const dx=x-crestX;
+    return wAmp*(dx>0?Math.exp(-(dx*dx)/1444):Math.exp(-(dx*dx)/12100));
+  }
+  const hex=h=>{h=h.trim().replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');return [0,2,4].map(i=>parseInt(h.substr(i,2),16));};
+  const rgba=(c,a)=>'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';
+  function fillLayer(ctx,fy,c1,c2){
+    ctx.beginPath(); ctx.moveTo(0,H);
+    for(let x=0;x<=W+4;x+=4) ctx.lineTo(x,fy(x));
+    ctx.lineTo(W,H); ctx.closePath();
+    const gr=ctx.createLinearGradient(0,H-BASE-44,0,H);
+    gr.addColorStop(0,c1); gr.addColorStop(1,c2);
+    ctx.fillStyle=gr; ctx.fill();
+  }
+  function drawWater(){
+    cB.clearRect(0,0,W,H); cF.clearRect(0,0,W,H);
+    const y0=x=>H-BASE-wv(LY[0],x)-.9*bump(x-14);
+    const y1=x=>H-BASE-wv(LY[1],x)-wv(LY[0],x)*.4-bump(x);
+    fillLayer(cB,y0,rgba(cA,.5),rgba(cBc,.65));
+    fillLayer(cB,y1,rgba(cA,.72),rgba(cBc,.95));
+    cB.beginPath();
+    for(let x=0;x<=W+4;x+=4){ const yy=y1(x); x?cB.lineTo(x,yy):cB.moveTo(x,yy); }
+    cB.strokeStyle='rgba(255,255,255,.3)'; cB.lineWidth=1.2; cB.stroke();
+    if(wAmp>2){
+      const k=Math.min(1,wAmp/A);
+      cB.beginPath();
+      for(let x=crestX-50;x<=crestX+28;x+=3){ const yy=y1(x)-1; x===crestX-50?cB.moveTo(x,yy):cB.lineTo(x,yy); }
+      cB.strokeStyle='rgba(255,255,255,'+(.85*k)+')'; cB.lineWidth=3; cB.lineCap='round'; cB.stroke();
+      for(let i=0;i<16;i++){
+        const fx=crestX-34+i*5+Math.sin(t*9+i*1.7)*3;
+        const fy=y1(fx)-3-Math.abs(Math.sin(t*7+i*2.3))*9*k;
+        cB.beginPath(); cB.arc(fx,fy,1+Math.abs(Math.sin(i*3.1))*1.3,0,6.2832);
+        cB.fillStyle='rgba(255,255,255,'+(.8*k)+')'; cB.fill();
+      }
+    }
+    fillLayer(cF,x=>H-9-wv(LY[2],x),rgba(cA,.3),rgba(cBc,.5));
+  }
+
+  /* ---------- noodles ---------- */
+  function makeNoodle(){
+    const col=pick(PAL), col2=pick(PAL), r=Math.random();
+    const hi='rgba(255,255,255,.4)', sh='rgba(0,0,0,.13)';
+    let w,h,body;
+    if(r<.34){ // straight, varied thickness + length
+      const th=rnd(9,22); w=Math.max(rnd(30,70),th+10); h=th;
+      body='<line x1="'+th/2+'" y1="'+th/2+'" x2="'+(w-th/2)+'" y2="'+th/2+'" stroke="'+col+'" stroke-width="'+th+'" stroke-linecap="round"/>'+
+           '<line x1="'+(th/2+2)+'" y1="'+th*.3+'" x2="'+(w-th/2-2)+'" y2="'+th*.3+'" stroke="'+hi+'" stroke-width="'+th*.22+'" stroke-linecap="round"/>'+
+           '<line x1="'+(th/2+2)+'" y1="'+th*.78+'" x2="'+(w-th/2-2)+'" y2="'+th*.78+'" stroke="'+sh+'" stroke-width="'+th*.2+'" stroke-linecap="round"/>';
+    } else if(r<.54){ // arch
+      const th=rnd(9,13); w=rnd(44,70); h=rnd(22,30);
+      const d='M '+th/2+' '+(h-th/2)+' Q '+w/2+' '+(1.5*th-h)+' '+(w-th/2)+' '+(h-th/2);
+      body='<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+th+'" stroke-linecap="round"/>'+
+           '<path d="'+d+'" fill="none" stroke="'+hi+'" stroke-width="'+th*.22+'" stroke-linecap="round" transform="translate(0,'+(-th*.2)+')"/>';
+    } else if(r<.69){ // ring
+      const d=rnd(24,32), th=rnd(8,11), rr=(d-th)/2, c=6.2832*rr; w=d; h=d;
+      body='<circle cx="'+d/2+'" cy="'+d/2+'" r="'+rr+'" fill="none" stroke="'+col+'" stroke-width="'+th+'"/>'+
+           '<circle cx="'+d/2+'" cy="'+d/2+'" r="'+rr+'" fill="none" stroke="'+hi+'" stroke-width="'+th*.22+'" stroke-linecap="round" stroke-dasharray="'+c*.22+' '+c+'" transform="rotate(-125 '+d/2+' '+d/2+')"/>';
+    } else if(r<.84){ // ramp / S-curve
+      const th=rnd(9,11); w=rnd(56,78); h=rnd(24,30);
+      const d='M '+th/2+' '+(h-th/2)+' C '+w*.32+' '+(h-th/2)+' '+w*.32+' '+th/2+' '+w*.6+' '+th/2+' L '+(w-th/2)+' '+th/2;
+      body='<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+th+'" stroke-linecap="round"/>'+
+           '<path d="'+d+'" fill="none" stroke="'+hi+'" stroke-width="'+th*.22+'" stroke-linecap="round" transform="translate(0,'+(-th*.2)+')"/>';
+    } else { // stacked pair
+      const th=rnd(9,12); w=rnd(38,60); h=2*th-3;
+      const tw=w*.7, tx=(w-tw)/2;
+      body='<line x1="'+th/2+'" y1="'+(h-th/2)+'" x2="'+(w-th/2)+'" y2="'+(h-th/2)+'" stroke="'+col+'" stroke-width="'+th+'" stroke-linecap="round"/>'+
+           '<line x1="'+(tx+th/2)+'" y1="'+th/2+'" x2="'+(tx+tw-th/2)+'" y2="'+th/2+'" stroke="'+col2+'" stroke-width="'+th+'" stroke-linecap="round"/>'+
+           '<line x1="'+(tx+th/2+2)+'" y1="'+th*.3+'" x2="'+(tx+tw-th/2-2)+'" y2="'+th*.3+'" stroke="'+hi+'" stroke-width="'+th*.22+'" stroke-linecap="round"/>';
+    }
+    return {w:Math.round(w),h:Math.round(h),svg:'<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">'+body+'</svg>'};
   }
   function spawn(){
-    const s=sizes[Math.floor(Math.random()*sizes.length)];
+    const n=makeNoodle();
     const el=document.createElement('div');
-    el.className='noodle';
-    el.style.width=s.w+'px'; el.style.height=s.h+'px';
-    el.style.setProperty('--c',getComputedStyle(strip).getPropertyValue(cols[Math.floor(Math.random()*cols.length)]));
+    el.className='noodle'; el.innerHTML=n.svg;
     strip.insertBefore(el,duck);
-    noodles.push({el,x:Math.max(spawnX,strip.clientWidth+20),w:s.w,h:s.h,done:false});
-    spawnX=noodles[noodles.length-1].x+s.w+GAP_MIN+Math.random()*180;
+    const x=Math.max(spawnX,W+20);
+    noodles.push({el,x,w:n.w,h:n.h,done:false,dead:false,gone:false});
+    spawnX=x+n.w+GAP_MIN+Math.random()*180;
   }
+  function washAway(){
+    for(const n of noodles){
+      if(n.dead) continue;
+      n.dead=true; n.el.style.transition='opacity .6s ease'; n.el.style.opacity='0';
+      setTimeout(()=>{n.gone=true;},650);
+    }
+  }
+
+  /* ---------- main loop ---------- */
+  const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
   function frame(now){
     const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt;
-    const W=strip.clientWidth;
-    spawnX-=V*dt;
-    if(spawnX<W+10) spawn();
+    if(++colT>40){ colT=0; const cs=getComputedStyle(strip); cA=hex(cs.getPropertyValue('--water-a')); cBc=hex(cs.getPropertyValue('--water-b')); }
+
+    /* tidal wave state machine */
+    if(wst==='idle'){
+      waveTimer-=dt;
+      if(waveTimer<=0 && !airborne){
+        if(Math.random()<.5){ wst='rise'; crestX=-140; wAmp=0; }
+        else waveTimer=7+Math.random()*7;
+      }
+    }
+    if(wst==='rise'||wst==='carry'||wst==='crash'){
+      crestX+=VW*dt;
+      const target=wst==='crash'?0:A;
+      wAmp+=(target-wAmp)*Math.min(1,dt*(wst==='crash'?4:5));
+    }
+    if(wst==='rise' && crestX>=duckX-10){ wst='carry'; carryOff=duckX-crestX; carryT=0; }
+    if(wst==='carry'){
+      carryOff*=Math.exp(-dt*8); carryT+=dt;
+      duckPosX=crestX+carryOff+6;
+      if(duckPosX>=W-70){ duckPosX=W-70; wst='crash'; crashT=0; washAway(); }
+    } else if(wst==='crash'){
+      crashT+=dt; carryLift*=Math.exp(-dt*5);
+      if(crashT>1.1){ wst='return'; retP=0; retFrom=duckPosX; wAmp=0; crestX=-999; }
+    } else if(wst==='return'){
+      retP+=dt/2.6;
+      if(retP>=1){ wst='idle'; duckPosX=duckX; waveTimer=10+Math.random()*8; spawnX=W+80; }
+      else duckPosX=retFrom+(duckX-retFrom)*ease(retP);
+    } else { duckPosX=duckX; }
+
+    /* noodles */
+    const calm=(wst==='idle');
+    if(calm){ spawnX-=V*dt; if(spawnX<W+10) spawn(); }
     const cx=duckX+DW/2;
     for(const n of noodles){
       n.x-=V*dt;
-      n.el.style.transform='translateX('+n.x.toFixed(1)+'px)';
-      if(!airborne && !n.done && n.x>duckX){
+      const mid=n.x+n.w/2;
+      n.el.style.transform='translate('+n.x.toFixed(1)+'px,'+(-(off(mid)*.9+bump(mid)*.1)).toFixed(2)+'px)';
+      if(calm && !airborne && !n.done && !n.dead && n.x>duckX){
         const T=(n.w+DW+18)/V, apex=n.h+9;
-        if((n.x+n.w/2)-cx <= V*T/2){
-          n.done=true; airborne=true; jumpT=T; g=8*apex/(T*T); vy=4*apex/T;
-        }
+        if(mid-cx<=V*T/2){ n.done=true; airborne=true; g=8*apex/(T*T); vy=4*apex/T; }
       }
     }
-    noodles=noodles.filter(n=>{ if(n.x+n.w<-20){n.el.remove();return false;} return true; });
-    if(airborne){
-      vy-=g*dt; y+=vy*dt;
-      if(y<=0){ y=0; vy=0; airborne=false; squash=1; }
-    }
+    noodles=noodles.filter(n=>{ if(n.gone||n.x+n.w<-20){n.el.remove();return false;} return true; });
+
+    /* duck jump */
+    if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ y=0; vy=0; airborne=false; squash=1; } }
     squash=Math.max(0,squash-dt*5);
-    let sx=1, sy=1, rot=0;
+    let sx=1, sy=1, rot=0, flip=1, lift=0;
     if(airborne){ const k=Math.min(1,Math.abs(vy)/60); sx=1-.1*k; sy=1+.14*k; rot=-Math.max(-14,Math.min(14,vy*.16)); }
-    else{ sx=1+.16*squash; sy=1-.2*squash; sy+=Math.sin(t*3)*.012; }
-    duck.style.transform='translateY('+(-y).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+sx.toFixed(3)+','+sy.toFixed(3)+')';
-    const sc=Math.max(.45,1-y/70);
-    shadow.style.transform='scale('+sc.toFixed(2)+')'; shadow.style.opacity=sc;
+    else{ sx=1+.16*squash; sy=1-.2*squash+Math.sin(t*3)*.012; }
+    if(wst==='carry'){ const e=Math.min(1,carryT*4); carryLift=(32+.2*bump(duckPosX))*e; lift=carryLift; rot=7*e; }
+    else if(wst==='crash'){ lift=carryLift; rot=7*carryLift/40; }
+    else if(wst==='return'){ flip=-1; rot=Math.sin(t*3)*2; }
+    const bob=off(duckPosX+DW/2)*.8;
+    duck.style.transform='translate('+(duckPosX-duckX).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
+
+    drawWater();
     requestAnimationFrame(frame);
   }
-  window.addEventListener('resize',measure);
-  measure(); requestAnimationFrame(t0=>{last=t0;frame(t0);});
+  function resize(){
+    W=strip.clientWidth; dpr=Math.min(window.devicePixelRatio||1,2);
+    for(const c of [cvB,cvF]){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); }
+    cB.setTransform(dpr,0,0,dpr,0,0); cF.setTransform(dpr,0,0,dpr,0,0);
+    duckX=duck.offsetLeft; if(wst==='idle') duckPosX=duckX;
+    if(!noodles.length) spawnX=W+40;
+  }
+  window.addEventListener('resize',resize);
+  resize(); spawnX=W+40;
+  requestAnimationFrame(t0=>{last=t0;frame(t0);});
 })();
 </script>
 </body>
