@@ -535,7 +535,7 @@
   <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
   <h1>Ten Weeks of Science</h1>
   <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open notes</p>
-  <p class="badge">Laguna Science National High School Study Hub</p>
+  <p class="badge">Laguna Science Integrated High School Study Hub</p>
   <div class="island-wrap">
     <button class="island" id="islandBtn" aria-haspopup="true" aria-expanded="false" aria-controls="islandMenu" aria-label="Review or Play">
       <svg viewBox="0 0 260 110" aria-hidden="true">
