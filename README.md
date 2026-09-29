@@ -444,6 +444,58 @@
     background: linear-gradient(90deg, var(--paper) 0, transparent 8%, transparent 92%, var(--paper) 100%);
     opacity:.9;
   }
+
+  /* ---------- Island button (Review or Play) ---------- */
+  .island-wrap{position:relative; margin-top:.9rem;}
+  .island{--sand-a:#f8e6b8; --sand-b:#e2bf7a; --sea-a:#8fd3df; --sea-b:#4a9fb6;
+    display:block; position:relative; width:220px; max-width:70vw; padding:0; border:0; background:none; cursor:pointer;
+    -webkit-tap-highlight-color:transparent; transition:transform .3s cubic-bezier(.2,.8,.2,1), filter .3s;}
+  [data-theme="dark"] .island{--sand-a:#d9bf88; --sand-b:#a98a52; --sea-a:#3f8fa1; --sea-b:#245a6b;}
+  .island:hover{transform:translateY(-3px); filter:drop-shadow(0 8px 10px rgba(0,0,0,.2));}
+  .island:focus-visible{outline:3px solid var(--rust); outline-offset:4px; border-radius:24px;}
+  .island svg{display:block; width:100%; height:auto; overflow:visible; animation:isl-bob 5s ease-in-out infinite;}
+  .island .palm{transform-box:fill-box; transform-origin:50% 100%; animation:isl-sway 4s ease-in-out infinite;}
+  .isl-label{position:absolute; left:11%; width:55%; bottom:26%; text-align:center; pointer-events:none;
+    font:700 .8rem/1 "Iowan Old Style",Georgia,serif; letter-spacing:.02em; color:#6a4620;}
+  @keyframes isl-bob{50%{transform:translateY(-3px);}}
+  @keyframes isl-sway{0%,100%{transform:rotate(-2deg);} 50%{transform:rotate(2.5deg);}}
+  .island-menu{position:absolute; top:calc(100% + 4px); left:50%; transform:translateX(-50%); z-index:90;
+    display:flex; gap:.35rem; padding:.35rem; background:var(--card-bg); border:1px solid var(--line);
+    border-radius:99px; box-shadow:0 10px 24px rgba(0,0,0,.2);}
+  .island-menu[hidden]{display:none;}
+  .island-menu button{font:inherit; font-size:.85rem; padding:.45rem .95rem; border:0; border-radius:99px;
+    background:transparent; color:var(--ink); cursor:pointer; white-space:nowrap; transition:background .2s;}
+  .island-menu button:hover{background:var(--folder);}
+  .island-menu button[aria-checked="true"]{background:var(--orbit); color:#fff;}
+
+  /* ---------- Game HUD ---------- */
+  .duck-strip.playing{pointer-events:auto; cursor:pointer; touch-action:manipulation;}
+  .duck-hud{position:fixed; left:0; right:0; bottom:102px; z-index:61; display:none; flex-wrap:wrap; justify-content:center;
+    gap:.4rem; padding:0 .5rem; pointer-events:none; font:600 .78rem/1 "Iowan Old Style",Georgia,serif; color:var(--ink);}
+  .duck-hud.on{display:flex;}
+  .duck-hud span{background:var(--card-bg); border:1px solid var(--line); padding:.35rem .75rem; border-radius:99px; box-shadow:0 2px 8px rgba(0,0,0,.12);}
+  .duck-hud span:empty{display:none;}
+
+  /* ---------- Science cover (hides the stray title / DOCTYPE text above the page) ---------- */
+  .sci-cover{position:absolute; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:center; gap:.8rem;
+    overflow:hidden; user-select:none; -webkit-user-select:none; cursor:default; border-bottom:1px dashed var(--line);
+    background:
+      linear-gradient(rgba(46,125,107,.11) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg,rgba(46,125,107,.11) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(180deg,#d9ebe4,var(--paper));}
+  [data-theme="dark"] .sci-cover{background:
+      linear-gradient(rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg,rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(180deg,#123832,var(--paper));}
+  .sci-cover svg{height:min(60px,72%); width:auto; flex:none;}
+  .sci-cover .orb{transform-box:fill-box; transform-origin:center; animation:sci-spin 24s linear infinite;}
+  .sci-cover-text{display:flex; align-items:baseline; flex-wrap:wrap; gap:.2rem .7rem; font-family:"Iowan Old Style",Georgia,serif; color:var(--ink); line-height:1.15;}
+  .sci-cover-text b{font-size:1rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;}
+  .sci-cover-text small{font-size:.72rem; opacity:.65; letter-spacing:.06em;}
+  .sci-cover i{position:absolute; top:50%; transform:translateY(-50%); font:italic .95rem Georgia,serif; color:var(--orbit); opacity:.35;}
+  @keyframes sci-spin{to{transform:rotate(360deg);}}
+  @media (max-width:700px){ .sci-cover i{display:none;} }
+  @media (prefers-reduced-motion:reduce){ .island svg,.island .palm,.sci-cover .orb{animation:none;} }
 </style>
 </head>
 <body>
@@ -453,6 +505,30 @@
   <h1>Ten Weeks of Science</h1>
   <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open notes</p>
   <p class="badge">Laguna Science National High School Study Hub</p>
+  <div class="island-wrap">
+    <button class="island" id="islandBtn" aria-haspopup="true" aria-expanded="false" aria-controls="islandMenu">
+      <svg viewBox="0 0 240 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="sandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sand-a)"/><stop offset="1" style="stop-color:var(--sand-b)"/></linearGradient>
+          <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sea-a)"/><stop offset="1" style="stop-color:var(--sea-b)"/></linearGradient>
+        </defs>
+        <ellipse cx="120" cy="84" rx="116" ry="13" fill="url(#seaG)"/>
+        <path d="M14 84c22-2 30 4 52 2M150 90c20-2 34 3 62 0" stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M26 80C42 52 80 44 120 44s78 8 94 36c-28 9-160 9-188 0z" fill="url(#sandG)"/>
+        <path d="M52 60c18-9 44-12 68-12" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g class="palm">
+          <path d="M172 52C178 42 182 32 188 22" stroke="#8a5a2b" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          <g stroke="#2f8f72" stroke-width="4.2" fill="none" stroke-linecap="round"><path d="M188 22Q170 6 148 20"/><path d="M188 22Q172 20 156 38"/><path d="M188 22Q206 6 228 20"/><path d="M188 22Q204 20 220 38"/><path d="M188 22Q184 10 192 4"/></g>
+          <circle cx="185" cy="26" r="2.6" fill="#7a4a22"/><circle cx="192" cy="26" r="2.6" fill="#7a4a22"/>
+        </g>
+      </svg>
+      <span class="isl-label">Review or Play</span>
+    </button>
+    <div class="island-menu" id="islandMenu" role="menu" hidden>
+      <button role="menuitemradio" data-mode="review" aria-checked="true">📖 Review</button>
+      <button role="menuitemradio" data-mode="play" aria-checked="false">🦆 Play</button>
+    </div>
+  </div>
 </div>
 
 <div class="rack" id="rack"></div>
@@ -873,6 +949,7 @@
 </script>
 
 
+<div class="duck-hud" id="duckHud" aria-live="polite"><span class="hs"></span><span class="hm"></span></div>
 <div class="duck-strip" aria-hidden="true" role="presentation">
   <canvas id="wBack"></canvas>
   <div class="duck" id="duck">
@@ -895,7 +972,8 @@
   const duck=document.getElementById('duck');
   const cvB=document.getElementById('wBack'), cvF=document.getElementById('wFront');
   const cB=cvB.getContext('2d'), cF=cvF.getContext('2d');
-  const H=96, BASE=17, DW=34, V=105, GAP_MIN=270, VW=900, A=36;
+  const H=96, BASE=17, DW=34, GAP_MIN=270, VW=900, A=36;
+  let V=105;
   const PAL=['#ef7fa0','#f2b544','#5cc2a7','#8d8be0','#ee8a5a','#6bb6ea'];
   const rnd=(a,b)=>a+Math.random()*(b-a);
   const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -906,6 +984,7 @@
   let wst='idle', crestX=-999, wAmp=0, waveTimer=6+Math.random()*4;
   let duckPosX=0, carryOff=0, carryT=0, carryLift=0, crashT=0, retP=0, retFrom=0;
   let cA=[143,211,223], cBc=[74,159,182], colT=0;
+  let mode='review', score=0, over=false, overT=0;
 
   /* ---------- water ---------- */
   const LY=[{amp:3.2,wl:120,s:.6,ph:0},{amp:2.6,wl:70,s:-.9,ph:1.7},{amp:1.8,wl:44,s:1.3,ph:3.1}];
@@ -1004,12 +1083,14 @@
   const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
   function frame(now){
     const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt;
+    V = mode==='play' ? (over?0:Math.min(215,105+score*4)) : 105;
+    if(over) overT+=dt;
     if(++colT>40){ colT=0; const cs=getComputedStyle(strip); cA=hex(cs.getPropertyValue('--water-a')); cBc=hex(cs.getPropertyValue('--water-b')); }
 
     /* tidal wave state machine */
     if(wst==='idle'){
       waveTimer-=dt;
-      if(waveTimer<=0 && !airborne){
+      if(waveTimer<=0 && !airborne && mode==='review'){
         if(Math.random()<.5){ wst='rise'; crestX=-140; wAmp=0; }
         else waveTimer=7+Math.random()*7;
       }
@@ -1041,7 +1122,11 @@
       n.x-=V*dt;
       const mid=n.x+n.w/2;
       n.el.style.transform='translate('+n.x.toFixed(1)+'px,'+(-(off(mid)*.9+bump(mid)*.1)).toFixed(2)+'px)';
-      if(calm && !airborne && !n.done && !n.dead && n.x>duckX){
+      if(mode==='play' && !over){
+        if(n.x+3<duckX+DW-6 && n.x+n.w-3>duckX+8 && y<n.h*.85) endGame();
+        else if(!n.scored && n.x+n.w<duckX+8){ n.scored=true; score++; paint(); }
+      }
+      if(mode==='review' && calm && !airborne && !n.done && !n.dead && n.x>duckX){
         const T=(n.w+DW+18)/V, apex=n.h+9;
         if(mid-cx<=V*T/2){ n.done=true; airborne=true; g=8*apex/(T*T); vy=4*apex/T; }
       }
@@ -1057,6 +1142,7 @@
     if(wst==='carry'){ const e=Math.min(1,carryT*4); carryLift=(32+.2*bump(duckPosX))*e; lift=carryLift; rot=7*e; }
     else if(wst==='crash'){ lift=carryLift; rot=7*carryLift/40; }
     else if(wst==='return'){ flip=-1; rot=Math.sin(t*3)*2; }
+    if(over){ rot=-28; lift=-3; }
     const bob=off(duckPosX+DW/2)*.8;
     duck.style.transform='translate('+(duckPosX-duckX).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
 
@@ -1070,9 +1156,76 @@
     duckX=duck.offsetLeft; if(wst==='idle') duckPosX=duckX;
     if(!noodles.length) spawnX=W+40;
   }
+  /* ---------- game mode (Review = duck plays itself, Play = you jump) ---------- */
+  const hud=document.getElementById('duckHud'), hs=hud.querySelector('.hs'), hm=hud.querySelector('.hm');
+  let best=0; try{ best=+localStorage.getItem('duckBest')||0; }catch(e){}
+  function paint(msg){ hs.textContent='Score '+score+' · Best '+best; if(msg!==undefined) hm.textContent=msg; }
+  function reset(){
+    noodles.forEach(n=>n.el.remove()); noodles=[];
+    wst='idle'; wAmp=0; crestX=-999; carryLift=0; duckPosX=duckX;
+    airborne=false; y=0; vy=0; score=0; over=false; overT=0; spawnX=W+40; waveTimer=8+Math.random()*6;
+  }
+  function setMode(m){
+    mode=m; reset();
+    strip.classList.toggle('playing',m==='play');
+    hud.classList.toggle('on',m==='play');
+    if(m==='play') paint('Tap the water or press Space to jump');
+  }
+  function endGame(){
+    over=true; overT=0;
+    if(score>best){ best=score; try{ localStorage.setItem('duckBest',best); }catch(e){} }
+    paint('Splash! Tap or press Space to retry');
+  }
+  function act(){
+    if(mode!=='play') return;
+    if(over){ if(overT>.5){ reset(); paint(''); } return; }
+    if(!airborne){ airborne=true; g=520; vy=230; hm.textContent=''; }
+  }
+  strip.addEventListener('pointerdown',e=>{ e.preventDefault(); act(); });
+  addEventListener('keydown',e=>{
+    if(mode!=='play'||e.repeat||(e.code!=='Space'&&e.key!=='ArrowUp')) return;
+    if(/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if(document.getElementById('bookOverlay').classList.contains('open')) return;
+    e.preventDefault(); act();
+  });
+  window.duckGame={setMode:setMode};
+
   window.addEventListener('resize',resize);
   resize(); spawnX=W+40;
   requestAnimationFrame(t0=>{last=t0;frame(t0);});
+})();
+</script>
+<script>
+/* Island menu + science cover */
+(function(){
+  const btn=document.getElementById('islandBtn'), menu=document.getElementById('islandMenu');
+  const items=[...menu.querySelectorAll('button')];
+  const open=v=>{ menu.hidden=!v; btn.setAttribute('aria-expanded',v); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); open(menu.hidden); });
+  items.forEach(b=>b.addEventListener('click',()=>{
+    if(window.duckGame) window.duckGame.setMode(b.dataset.mode);
+    items.forEach(x=>x.setAttribute('aria-checked',x===b));
+    open(false); b.blur(); btn.blur();
+  }));
+  document.addEventListener('click',e=>{ if(!menu.hidden && !menu.contains(e.target)) open(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') open(false); });
+
+  /* Science cover: sits over everything above the page header (site title link, stray DOCTYPE text).
+     It is opaque and swallows clicks, so what is underneath can't be seen or clicked. */
+  const head=document.querySelector('.header-container');
+  const cover=document.createElement('div');
+  cover.className='sci-cover'; cover.setAttribute('aria-hidden','true');
+  cover.innerHTML='<i style="left:7%">H₂O</i><i style="left:19%">π</i><i style="right:19%">Δ</i><i style="right:7%">E=mc²</i>'+
+    '<svg viewBox="0 0 64 64"><g class="orb" fill="none" stroke="#2E7D6B" stroke-width="1.6"><ellipse cx="32" cy="32" rx="28" ry="10"/><ellipse cx="32" cy="32" rx="28" ry="10" transform="rotate(60 32 32)"/><ellipse cx="32" cy="32" rx="28" ry="10" transform="rotate(120 32 32)"/><circle cx="60" cy="32" r="3" fill="#B5622E" stroke="none"/></g><circle cx="32" cy="32" r="5" fill="#B5622E"/></svg>'+
+    '<div class="sci-cover-text"><b>Science Notes</b><small>Study Hub</small></div>';
+  document.body.appendChild(cover);
+  function fit(){
+    const h=Math.round(head.getBoundingClientRect().top+window.scrollY);
+    cover.style.height=h+'px'; cover.style.display=h>24?'flex':'none';
+  }
+  fit(); setTimeout(fit,300);
+  addEventListener('load',fit); addEventListener('resize',fit);
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(document.body);
 })();
 </script>
 </body>
