@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ten Weeks of Science by Canaya Hans</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#EEE8DA; --folder:#D7C7A3; --folder-dark:#C6B287;
@@ -516,6 +516,17 @@
   .quiz-fb{min-height:1.2rem; margin:.7rem 0 .2rem; font-size:.9rem; color:var(--ink);}
   .quiz-next{font:inherit; font-size:.9rem; padding:.5rem 1.1rem; border:0; border-radius:99px; background:var(--orbit); color:#fff; cursor:pointer;}
   .quiz-next[hidden]{display:none;}
+
+  .quiz-card.hard{border-color:var(--rust); box-shadow:0 24px 50px rgba(181,98,46,.4);}
+  .quiz-card.hard .quiz-tag{color:var(--rust);}
+  .beach{position:absolute; bottom:8px; width:160px; z-index:2; display:none; pointer-events:none;}
+  .beach.on{display:block; animation:beach-rise 1s cubic-bezier(.2,.8,.2,1) both;}
+  .beach svg{display:block; width:100%; height:auto; overflow:visible;}
+  .zz text{animation:zz 2.4s ease-in-out infinite;} .zz text:nth-child(2){animation-delay:.9s;}
+  @keyframes beach-rise{from{transform:translateY(46px); opacity:0;}}
+  @keyframes zz{0%,100%{opacity:.2;} 50%{opacity:1;}}
+  .duck-hud .hb{pointer-events:auto; font:inherit; font-size:.78rem; padding:.35rem .9rem; border:0; border-radius:99px; background:var(--orbit); color:#fff; cursor:pointer;}
+  .duck-hud .hb[hidden]{display:none;}
 </style>
 </head>
 <body>
@@ -540,7 +551,13 @@
         <g fill="none" stroke="#fff" stroke-opacity=".7"><circle cx="92" cy="30" r="3"/><circle cx="99" cy="18" r="2"/><circle cx="168" cy="22" r="2.5"/></g>
         <path d="M22 92C40 64 90 60 130 60S220 66 238 92C206 101 54 101 22 92Z" fill="url(#sandG)"/>
         <path d="M56 78c16-8 40-11 62-11" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <text x="130" y="90" text-anchor="middle" style="font-family:Pacifico,'Segoe Script','Brush Script MT',cursive; font-size:21px; fill:#fff; stroke:#d9506b; stroke-width:5; paint-order:stroke; stroke-linejoin:round">Review or Play</text>
+        <defs><linearGradient id="coralG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff6f91"/><stop offset=".55" stop-color="#ff9a5c"/><stop offset="1" stop-color="#c77dff"/></linearGradient>
+        <filter id="coralRough" x="-5%" y="-25%" width="110%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".08" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.8"/></filter></defs>
+        <g filter="url(#coralRough)" text-anchor="middle" style="font-family:'Lilita One','Fredoka',system-ui,sans-serif; font-size:22px; letter-spacing:.5px">
+          <g stroke="#ff7f96" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M70 75v-8M70 71l-3-3M70 69l3-3"/><path d="M104 74v-6M104 71l-2-3"/><path d="M140 74v-9M140 70l-3-3M140 67l3-3"/><path d="M176 75v-7M176 71l3-3"/></g>
+          <text x="130" y="90" fill="url(#coralG)" stroke="#a83454" stroke-width="4.5" paint-order="stroke" stroke-linejoin="round">Review or Play</text>
+          <text x="130" y="90" fill="none" stroke="#ffe3ea" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 5">Review or Play</text>
+        </g>
       </svg>
     </button>
     <div class="island-menu" id="islandMenu" role="menu" hidden>
@@ -968,10 +985,19 @@
 </script>
 
 
-<div class="quiz-back" id="quizBack" role="dialog" aria-modal="true" aria-labelledby="quizQ"><div class="quiz-card"><div class="quiz-tag">🦆 Quick question · <span id="quizWk"></span></div><p class="quiz-q" id="quizQ"></p><div class="quiz-opts" id="quizOpts"></div><p class="quiz-fb" id="quizFb"></p><button type="button" class="quiz-next" id="quizNext" hidden>Keep swimming →</button></div></div>
-<div class="duck-hud" id="duckHud" aria-live="polite"><span class="hs"></span><span class="hm"></span></div>
+<div class="quiz-back" id="quizBack" role="dialog" aria-modal="true" aria-labelledby="quizQ"><div class="quiz-card"><div class="quiz-tag"><span id="quizKind">🦆 Quick question</span> · <span id="quizWk"></span></div><p class="quiz-q" id="quizQ"></p><div class="quiz-opts" id="quizOpts"></div><p class="quiz-fb" id="quizFb"></p><button type="button" class="quiz-next" id="quizNext" hidden>Keep swimming →</button></div></div>
+<div class="duck-hud" id="duckHud" aria-live="polite"><span class="hs"></span><span class="hm"></span><button type="button" class="hb" hidden>Play again</button></div>
 <div class="duck-strip" aria-hidden="true" role="presentation">
   <canvas id="wBack"></canvas>
+  <div class="beach" id="beach"><svg viewBox="0 0 220 70" aria-hidden="true">
+    <path d="M6 64C30 34 80 26 110 26S190 34 214 64Z" fill="url(#sandG)"/>
+    <path d="M40 52c20-10 50-14 78-14" stroke="#fff" stroke-opacity=".4" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M170 36C174 26 176 18 182 8" stroke="#8a5a2b" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <g stroke="#2f8f72" stroke-width="3.4" fill="none" stroke-linecap="round"><path d="M182 8Q168 -2 152 8"/><path d="M182 8Q170 8 158 22"/><path d="M182 8Q196 -2 212 8"/><path d="M182 8Q194 8 206 22"/></g>
+    <path d="M52 44V14" stroke="#8a5a2b" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M30 18Q52 -2 74 18Z" fill="#ff7f96"/><path d="M41 18Q52 4 52 18ZM52 18Q52 4 63 18Z" fill="#fff" fill-opacity=".55"/>
+    <g class="zz" font-family="Georgia,serif" font-weight="700" fill="#5b7a8a"><text x="130" y="-2" font-size="11">z</text><text x="140" y="-12" font-size="14">z</text></g>
+  </svg></div>
   <div class="duck" id="duck">
     <svg viewBox="0 0 34 30" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 17c0-5 4-8 9-8h7c5 0 9 3 9 8 0 5-5 9-11 9h-3C7 26 3 22 3 17z" fill="#FFD23F"/>
@@ -992,7 +1018,7 @@
   const duck=document.getElementById('duck');
   const cvB=document.getElementById('wBack'), cvF=document.getElementById('wFront');
   const cB=cvB.getContext('2d'), cF=cvF.getContext('2d');
-  const H=96, BASE=17, DW=34, GAP_MIN=270, VW=1150, A=36;
+  const H=96, BASE=17, DW=34, GAP_MIN=270, VW=1350, A=36;
   let V=105;
   const PAL=['#ef7fa0','#f2b544','#5cc2a7','#8d8be0','#ee8a5a','#6bb6ea'];
   const rnd=(a,b)=>a+Math.random()*(b-a);
@@ -1004,7 +1030,7 @@
   let wst='idle', crestX=-999, wAmp=0, waveTimer=6+Math.random()*4;
   let duckPosX=0, carryOff=0, carryT=0, carryLift=0, crashT=0, retP=0, retFrom=0;
   let cA=[143,211,223], cBc=[74,159,182], colT=0;
-  let mode='review', score=0, over=false, overT=0, quizOpen=false, pendingQ=false, qOk=0, qAsked=0;
+  let mode='review', score=0, over=false, overT=0, quizOpen=false, pendingQ=false, qOk=0, qAsked=0, hardPending=false, beachT=0;
 
   /* ---------- water ---------- */
   const LY=[{amp:3.2,wl:120,s:.6,ph:0},{amp:2.6,wl:70,s:-.9,ph:1.7},{amp:1.8,wl:44,s:1.3,ph:3.1}];
@@ -1102,9 +1128,10 @@
   /* ---------- main loop ---------- */
   const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
   function frame(now){
-    const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt*1.5;
-    V = mode==='play' ? ((over||quizOpen)?0:Math.min(165,125+score*2)) : 130;
+    const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt*1.9;
+    V = mode==='beach' ? 0 : mode==='play' ? ((over||quizOpen)?0:Math.min(180,138+score*2)) : 150;
     if(over) overT+=dt;
+    if(mode==='beach') beachT+=dt;
     if(++colT>40){ colT=0; const cs=getComputedStyle(strip); cA=hex(cs.getPropertyValue('--water-a')); cBc=hex(cs.getPropertyValue('--water-b')); }
 
     /* tidal wave state machine */
@@ -1129,20 +1156,20 @@
       crashT+=dt; carryLift*=Math.exp(-dt*5);
       if(crashT>1.1){ wst='return'; retP=0; retFrom=duckPosX; wAmp=0; crestX=-999; }
     } else if(wst==='return'){
-      retP+=dt/2.0;
-      if(retP>=1){ wst='idle'; duckPosX=duckX; waveTimer=10+Math.random()*8; spawnX=W+80; }
+      retP+=dt/1.7;
+      if(retP>=1){ wst='idle'; duckPosX=duckX; waveTimer=10+Math.random()*8; spawnX=W+80; if(hardPending){ hardPending=false; openQuiz(true); } }
       else duckPosX=retFrom+(duckX-retFrom)*ease(retP);
     } else { duckPosX=duckX; }
 
     /* noodles */
     const calm=(wst==='idle');
-    if(calm){ spawnX-=V*dt; if(spawnX<W+10) spawn(); }
+    if(calm && mode!=='beach'){ spawnX-=V*dt; if(spawnX<W+10) spawn(); }
     const cx=duckX+DW/2;
     for(const n of noodles){
       n.x-=V*dt;
       const mid=n.x+n.w/2;
       n.el.style.transform='translate('+n.x.toFixed(1)+'px,'+(-(off(mid)*.9+bump(mid)*.1)).toFixed(2)+'px)';
-      if(mode==='play' && !over){
+      if(mode==='play' && !over && wst==='idle'){
         if(n.x+6<duckX+DW-8 && n.x+n.w-6>duckX+10 && y<n.h*.7) endGame();
         else if(!n.scored && n.x+n.w<duckX+8){ n.scored=true; score++; pendingQ=true; paint(); }
       }
@@ -1156,15 +1183,16 @@
     /* duck jump */
     if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ y=0; vy=0; airborne=false; squash=1; } }
     squash=Math.max(0,squash-dt*5);
-    if(mode==='play' && pendingQ && !airborne && !over && !quizOpen) openQuiz();
+    if(mode==='play' && pendingQ && !airborne && !over && !quizOpen && wst==='idle') afterClear();
     let sx=1, sy=1, rot=0, flip=1, lift=0;
     if(airborne){ const k=Math.min(1,Math.abs(vy)/60); sx=1-.1*k; sy=1+.14*k; rot=-Math.max(-14,Math.min(14,vy*.16)); }
     else{ sx=1+.16*squash; sy=1-.2*squash+Math.sin(t*3)*.012; }
     if(wst==='carry'){ const e=Math.min(1,carryT*4); carryLift=(32+.2*bump(duckPosX))*e; lift=carryLift; rot=7*e; }
     else if(wst==='crash'){ lift=carryLift; rot=7*carryLift/40; }
     else if(wst==='return'){ flip=-1; rot=Math.sin(t*3)*2; }
+    if(mode==='beach'){ const k=Math.min(1,beachT/1.1), e=1-Math.pow(1-k,3); lift=25*e; rot=-8*(1-e); if(k>=1){ sx=1.08; sy=.8+Math.sin(t*2)*.02; rot=0; } }
     if(over){ rot=-28; lift=-3; }
-    const bob=off(duckPosX+DW/2)*.8;
+    const bob=mode==='beach'?0:off(duckPosX+DW/2)*.8;
     duck.style.transform='translate('+(duckPosX-duckX).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
 
     drawWater();
@@ -1178,16 +1206,16 @@
     if(!noodles.length) spawnX=W+40;
   }
   /* ---------- game mode (Review = duck plays itself, Play = you jump) ---------- */
-  const hud=document.getElementById('duckHud'), hs=hud.querySelector('.hs'), hm=hud.querySelector('.hm');
+  const hud=document.getElementById('duckHud'), hs=hud.querySelector('.hs'), hm=hud.querySelector('.hm'), hb=hud.querySelector('.hb'), beachEl=document.getElementById('beach');
   let best=0; try{ best=+localStorage.getItem('duckBest')||0; }catch(e){}
-  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+'/'+qAsked; if(msg!==undefined) hm.textContent=msg; }
+  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+' · Q '+(QN-eDeck.length-hDeck.length)+'/'+QN; if(msg!==undefined) hm.textContent=msg; }
   function reset(){
     noodles.forEach(n=>n.el.remove()); noodles=[];
     wst='idle'; wAmp=0; crestX=-999; carryLift=0; duckPosX=duckX;
-    airborne=false; y=0; vy=0; score=0; over=false; overT=0; qOk=0; qAsked=0; pendingQ=false; closeQuiz(); spawnX=W+40; waveTimer=8+Math.random()*6;
+    airborne=false; y=0; vy=0; score=0; over=false; overT=0; pendingQ=false; hardPending=false; closeQuiz(); spawnX=W+40; waveTimer=8+Math.random()*6;
   }
   function setMode(m){
-    mode=m; reset();
+    mode=m; reset(); beachEl.classList.remove('on'); hb.hidden=true; if(m==='play') newRun();
     strip.classList.toggle('playing',m==='play');
     hud.classList.toggle('on',m==='play');
     if(m==='play') paint('Jump the noodles, then answer the question!');
@@ -1235,14 +1263,28 @@
     [1,"How many electrons can the p sublevel hold in total?","6","2","10","14"],
     [1,"An orbital is a region where the chance of finding an electron is…","highest","zero","always 50%","never known"]
   ];
+  const QH=[
+    [1,"What is the maximum number of electrons in the N shell (n = 4)?","32","16","18","8"],
+    [1,"What is the maximum number of electrons in the M shell (n = 3)?","18","9","8","32"],
+    [1,"How many orbitals does the f sublevel have?","7","5","3","14"],
+    [1,"Which sublevel has 5 orbitals?","d","p","s","f"],
+    [1,"How many electrons can the s and p sublevels hold together?","8","6","2","10"],
+    [1,"Which match is correct?","f – fundamental – flower","d – sharp – spherical","p – diffuse – clover leaf","s – principal – dumbbell"],
+    [1,"Which idea explains why electrons don't travel in simple fixed paths?","Heisenberg Uncertainty Principle","Newton's Laws of Motion","Boyle's Law","Law of Gravity"],
+    [1,"Using 2n², how many electrons can the P shell (n = 6) hold?","72","36","12","98"],
+    [1,"In the M shell (s, p and d sublevels), how many orbitals are there in total?","9","3","5","18"],
+    [1,"Which scientist introduced electron orbitals and finalized the modern quantum model?","Erwin Schrödinger","Louis de Broglie","Werner Heisenberg","Niels Bohr"]
+  ];
   const qEl=document.getElementById('quizBack'), qWk=document.getElementById('quizWk'), qQ=document.getElementById('quizQ'),
         qOpts=document.getElementById('quizOpts'), qFb=document.getElementById('quizFb'), qNext=document.getElementById('quizNext');
-  let deck=[];
+  const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild, QN=QS.length+QH.length;
+  let eDeck=[], hDeck=[];
+  function newRun(){ eDeck=shuf(QS.map((_,i)=>i)); hDeck=shuf(QH.map((_,i)=>i)); qOk=0; }
   const shuf=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-  function openQuiz(){
+  function openQuiz(hard){
     pendingQ=false; quizOpen=true;
-    if(!deck.length) deck=shuf(QS.map((_,i)=>i));
-    const q=QS[deck.pop()];
+    const q=hard?QH[hDeck.pop()]:QS[eDeck.pop()];
+    qKind.textContent=hard?'🌊 Big wave! Hard question':'🦆 Quick question'; qCard.classList.toggle('hard',!!hard);
     qWk.textContent='Week '+q[0]; qQ.textContent=q[1]; qFb.textContent=''; qNext.hidden=true; qOpts.innerHTML='';
     shuf(q.slice(2).map((t,i)=>({t,ok:i===0}))).forEach((o,i)=>{
       const b=document.createElement('button'), l=document.createElement('b'), tx=document.createElement('span');
@@ -1259,11 +1301,28 @@
     qNext.hidden=false; qNext.focus(); paint();
   }
   function closeQuiz(){ qEl.classList.remove('on'); quizOpen=false; }
-  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); });
+  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); if(!eDeck.length&&!hDeck.length) victory(); });
   addEventListener('keydown',e=>{
     if(!quizOpen||!qNext.hidden||e.key.length!==1) return;
     const b=qOpts.children['abcd'.indexOf(e.key.toLowerCase())]; if(b) b.click();
   });
+  function afterClear(){
+    pendingQ=false;
+    const e=eDeck.length, h=hDeck.length;
+    if(!e&&!h){ victory(); return; }
+    if(h && (!e || Math.random()<.4)){ hardPending=true; wst='rise'; crestX=-140; wAmp=0; paint('🌊 Big wave! Hold on…'); }  // 40% chance
+    else openQuiz(false);
+  }
+  function victory(){
+    mode='beach'; beachT=0;
+    noodles.forEach(n=>n.el.remove()); noodles=[];
+    wst='idle'; wAmp=0; crestX=-999; airborne=false; y=0; vy=0; over=false; pendingQ=false; hardPending=false;
+    strip.classList.remove('playing');
+    beachEl.style.left=(duckX+DW/2-80)+'px'; beachEl.classList.add('on');
+    hud.classList.add('on'); hb.hidden=false;
+    paint('🏝️ You finished every question! Time to relax.');
+  }
+  hb.addEventListener('click',()=>setMode('play'));
   window.duckGame={setMode:setMode};
 
   window.addEventListener('resize',resize);
