@@ -455,7 +455,7 @@
   [data-theme="dark"] .island{--sand-a:#d9bf88; --sand-b:#a98a52; --sea-a:#3f8fa1; --sea-b:#245a6b;}
   .island:hover{transform:translateY(-3px); filter:drop-shadow(0 8px 10px rgba(0,0,0,.2));}
   .island:focus-visible{outline:3px solid var(--rust); outline-offset:4px; border-radius:24px;}
-  .island svg{display:block; width:100%; height:auto; overflow:visible; animation:isl-bob 5s ease-in-out infinite;}
+  .island svg{display:block; width:100%; height:auto; overflow:visible; animation:isl-bob 4s ease-in-out infinite;}
   .island .palm{transform-box:fill-box; transform-origin:50% 100%; animation:isl-sway 4s ease-in-out infinite;}
   .isl-label{position:absolute; left:11%; width:55%; bottom:26%; text-align:center; pointer-events:none;
     font:700 .8rem/1 "Iowan Old Style",Georgia,serif; letter-spacing:.02em; color:#6a4620;}
@@ -490,7 +490,7 @@
       linear-gradient(90deg,rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
       linear-gradient(180deg,#123832,var(--paper));}
   .sci-cover svg{height:min(60px,72%); width:auto; flex:none;}
-  .sci-cover .orb{transform-box:fill-box; transform-origin:center; animation:sci-spin 24s linear infinite;}
+  .sci-cover .orb{transform-box:fill-box; transform-origin:center; animation:sci-spin 28s linear infinite;}
   .sci-cover-text{display:flex; align-items:baseline; flex-wrap:wrap; gap:.2rem .7rem; font-family:"Iowan Old Style",Georgia,serif; color:var(--ink); line-height:1.15;}
   .sci-cover-text b{font-size:1rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;}
   .sci-cover-text small{font-size:.72rem; opacity:.65; letter-spacing:.06em;}
@@ -550,7 +550,7 @@
   .duck-btns{position:fixed; left:0; right:0; bottom:170px; z-index:62; display:none; justify-content:center; align-items:flex-end; gap:1.3rem; pointer-events:none;}
   .duck-btns.on{display:flex;}
   .beach.b2{filter:saturate(1.25) brightness(1.06);}
-  .beach.b2::before{content:''; position:absolute; right:-4px; top:-40px; width:46px; height:46px; border-radius:50%; background:radial-gradient(circle,#fff6c2 0 38%,#ffcf5c 60%,rgba(255,190,80,0) 72%); animation:sunpulse 4s ease-in-out infinite;}
+  .beach.b2::before{content:''; position:absolute; right:-4px; top:-40px; width:46px; height:46px; border-radius:50%; background:radial-gradient(circle,#fff6c2 0 38%,#ffcf5c 60%,rgba(255,190,80,0) 72%); animation:sunpulse 3s ease-in-out infinite;}
   @keyframes sunpulse{50%{transform:scale(1.1); opacity:.85;}}
   .dbtn{width:62px; height:62px; border-radius:50%; border:2px solid rgba(255,255,255,.9); pointer-events:auto; color:#fff; background:#2b7f9c; display:grid; place-content:center; justify-items:center; gap:1px;
     font:700 .56rem Georgia,serif; letter-spacing:.1em; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent; box-shadow:0 3px 10px rgba(0,0,0,.25); transition:transform .1s;}
@@ -560,7 +560,7 @@
 
   /* ---------- Quiz card ---------- */
   .quiz-back{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:1rem; background:rgba(10,20,20,.4); backdrop-filter:blur(3px);}
-  .quiz-back.on{display:flex; animation:qfade .25s ease;}
+  .quiz-back.on{display:flex; animation:qfade .5s ease;}
   @keyframes qfade{from{opacity:0;}}
   .quiz-card{width:100%; max-width:440px; background:var(--card-bg); color:var(--card-text); border:1px solid var(--line); border-radius:16px; padding:1.1rem 1.2rem 1.2rem; box-shadow:0 24px 50px rgba(0,0,0,.35); font-family:"Iowan Old Style",Georgia,serif;}
   .quiz-tag{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--orbit); font-weight:700; margin-bottom:.5rem;}
@@ -589,7 +589,7 @@
   .beach{position:absolute; bottom:8px; width:160px; z-index:2; display:none; pointer-events:none;}
   .beach.on{display:block; animation:beach-rise 1s cubic-bezier(.2,.8,.2,1) both;}
   .beach svg{display:block; width:100%; height:auto; overflow:visible;}
-  .zz text{animation:zz 2.4s ease-in-out infinite;} .zz text:nth-child(2){animation-delay:.9s;}
+  .zz text{animation:zz 2.4s ease-in-out infinite;} .zz text:nth-child(2){animation-delay:.7s;}
   @keyframes beach-rise{from{transform:translateY(46px); opacity:0;}}
   @keyframes zz{0%,100%{opacity:.2;} 50%{opacity:1;}}
   .duck-hud .hb{pointer-events:auto; font:inherit; font-size:.78rem; padding:.35rem .9rem; border:0; border-radius:99px; background:var(--orbit); color:#fff; cursor:pointer;}
