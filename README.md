@@ -400,7 +400,7 @@
     color: var(--ink); padding: 0.4rem 1rem; border-radius: 6px;
     cursor: pointer; font-family: inherit; font-size: 0.85rem;
     display: flex; align-items: center; gap: 0.4rem;
-    transition: background 0.2s, transform 0.2s, opacity 0.2s;
+    transition: background 0.5s, transform 0.2s, opacity 0.2s;
   }
   .page-nav-btn:hover:not(:disabled) { background: var(--folder-dark); transform: translateY(-1px); }
   .page-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
@@ -451,7 +451,7 @@
   .island-wrap{position:relative; margin-top:.9rem;}
   .island{--sand-a:#f8e6b8; --sand-b:#e2bf7a; --sea-a:#8fd3df; --sea-b:#4a9fb6;
     display:block; position:relative; width:250px; max-width:80vw; padding:0; border:0; background:none; cursor:pointer;
-    -webkit-tap-highlight-color:transparent; transition:transform .3s cubic-bezier(.2,.8,.2,1), filter .3s;}
+    -webkit-tap-highlight-color:transparent; transition:transform .5s cubic-bezier(.2,.8,.2,1), filter .3s;}
   [data-theme="dark"] .island{--sand-a:#d9bf88; --sand-b:#a98a52; --sea-a:#3f8fa1; --sea-b:#245a6b;}
   .island:hover{transform:translateY(-3px); filter:drop-shadow(0 8px 10px rgba(0,0,0,.2));}
   .island:focus-visible{outline:3px solid var(--rust); outline-offset:4px; border-radius:24px;}
@@ -566,7 +566,7 @@
   .quiz-tag{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--orbit); font-weight:700; margin-bottom:.5rem;}
   .quiz-q{margin:0 0 .8rem; font-size:1.1rem; line-height:1.4; color:var(--ink);}
   .quiz-opts{display:grid; gap:.45rem;}
-  .quiz-opts button{display:flex; gap:.6rem; align-items:center; text-align:left; font:inherit; font-size:.95rem; padding:.55rem .75rem; border:1px solid var(--line); border-radius:10px; background:transparent; color:var(--ink); cursor:pointer; transition:background .2s,border-color .2s;}
+  .quiz-opts button{display:flex; gap:.6rem; align-items:center; text-align:left; font:inherit; font-size:.95rem; padding:.55rem .75rem; border:1px solid var(--line); border-radius:10px; background:transparent; color:var(--ink); cursor:pointer; transition:background .5s,border-color .4s;}
   .quiz-opts button b{flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--folder); display:grid; place-items:center; font-size:.8rem;}
   .quiz-opts button:hover:not(:disabled){background:var(--folder);}
   .quiz-opts button:disabled{cursor:default;}
