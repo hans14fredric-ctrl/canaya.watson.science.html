@@ -495,9 +495,68 @@
   .sci-cover-text b{font-size:1rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;}
   .sci-cover-text small{font-size:.72rem; opacity:.65; letter-spacing:.06em;}
   .sci-cover i{position:absolute; top:50%; transform:translateY(-50%); font:italic .95rem Georgia,serif; color:var(--orbit); opacity:.35;}
+  /* Bottom cover: same look as the top one, flipped, hides the host's "This site is open source" footer */
+  .sci-cover.bottom{top:auto; bottom:auto; border-bottom:none; border-top:1px dashed var(--line); min-height:64px;
+    background:
+      linear-gradient(rgba(46,125,107,.11) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg,rgba(46,125,107,.11) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(0deg,#d9ebe4,var(--paper));}
+  [data-theme="dark"] .sci-cover.bottom{background:
+      linear-gradient(rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg,rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
+      linear-gradient(0deg,#123832,var(--paper));}
+  .sci-cover.bottom svg{height:min(34px,60%);}
   @keyframes sci-spin{to{transform:rotate(360deg);}}
   @media (max-width:700px){ .sci-cover i{display:none;} }
   @media (prefers-reduced-motion:reduce){ .island svg,.island .palm,.sci-cover .orb{animation:none;} }
+
+
+  .od{display:flex; flex-wrap:wrap; align-items:flex-start; gap:.4rem .7rem; margin:.2rem 0 .7rem;} .od-g{text-align:center;} .od-bx{display:flex;}
+  .od-b{width:26px; height:26px; margin-right:-1.5px; border:1.5px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:.8rem; line-height:1; font-weight:700; letter-spacing:0;}
+  .od-g small{font-size:.65rem; opacity:.75;} .od-chip{font-weight:700; font-size:.8rem; line-height:26px;}
+  .auf{display:grid; grid-template-columns:44px repeat(4,1fr); gap:3px; max-width:320px; text-align:center; font:600 .8rem Georgia,serif;}
+  .auf>b{opacity:.7; font-size:.7rem; align-self:center;}
+  .au-c{padding:.3rem 0; border-radius:6px; color:#1f2b33;} .au-c sup{font-size:.55rem; margin-left:1px; opacity:.7;}
+  .au-c.s{background:#f6b89a;} .au-c.p{background:#9fd8c6;} .au-c.d{background:#a9c8ef;} .au-c.f{background:#cdb8ee;}
+  .quiz-opts .od{margin:0; gap:.2rem .5rem;} .quiz-opts .od-b{width:20px; height:20px; font-size:.68rem;} .quiz-opts .od-g small{font-size:.58rem;}
+  /* ---------- Periodic table ---------- */
+  .fo{font:600 .82rem/1.7 "Iowan Old Style",Georgia,serif; padding:.5rem .7rem; border-radius:10px; background:rgba(127,127,127,.12);}
+  .diag{margin:.4rem 0 0; padding:.5rem .8rem; border-radius:10px; background:rgba(127,127,127,.12); font:600 .8rem/1.5 ui-monospace,Menlo,monospace; display:inline-block;}
+  .pt-info{display:flex; gap:.8rem; align-items:flex-start; padding:.6rem; border-radius:12px; background:rgba(127,127,127,.12); margin-bottom:.5rem; font-size:.82rem; line-height:1.45;}
+  .pt-big{flex:none; width:74px; height:84px; border-radius:10px; color:#1f2b33; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;}
+  .pt-big i{position:absolute; top:5px; left:7px; font:600 .7rem Georgia,serif; font-style:normal;} .pt-big b{font-size:1.7rem;} .pt-big small{font-size:.65rem;}
+  .pt-txt h4{margin:0 0 .2rem; font-size:1rem;} .pt-full{opacity:.7; font-size:.75rem;}
+  .pt-leg{display:flex; gap:.3rem; margin-bottom:.4rem;} .pt-leg span,.pt-h{padding:.1rem .5rem; border-radius:99px; font:700 .68rem Georgia,serif; color:#1f2b33; text-align:center;}
+  .pt-scroll{overflow-x:auto; padding-bottom:.4rem;}
+  .pt-grid{display:grid; grid-template-columns:44px repeat(18,minmax(27px,1fr)); grid-template-rows:auto repeat(7,30px) 8px repeat(2,30px); gap:2px; min-width:560px;}
+  .pt-r{font:600 .58rem Georgia,serif; opacity:.75; align-self:center; text-align:right; padding-right:4px;}
+  .pt-c{position:relative; border:0; border-radius:4px; padding:0; cursor:pointer; color:#1f2b33; display:flex; align-items:center; justify-content:center; transition:transform .12s;}
+  .pt-c i{position:absolute; top:1px; left:2px; font:.44rem Georgia,serif; font-style:normal; opacity:.7;} .pt-c b{font:700 .74rem Georgia,serif; margin-top:4px;}
+  .pt-c:hover{transform:scale(1.18); z-index:2;} .pt-c.sel{outline:2px solid var(--rust); z-index:3;}
+
+  /* ---------- Help screen + touch buttons ---------- */
+  .duck-help{position:fixed; inset:0; z-index:94; display:flex; align-items:center; justify-content:center; padding:1rem; background:rgba(10,30,36,.45); backdrop-filter:blur(3px);}
+  .duck-help[hidden]{display:none;}
+  .dh-card{max-width:360px; width:100%; background:var(--card-bg); color:var(--card-text); border:1px solid var(--line); border-radius:20px; padding:1.1rem 1.3rem; text-align:center; font-family:"Iowan Old Style",Georgia,serif; box-shadow:0 24px 50px rgba(0,0,0,.35);}
+  .dh-card h3{margin:0 0 .7rem; color:var(--ink);}
+  .dh-row{display:flex; align-items:center; justify-content:space-between; gap:.8rem; padding:.45rem .2rem; border-bottom:1px dashed var(--line);}
+  .dh-tc{display:none;}
+  @media (pointer:coarse){ .dh-pc{display:none;} .dh-tc{display:flex;} }
+  .dh-row em{font-style:normal; font-size:.9rem;}
+  kbd{display:inline-block; min-width:1.9rem; margin-right:.25rem; padding:.2rem .5rem; border-radius:7px; background:var(--folder); color:var(--ink); border:1px solid var(--line); border-bottom-width:3px; font:700 .8rem Georgia,serif;}
+  .dh-chip{padding:.25rem .8rem; border-radius:99px; color:#fff; font:700 .7rem Georgia,serif; letter-spacing:.12em; background:#2b7f9c;} .dh-chip.j{background:#e8961f;}
+  .dh-legend{display:grid; gap:.3rem; margin:.8rem 0 .5rem; font-size:.82rem; text-align:left;}
+  .dh-go{margin:.4rem 0 0; font-size:.75rem; opacity:.7;}
+  .duck-btns{position:fixed; left:0; right:0; bottom:170px; z-index:62; display:none; justify-content:center; align-items:flex-end; gap:1.3rem; pointer-events:none;}
+  .duck-btns.on{display:flex;}
+  .beach.b2{filter:saturate(1.25) brightness(1.06);}
+  .beach.b2::before{content:''; position:absolute; right:-4px; top:-40px; width:46px; height:46px; border-radius:50%; background:radial-gradient(circle,#fff6c2 0 38%,#ffcf5c 60%,rgba(255,190,80,0) 72%); animation:sunpulse 4s ease-in-out infinite;}
+  @keyframes sunpulse{50%{transform:scale(1.1); opacity:.85;}}
+  .dbtn{width:62px; height:62px; border-radius:50%; border:2px solid rgba(255,255,255,.9); pointer-events:auto; color:#fff; background:#2b7f9c; display:grid; place-content:center; justify-items:center; gap:1px;
+    font:700 .56rem Georgia,serif; letter-spacing:.1em; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent; box-shadow:0 3px 10px rgba(0,0,0,.25); transition:transform .1s;}
+  .dbtn.jump{background:#e8961f;}
+  .dbtn:active{transform:scale(.92);}
+  .quiz-card.easy{border-color:var(--orbit); box-shadow:0 24px 50px rgba(46,125,107,.35);}
 
   /* ---------- Quiz card ---------- */
   .quiz-back{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:1rem; background:rgba(10,20,20,.4); backdrop-filter:blur(3px);}
@@ -543,7 +602,7 @@
   <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
   <h1>Ten Weeks of Science</h1>
   <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open notes</p>
-  <p class="badge">Laguna Science Integrated High School Study Hub</p>
+  <p class="badge">Laguna Science National High School Study Hub</p>
   <div class="island-wrap">
     <button class="island" id="islandBtn" aria-haspopup="true" aria-expanded="false" aria-controls="islandMenu" aria-label="Review or Play">
       <svg viewBox="0 0 260 110" aria-hidden="true">
@@ -822,7 +881,48 @@
 
       ]
     },
-    "2": { "label": "No. 02", "title": "Week 2", "pages": ["Add your Week 2 notes or project links here."] },
+    "2": { "label": "No. 02", "title": "Week 2", "pages": [
+        "<div class='nt'><h3>The Periodic Table & Electron Configuration</h3>" +
+          "<ul><li><b>Atomic number (Z)</b> = number of protons = number of electrons in a neutral atom.</li>" +
+          "<li><b>Atomic mass</b> = average mass in u (amu). A value in ( ) is the mass number of the most stable isotope.</li>" +
+          "<li><b>Period</b> (row) = energy level <span class='ltr'>n</span>. <b>Group</b> (column) = similar valence electrons.</li>" +
+          "<li><b>Block</b> = where the last electron goes: <span class='ltr'>s</span> groups 1–2 (+He), <span class='ltr'>p</span> groups 13–18, <span class='ltr'>d</span> groups 3–12, <span class='ltr'>f</span> the two bottom rows.</li></ul>" +
+          "<p><b>Filling order (Aufbau)</b> – follow the arrows:</p><div class='fo'>1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 4f → 5d → 6p → 7s → 5f → 6d → 7p</div>" +
+          "<p><b>Capacity:</b> <span class='ltr'>s</span> = 2 · <span class='ltr'>p</span> = 6 · <span class='ltr'>d</span> = 10 · <span class='ltr'>f</span> = 14 electrons.</p>" +
+          aufChart() + "</div>",
+
+        "<div class='nt'><h3>Interactive Periodic Table</h3><p class='ptnote'>Tap any element to see its atomic number, mass and electron configuration.</p><div id='ptMount'></div></div>",
+
+        "<div class='nt'><h3>Reading Configurations</h3>" +
+          "<ul><li><b>O (Z = 8):</b> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup> — 2nd period, p-block.</li>" +
+          "<li><b>Fe (Z = 26):</b> [Ar] 3d<sup>6</sup> 4s<sup>2</sup> — 4th period, d-block (3d).</li>" +
+          "<li><b>[Noble gas] shorthand:</b> replace the inner electrons with the previous noble gas in brackets.</li>" +
+          "<li><b>Exceptions:</b> Cr is [Ar] 3d<sup>5</sup> 4s<sup>1</sup> and Cu is [Ar] 3d<sup>10</sup> 4s<sup>1</sup> – half-filled and full d sublevels are extra stable.</li></ul>" +
+          "<p><b>Where each sublevel lives</b></p>" +
+          "<ul><li><span class='ltr'>s</span>: groups 1–2 (1s = period 1, 2s = period 2 …)</li>" +
+          "<li><span class='ltr'>p</span>: groups 13–18 (2p = period 2, 3p = period 3 …)</li>" +
+          "<li><span class='ltr'>d</span>: groups 3–12 (3d = period 4, 4d = period 5, 5d = period 6, 6d = period 7)</li>" +
+          "<li><span class='ltr'>f</span>: the bottom rows (4f = lanthanides, 5f = actinides)</li></ul></div>",
+
+        "<div class='nt'><h3>How to Do the Aufbau Principle</h3><p>Aufbau means “building up”: electrons fill the <b>lowest-energy</b> sublevel first.</p>" +
+          "<ol><li>Find the atomic number <b>Z</b> – that is the number of electrons.</li>" +
+          "<li>List the sublevels in order: 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p.</li>" +
+          "<li>Fill each one up to its capacity (s = 2, p = 6, d = 10, f = 14).</li>" +
+          "<li>Stop when all Z electrons are placed, then check that the superscripts add up to Z.</li></ol>" +
+          "<p><b>Example: Chlorine (Z = 17)</b></p><ul><li>1s² → 2 used</li><li>2s² → 4</li><li>2p⁶ → 10</li><li>3s² → 12</li><li>3p⁵ → 17 ✓ (only 5 are left, so 3p is not full)</li></ul>" +
+          "<p><b>1s² 2s² 2p⁶ 3s² 3p⁵</b> = [Ne] 3s² 3p⁵</p>" +
+          "<p><b>Example: Iron (Z = 26)</b> → 1s² 2s² 2p⁶ 3s² 3p⁶ <b>4s² 3d⁶</b> (4s fills before 3d) = [Ar] 3d⁶ 4s²</p></div>",
+
+        "<div class='nt'><h3>How to Do an Orbital Diagram</h3><ul>" +
+          "<li>Draw one box per orbital: <b>s = 1</b>, <b>p = 3</b>, <b>d = 5</b>, <b>f = 7</b> boxes.</li>" +
+          "<li><b>Aufbau:</b> fill the lowest sublevel first.</li>" +
+          "<li><b>Pauli exclusion:</b> at most 2 electrons per box, with opposite spins (↑↓).</li>" +
+          "<li><b>Hund's rule:</b> in a sublevel, put one ↑ in every box first, then pair them up.</li></ul>" +
+          "<p><b>s example – Beryllium (Z = 4)</b></p>" + orbDiag([['1s',1,2],['2s',1,2]]) +
+          "<p><b>p example – Nitrogen (Z = 7)</b> – three unpaired 2p electrons (Hund's rule)</p>" + orbDiag([['1s',1,2],['2s',1,2],['2p',3,3]]) +
+          "<p><b>d example – Iron (Z = 26)</b></p>" + orbDiag([['[Ar]',0],['4s',1,2],['3d',5,6]]) +
+          "<p><b>f example – Europium (Z = 63)</b> – half-filled 4f</p>" + orbDiag([['[Xe]',0],['6s',1,2],['4f',7,7]]) + "</div>"
+      ] },
     "3": { "label": "No. 03", "title": "Week 3", "pages": ["Add your Week 3 notes or project links here."] },
     "4": { "label": "No. 04", "title": "Week 4", "pages": ["Add your Week 4 notes or project links here."] },
     "5": { "label": "No. 05", "title": "Week 5", "pages": ["Add your Week 5 notes or project links here."] },
@@ -876,6 +976,67 @@
     <ellipse cx="13" cy="13" rx="11" ry="4.5" stroke-width="1.1" transform="rotate(120 13 13)"/>
     <circle class="e" cx="13" cy="13" r="2.4"/>
   </svg>`;
+
+  /* ---------- Periodic table (Week 2) ---------- */
+  const PT_RAW='H Hydrogen 1.008|He Helium 4.0026|Li Lithium 6.94|Be Beryllium 9.0122|B Boron 10.81|C Carbon 12.011|N Nitrogen 14.007|O Oxygen 15.999|F Fluorine 18.998|Ne Neon 20.180|Na Sodium 22.990|Mg Magnesium 24.305|Al Aluminium 26.982|Si Silicon 28.085|P Phosphorus 30.974|S Sulfur 32.06|Cl Chlorine 35.45|Ar Argon 39.95|K Potassium 39.098|Ca Calcium 40.078|Sc Scandium 44.956|Ti Titanium 47.867|V Vanadium 50.942|Cr Chromium 51.996|Mn Manganese 54.938|Fe Iron 55.845|Co Cobalt 58.933|Ni Nickel 58.693|Cu Copper 63.546|Zn Zinc 65.38|Ga Gallium 69.723|Ge Germanium 72.630|As Arsenic 74.922|Se Selenium 78.971|Br Bromine 79.904|Kr Krypton 83.798|Rb Rubidium 85.468|Sr Strontium 87.62|Y Yttrium 88.906|Zr Zirconium 91.224|Nb Niobium 92.906|Mo Molybdenum 95.95|Tc Technetium (98)|Ru Ruthenium 101.07|Rh Rhodium 102.91|Pd Palladium 106.42|Ag Silver 107.87|Cd Cadmium 112.41|In Indium 114.82|Sn Tin 118.71|Sb Antimony 121.76|Te Tellurium 127.60|I Iodine 126.90|Xe Xenon 131.29|Cs Caesium 132.91|Ba Barium 137.33|La Lanthanum 138.91|Ce Cerium 140.12|Pr Praseodymium 140.91|Nd Neodymium 144.24|Pm Promethium (145)|Sm Samarium 150.36|Eu Europium 151.96|Gd Gadolinium 157.25|Tb Terbium 158.93|Dy Dysprosium 162.50|Ho Holmium 164.93|Er Erbium 167.26|Tm Thulium 168.93|Yb Ytterbium 173.05|Lu Lutetium 174.97|Hf Hafnium 178.49|Ta Tantalum 180.95|W Tungsten 183.84|Re Rhenium 186.21|Os Osmium 190.23|Ir Iridium 192.22|Pt Platinum 195.08|Au Gold 196.97|Hg Mercury 200.59|Tl Thallium 204.38|Pb Lead 207.2|Bi Bismuth 208.98|Po Polonium (209)|At Astatine (210)|Rn Radon (222)|Fr Francium (223)|Ra Radium (226)|Ac Actinium (227)|Th Thorium 232.04|Pa Protactinium 231.04|U Uranium 238.03|Np Neptunium (237)|Pu Plutonium (244)|Am Americium (243)|Cm Curium (247)|Bk Berkelium (247)|Cf Californium (251)|Es Einsteinium (252)|Fm Fermium (257)|Md Mendelevium (258)|No Nobelium (259)|Lr Lawrencium (266)|Rf Rutherfordium (267)|Db Dubnium (268)|Sg Seaborgium (269)|Bh Bohrium (270)|Hs Hassium (277)|Mt Meitnerium (278)|Ds Darmstadtium (281)|Rg Roentgenium (282)|Cn Copernicium (285)|Nh Nihonium (286)|Fl Flerovium (289)|Mc Moscovium (290)|Lv Livermorium (293)|Ts Tennessine (294)|Og Oganesson (294)';
+  const PT=PT_RAW.split('|').map((r,i)=>{ const a=r.split(' '); return {z:i+1,sy:a[0],nm:a[1],ms:a[2]}; });
+  const ORD=['1s','2s','2p','3s','3p','4s','3d','4p','5s','4d','5p','6s','4f','5d','6p','7s','5f','6d','7p'], CAP={s:2,p:6,d:10,f:14};
+  const NOB=[[2,'He'],[10,'Ne'],[18,'Ar'],[36,'Kr'],[54,'Xe'],[86,'Rn']];
+  const EXC={24:'3d5 4s1',29:'3d10 4s1',41:'4d4 5s1',42:'4d5 5s1',44:'4d7 5s1',45:'4d8 5s1',46:'4d10',47:'4d10 5s1',57:'5d1 6s2',58:'4f1 5d1 6s2',64:'4f7 5d1 6s2',78:'4f14 5d9 6s1',79:'4f14 5d10 6s1',89:'6d1 7s2',90:'6d2 7s2',91:'5f2 6d1 7s2',92:'5f3 6d1 7s2',93:'5f4 6d1 7s2',96:'5f7 6d1 7s2',103:'5f14 7s2 7p1',110:'5f14 6d9 7s1',111:'5f14 6d10 7s1'};
+  const sup=t=>t.replace(/(\d[spdf])(\d+)/g,'$1<sup>$2</sup>');
+  const okey=o=>(+o[0])*10+'spdf'.indexOf(o[1]);
+  function fill(z,skip){ let e=0, r=[]; for(const o of ORD){ if(e>=z) break; const t=Math.min(CAP[o[1]],z-e); if(e>=skip) r.push([o,t]); e+=t; } return r; }
+  const fmt=r=>r.slice().sort((a,b)=>okey(a[0])-okey(b[0])).map(x=>x[0]+x[1]).join(' ');
+  function cfg(z){
+    let core=null; for(const n of NOB) if(n[0]<z) core=n;
+    const rem=EXC[z]||fmt(fill(z,core?core[0]:0));
+    const full=((core?fmt(fill(core[0],0))+' ':'')+rem).split(' ').sort((x,y)=>okey(x)-okey(y)).join(' ');   // shell order: 4f before 5s
+    const last=fill(z,0).pop()[0];
+    return {short:(core?'['+core[1]+'] ':'')+sup(rem), full:sup(full), last:last, exc:!!EXC[z]};
+  }
+  function ptPos(z){
+    if(z===1) return [1,1]; if(z===2) return [1,18];
+    if(z>=57&&z<=70) return [9,z-54]; if(z>=89&&z<=102) return [10,z-86];
+    if(z<=10) return [2,z<=4?z-2:z+8]; if(z<=18) return [3,z<=12?z-10:z-0];
+    if(z<=54) return [z<=36?4:5, z-(z<=36?18:36)];
+    if(z<=86) return [6, z<=56?z-54:z-68];
+    return [7, z<=88?z-86:z-100];
+  }
+  const blockOf=(r,c,z)=>r>=9?'f':(z===2||c<=2)?'s':c<=12?'d':'p';
+  const BG={s:'#f6b89a',p:'#9fd8c6',d:'#a9c8ef',f:'#cdb8ee'};
+  let ptSel=8, ptCache='';
+  function ptBuild(){
+    const rows=['1s','2s 2p','3s 3p','4s 3d 4p','5s 4d 5p','6s 5d 6p','7s 6d 7p'];
+    let h="<div class='pt-info' id='ptInfo'></div><div class='pt-leg'>"+['s','p','d','f'].map(b=>"<span style='background:"+BG[b]+"'>"+b+"-block</span>").join('')+"</div><div class='pt-scroll'><div class='pt-grid'>";
+    h+="<span class='pt-h' style='grid-row:1;grid-column:2/4;background:"+BG.s+"'>s</span><span class='pt-h' style='grid-row:1;grid-column:4/14;background:"+BG.d+"'>d</span><span class='pt-h' style='grid-row:1;grid-column:14/20;background:"+BG.p+"'>p</span>";
+    rows.forEach((t,i)=>{ h+="<span class='pt-r' style='grid-row:"+(i+2)+";grid-column:1'>"+t+"</span>"; });
+    h+="<span class='pt-r' style='grid-row:10;grid-column:1'>4f</span><span class='pt-r' style='grid-row:11;grid-column:1'>5f</span>";
+    PT.forEach(e=>{ const q=ptPos(e.z), r=q[0]>=9?q[0]+1:q[0]+1, c=q[1]+1, b=blockOf(q[0],q[1],e.z);
+      h+="<button type='button' class='pt-c' data-z='"+e.z+"' style='grid-row:"+r+";grid-column:"+c+";background:"+BG[b]+"'><i>"+e.z+"</i><b>"+e.sy+"</b></button>"; });
+    return h+"</div></div>";
+  }
+  function ptShow(){
+    const e=PT[ptSel-1], q=ptPos(e.z), b=blockOf(q[0],q[1],e.z), c=cfg(e.z), f=q[0]>=9;
+    const info=document.getElementById('ptInfo'); if(!info) return;
+    info.innerHTML="<div class='pt-big' style='background:"+BG[b]+"'><i>"+e.z+"</i><b>"+e.sy+"</b><small>"+e.ms+"</small></div><div class='pt-txt'><h4>"+e.nm+"</h4>"+
+      "<div><b>Atomic number:</b> "+e.z+"</div><div><b>Atomic mass:</b> "+e.ms.replace(/[()]/g,'')+" u"+(e.ms[0]==='('?" (most stable isotope)":"")+"</div>"+
+      "<div><b>Configuration:</b> "+c.short+"</div><div class='pt-full'>"+c.full+"</div>"+
+      "<div><b>Block:</b> "+b+" · <b>Period:</b> "+(f?(q[0]===9?6:7):q[0])+(f?'':" · <b>Group:</b> "+q[1])+"</div><div><b>Aufbau fills last:</b> "+c.last+(c.exc?" <i>(exception – see configuration)</i>":"")+"</div></div>";
+    document.querySelectorAll('.pt-c').forEach(x=>x.classList.toggle('sel',+x.dataset.z===ptSel));
+  }
+  function ptInit(){ const m=document.getElementById('ptMount'); if(!m) return; if(!ptCache) ptCache=ptBuild(); m.innerHTML=ptCache; ptShow(); }
+  window.ptData={PT:PT,cfg:cfg,ORD:ORD,CAP:CAP,okey:okey,orbDiag:orbDiag};
+  document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.pt-c'); if(b){ ptSel=+b.dataset.z; ptShow(); } });
+
+  function aufChart(){
+    const ord=['1s','2s','2p','3s','3p','4s','3d','4p','5s','4d','5p','6s','4f','5d','6p','7s','5f','6d','7p'];
+    let h="<div class='auf'><span></span>"+'spdf'.split('').map(l=>"<b>"+l+"</b>").join('');
+    for(let n=1;n<=7;n++){ h+="<b>n = "+n+"</b>"; for(const l of 'spdf'){ const k=ord.indexOf(n+l); h+=k<0?"<span></span>":"<span class='au-c "+l+"'>"+n+l+"<sup>"+(k+1)+"</sup></span>"; } }
+    return h+"</div><p class='ptnote'>Small numbers = filling order (1st → 19th).</p>";
+  }
+  function orbDiag(gs){ return "<div class='od'>"+gs.map(g=>{ if(!g[1]) return "<span class='od-chip'>"+g[0]+"</span>";
+    let a=Array(g[1]).fill(0); if(Array.isArray(g[2])) a=g[2]; else for(let i=0;i<g[2];i++) a[i%g[1]]++;
+    return "<div class='od-g'><div class='od-bx'>"+a.map(n=>"<span class='od-b'>"+(n===2?'↑↓':n===1?'↑':'')+"</span>").join('')+"</div><small>"+g[0]+"</small></div>"; }).join('')+"</div>"; }
 
   function renderRack(){
     rack.innerHTML = '';
@@ -952,6 +1113,7 @@
     prevPageBtn.disabled = currentSpreadIdx === 0;
     nextPageBtn.disabled = currentSpreadIdx >= totalSpreads - 1;
     initAtomSpin();
+    ptInit();
   }
 
   prevPageBtn.addEventListener('click', () => {
@@ -993,6 +1155,14 @@
 
 <div class="quiz-back" id="quizBack" role="dialog" aria-modal="true" aria-labelledby="quizQ"><div class="quiz-card"><div class="quiz-tag"><span id="quizKind">🦆 Quick question</span> · <span id="quizWk"></span></div><p class="quiz-q" id="quizQ"></p><div class="quiz-opts" id="quizOpts"></div><p class="quiz-fb" id="quizFb"></p><button type="button" class="quiz-next" id="quizNext" hidden>Keep swimming →</button></div></div>
 <div class="duck-hud" id="duckHud" aria-live="polite"><span class="hs"></span><span class="hm"></span><button type="button" class="hb" hidden>Play again</button></div>
+<div class="duck-help" id="duckHelp" hidden><div class="dh-card"><h3>🦆 How to play</h3>
+<div class="dh-row dh-pc"><span><kbd>Space</kbd><kbd>↑</kbd></span><em>Jump</em></div>
+<div class="dh-row dh-pc"><span><kbd>S</kbd><kbd>↓</kbd></span><em>Dive under</em></div>
+<div class="dh-row dh-tc"><span class="dh-chip j">JUMP</span><em>Tap to jump</em></div>
+<div class="dh-row dh-tc"><span class="dh-chip">DIVE</span><em>Tap to dive under</em></div>
+<div class="dh-legend"><span>🍡 Jump a noodle → easy question</span><span>🐦 Dive under a seagull → medium</span><span>🌊 Ride a big wave → hard</span></div>
+<p class="dh-go">Press any key or tap to start</p></div></div>
+<div class="duck-btns" id="duckBtns"><button type="button" class="dbtn" id="btnDive" aria-label="Dive"><svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11q3.25-4 6.5 0t6.5 0 6.5 0 6.5 0"/><path d="M16 16v10m-4-4l4 4 4-4"/></svg>DIVE</button><button type="button" class="dbtn jump" id="btnJump" aria-label="Jump"><svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 27V9m-6 6l6-6 6 6"/><circle cx="6" cy="24" r="1.7" fill="#fff" stroke="none"/><circle cx="26" cy="21" r="1.7" fill="#fff" stroke="none"/></svg>JUMP</button></div>
 <div class="duck-strip" aria-hidden="true" role="presentation">
   <canvas id="wBack"></canvas>
   <div class="beach" id="beach"><svg viewBox="0 0 220 70" aria-hidden="true">
@@ -1024,7 +1194,7 @@
   const duck=document.getElementById('duck');
   const cvB=document.getElementById('wBack'), cvF=document.getElementById('wFront');
   const cB=cvB.getContext('2d'), cF=cvF.getContext('2d');
-  const H=96, BASE=17, DW=34, GAP_MIN=270, VW=1350, A=36;
+  const H=96, BASE=17, DW=34, GAP_MIN=270, VW=850, A=36;
   let V=105;
   const PAL=['#ef7fa0','#f2b544','#5cc2a7','#8d8be0','#ee8a5a','#6bb6ea'];
   const rnd=(a,b)=>a+Math.random()*(b-a);
@@ -1038,6 +1208,7 @@
   let duckPosX=0, carryOff=0, carryT=0, carryLift=0, crashT=0, retP=0, retFrom=0;
   let cA=[143,211,223], cBc=[74,159,182], colT=0;
   let mode='review', score=0, over=false, overT=0, quizOpen=false, pendingQ=false, qOk=0, qAsked=0, hardPending=false, beachT=0;
+  let dvT=0, dSp=false, helpOpen=false, helpSeen=false, diveK=0, wasDive=false, parts=[];
 
   /* ---------- water ---------- */
   const LY=[{amp:3.2,wl:120,s:.6,ph:0},{amp:2.6,wl:70,s:-.9,ph:1.7},{amp:1.8,wl:44,s:1.3,ph:3.1}];
@@ -1045,8 +1216,23 @@
   const off=x=>wv(LY[0],x)+wv(LY[1],x);
   function bump(x){
     if(wAmp<.01) return 0;
-    const dx=x-crestX;
-    return wAmp*(dx>0?Math.exp(-(dx*dx)/1444):Math.exp(-(dx*dx)/12100));
+    const dx=x-crestX;   // gentle back slope, steep front face, small trough ahead of the swell
+    return wAmp*((dx>0?Math.exp(-(dx*dx)/900):Math.exp(-(dx*dx)/9000))-.2*Math.exp(-((dx-40)*(dx-40))/500));
+  }
+  function splash(x,n,pw){ for(let i=0;i<n&&parts.length<140;i++) parts.push({x:x+rnd(-9,9),y:H-BASE-off(x)-2,vx:rnd(-55,55)*pw,vy:rnd(70,150)*pw,life:1,r:rnd(1,2.4)}); }
+  const SEA=[{x:.04,k:0,c:'#ff7f96',s:16,p:.5},{x:.16,k:1,c:'#f2b544',s:13,p:.5},{x:.28,k:2,c:'#ffb86b',y:22,p:1.6},{x:.4,k:0,c:'#b98be0',s:12,p:.5},{x:.52,k:3,c:'#ee8a5a',s:6,p:.5},{x:.63,k:1,c:'#5cc2a7',s:15,p:.5},{x:.74,k:2,c:'#6bb6ea',y:30,p:1.2},{x:.86,k:0,c:'#ef7fa0',s:18,p:.5},{x:.95,k:4,c:'#fff',p:0}];
+  function drawSea(c,k){
+    c.save(); c.globalAlpha=k; c.lineCap='round';
+    for(const o of SEA){
+      const L=W+80, x=(((o.x*L-t*30*o.p)%L)+L)%L-40, b=H-3;
+      c.fillStyle=c.strokeStyle=o.c;
+      if(o.k===0){ c.lineWidth=3; for(let i=-1;i<=1;i++){ c.beginPath(); c.moveTo(x,b); c.quadraticCurveTo(x+i*o.s*.4,b-o.s*.6,x+i*o.s*.7,b-o.s); c.stroke(); c.beginPath(); c.arc(x+i*o.s*.7,b-o.s,2,0,6.3); c.fill(); } }
+      else if(o.k===1){ c.globalAlpha=k*.8; c.beginPath(); c.arc(x,b,o.s,Math.PI,0); c.fill(); c.globalAlpha=k; }
+      else if(o.k===2){ const fy=H-o.y+Math.sin(t*2+o.x*9)*3; c.beginPath(); c.ellipse(x,fy,7,4,0,0,6.3); c.fill(); c.beginPath(); c.moveTo(x+6,fy); c.lineTo(x+12,fy-4); c.lineTo(x+12,fy+4); c.fill(); }
+      else if(o.k===3){ c.beginPath(); for(let i=0;i<10;i++){ const r=i%2?2.4:o.s, a=i*.6283-1.57; c.lineTo(x+Math.cos(a)*r,b-4+Math.sin(a)*r); } c.fill(); }
+      else { c.lineWidth=1; for(let i=0;i<5;i++){ const by=((H-t*14*(1+i*.2)-i*20)%H+H)%H; c.globalAlpha=k*.6; c.beginPath(); c.arc(W*(.1+i*.2)+Math.sin(t+i)*4,by,1.5+i%2,0,6.3); c.stroke(); } }
+    }
+    c.restore();
   }
   const hex=h=>{h=h.trim().replace('#','');if(h.length===3)h=h.replace(/./g,'$&$&');return [0,2,4].map(i=>parseInt(h.substr(i,2),16));};
   const rgba=(c,a)=>'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';
@@ -1067,19 +1253,20 @@
     cB.beginPath();
     for(let x=0;x<=W+4;x+=4){ const yy=y1(x); x?cB.lineTo(x,yy):cB.moveTo(x,yy); }
     cB.strokeStyle='rgba(255,255,255,.3)'; cB.lineWidth=1.2; cB.stroke();
+    if(diveK>.02) drawSea(cB,diveK);
     if(wAmp>2){
-      const k=Math.min(1,wAmp/A);
+      const k=Math.min(1,wAmp/A), th=x=>1.5+5*k*Math.exp(-Math.pow((x-crestX)/26,2));
       cB.beginPath();
-      for(let x=crestX-50;x<=crestX+28;x+=3){ const yy=y1(x)-1; x===crestX-50?cB.moveTo(x,yy):cB.lineTo(x,yy); }
-      cB.strokeStyle='rgba(255,255,255,'+(.85*k)+')'; cB.lineWidth=3; cB.lineCap='round'; cB.stroke();
-      for(let i=0;i<16;i++){
-        const fx=crestX-34+i*5+Math.sin(t*9+i*1.7)*3;
-        const fy=y1(fx)-3-Math.abs(Math.sin(t*7+i*2.3))*9*k;
-        cB.beginPath(); cB.arc(fx,fy,1+Math.abs(Math.sin(i*3.1))*1.3,0,6.2832);
-        cB.fillStyle='rgba(255,255,255,'+(.8*k)+')'; cB.fill();
-      }
+      for(let x=crestX-60;x<=crestX+26;x+=3){ const yy=y1(x)-th(x); x===crestX-60?cB.moveTo(x,yy):cB.lineTo(x,yy); }
+      for(let x=crestX+26;x>=crestX-60;x-=3) cB.lineTo(x,y1(x)+2);
+      cB.closePath(); cB.fillStyle='rgba(255,255,255,'+(.6*k)+')'; cB.fill();
+      cB.beginPath();
+      for(let x=crestX-60;x<=crestX+26;x+=3){ const yy=y1(x)-th(x); x===crestX-60?cB.moveTo(x,yy):cB.lineTo(x,yy); }
+      cB.strokeStyle='rgba(255,255,255,'+(.9*k)+')'; cB.lineWidth=2; cB.lineCap='round'; cB.stroke();
     }
     fillLayer(cF,x=>H-9-wv(LY[2],x),rgba(cA,.3),rgba(cBc,.5));
+    if(diveK>.02) fillLayer(cF,y1,rgba(cA,.5*diveK),rgba(cBc,.62*diveK));   // tint starts exactly at the visible waterline
+    for(const p of parts){ cF.beginPath(); cF.arc(p.x,p.y,p.r,0,6.3); cF.fillStyle='rgba(255,255,255,'+(.85*p.life)+')'; cF.fill(); }
   }
 
   /* ---------- noodles ---------- */
@@ -1161,24 +1348,25 @@
   }
   function ducking(){
     if(wst!=='idle'||airborne||over||mode==='beach') return false;
-    return mode==='play' ? (duckHold||duckT>0) : autoDuck;
+    return mode==='play' ? (duckHold||duckT>0||gulls.some(g=>g.safe&&!g.dead&&g.x<duckX+DW+20&&g.x+g.w>duckX-6)) : autoDuck;
   }
 
   /* ---------- main loop ---------- */
   const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
   function frame(now){
     const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt*1.9;
-    V = mode==='beach' ? 0 : mode==='play' ? ((over||quizOpen)?0:Math.min(180,138+score*2)) : 150;
+    V = mode==='beach' ? 0 : mode==='play' ? ((over||quizOpen||helpOpen)?0:Math.min(180,138+score*2)) : 150;
     if(over) overT+=dt;
     if(mode==='beach') beachT+=dt;
     if(++colT>40){ colT=0; const cs=getComputedStyle(strip); cA=hex(cs.getPropertyValue('--water-a')); cBc=hex(cs.getPropertyValue('--water-b')); }
 
     /* tidal wave state machine */
     if(wst==='idle'){
-      waveTimer-=dt;
-      if(waveTimer<=0 && !airborne && mode==='review'){
-        if(Math.random()<.5){ wst='rise'; crestX=-140; wAmp=0; }
-        else waveTimer=7+Math.random()*7;
+      if(!helpOpen&&!quizOpen&&!over) waveTimer-=dt;
+      if(waveTimer<=0 && !airborne && !gulls.some(g=>!g.dead&&g.x<W)){
+        if(mode==='review'){ if(Math.random()<.5){ wst='rise'; crestX=-140; wAmp=0; } else waveTimer=7+Math.random()*7; }
+        else if(mode==='play'&&hDeck.length&&!pendingQ){ startWave(); waveTimer=rnd(8,13); }
+        else if(mode==='play') waveTimer=4;
       }
     }
     if(wst==='rise'||wst==='carry'||wst==='crash'){
@@ -1196,7 +1384,7 @@
       if(crashT>1.1){ wst='return'; retP=0; retFrom=duckPosX; wAmp=0; crestX=-999; }
     } else if(wst==='return'){
       retP+=dt/1.7;
-      if(retP>=1){ wst='idle'; duckPosX=duckX; waveTimer=10+Math.random()*8; spawnX=W+80; if(hardPending){ hardPending=false; openQuiz(true); } }
+      if(retP>=1){ wst='idle'; duckPosX=duckX; waveTimer=mode==='play'?rnd(8,13):10+Math.random()*8; spawnX=W+80; if(hardPending){ hardPending=false; openQuiz('h'); } }
       else duckPosX=retFrom+(duckX-retFrom)*ease(retP);
     } else { duckPosX=duckX; }
 
@@ -1214,14 +1402,15 @@
       }
       if(mode==='review' && calm && !airborne && !n.done && !n.dead && n.x>duckX){
         const T=(n.w+DW+18)/V, apex=n.h+9;
-        if(mid-cx<=V*T/2){ n.done=true; airborne=true; g=8*apex/(T*T); vy=4*apex/T; }
+        if(mid-cx<=V*T/2){ n.done=true; airborne=true; g=8*apex/(T*T); vy=4*apex/T; splash(duckX+DW/2,7,.7); }
       }
     }
     noodles=noodles.filter(n=>{ if(n.gone||n.x+n.w<-20){n.el.remove();return false;} return true; });
 
     /* seagulls */
     const Vg=V>0?V+45:0;
-    duckT=Math.max(0,duckT-dt);
+    if(!airborne) duckT=Math.max(0,duckT-dt);
+    if(mode==='play'&&duckHold&&!airborne&&!quizOpen&&!helpOpen) duckT=Math.max(duckT,.2);
     autoDuck=false;
     if(mode==='review') for(const g of gulls){ if(!g.dead && g.x<duckX+DW+Vg*.32 && g.x+g.w>duckX-4) autoDuck=true; }
     if(mode!=='beach' && calm && !over && !quizOpen){
@@ -1232,28 +1421,37 @@
       g.x-=Vg*dt;
       g.el.style.transform='translate('+g.x.toFixed(1)+'px,'+(Math.sin(t*2.2+g.ph)*2.5).toFixed(2)+'px)';
       if(mode==='play' && !over && wst==='idle' && !g.dead){
-        if(g.x+8<duckX+DW-6 && g.x+g.w-8>duckX+8 && y<41 && !ducking()) endGame();
+        if(g.x+8<duckX+DW-6 && g.x+g.w-8>duckX+8 && y<41 && !g.safe && !ducking()) endGame();
         else if(!g.scored && g.x+g.w<duckX+8){ g.scored=true; score++; pendingQ='gull'; paint(); }
       }
     }
     gulls=gulls.filter(g=>{ if(g.gone||g.x+g.w<-30){ g.el.remove(); return false; } return true; });
 
     /* duck jump */
-    if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ y=0; vy=0; airborne=false; squash=1; } }
+    if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ y=0; vy=0; airborne=false; squash=1; splash(duckX+DW/2,11,1); } }
     squash=Math.max(0,squash-dt*5);
     if(mode==='play' && pendingQ && !airborne && !over && !quizOpen && wst==='idle') afterClear();
     let sx=1, sy=1, rot=0, flip=1, lift=0;
     if(airborne){ const k=Math.min(1,Math.abs(vy)/60); sx=1-.1*k; sy=1+.14*k; rot=-Math.max(-14,Math.min(14,vy*.16)); }
     else{ sx=1+.16*squash; sy=1-.2*squash+Math.sin(t*3)*.012; }
-    if(ducking()){ sx=1.2; sy=.5; rot=3; }
+    const dn=ducking(); dvT=dn?dvT+dt:0;
+    const tgt=(dn&&dvT>.12)?1:0; diveK+=(tgt-diveK)*Math.min(1,dt*(tgt?9:4.5));
+    if(tgt&&!dSp){ splash(duckX+DW/2,10,.8); dSp=true; } if(!dn) dSp=false;
+    let dx=0;
+    if(dn&&dvT<.2){ lift+=10*Math.sin(Math.PI*dvT/.2); rot=-10; }   // small hop before the plunge
+    if(diveK>.02){ const em=tgt?0:Math.sin(Math.PI*(1-diveK));       // em>0 only while surfacing
+      sx=1+.08*diveK; sy=1-.1*diveK; rot=tgt?14*diveK:-18*em; lift+=-26*diveK+4*em; dx=tgt?0:14*em; }
     if(wst==='carry'){ const e=Math.min(1,carryT*4); carryLift=(32+.2*bump(duckPosX))*e; lift=carryLift; rot=7*e; }
     else if(wst==='crash'){ lift=carryLift; rot=7*carryLift/40; }
     else if(wst==='return'){ flip=-1; rot=Math.sin(t*3)*2; }
     if(mode==='beach'){ const k=Math.min(1,beachT/1.1), e=1-Math.pow(1-k,3); lift=25*e; rot=-8*(1-e); if(k>=1){ sx=1.08; sy=.8+Math.sin(t*2)*.02; rot=0; } }
     if(over){ rot=-28; lift=-3; }
     const bob=mode==='beach'?0:off(duckPosX+DW/2)*.8;
-    duck.style.transform='translate('+(duckPosX-duckX).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
+    duck.style.transform='translate('+(duckPosX-duckX+dx).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
 
+    if((wst==='rise'||wst==='carry')&&wAmp>8) for(let i=0;i<2;i++) parts.push({x:crestX+rnd(-6,14),y:H-BASE-wAmp-off(crestX),vx:rnd(30,90),vy:rnd(40,110),life:1,r:rnd(1,2.2)});
+    for(const q of parts){ q.vy-=380*dt; q.x+=q.vx*dt; q.y-=q.vy*dt; q.life-=dt*1.5; }
+    parts=parts.filter(q=>q.life>0&&q.y<H-BASE+6);
     drawWater();
     requestAnimationFrame(frame);
   }
@@ -1262,12 +1460,13 @@
     for(const c of [cvB,cvF]){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); }
     cB.setTransform(dpr,0,0,dpr,0,0); cF.setTransform(dpr,0,0,dpr,0,0);
     duckX=duck.offsetLeft; if(wst==='idle') duckPosX=duckX;
+    if(typeof beachEl!=='undefined'&&beachEl.classList.contains('on')) beachEl.style.left=(duckX+DW/2-80)+'px';
     if(!noodles.length) spawnX=W+40;
   }
   /* ---------- game mode (Review = duck plays itself, Play = you jump) ---------- */
   const hud=document.getElementById('duckHud'), hs=hud.querySelector('.hs'), hm=hud.querySelector('.hm'), hb=hud.querySelector('.hb'), beachEl=document.getElementById('beach');
   let best=0; try{ best=+localStorage.getItem('duckBest')||0; }catch(e){}
-  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+' · Q '+(QN-mDeck.length-hDeck.length)+'/'+QN; if(msg!==undefined) hm.textContent=msg; }
+  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+' · Q '+(QN-eDeck.length-mDeck.length-hDeck.length)+'/'+QN; if(msg!==undefined) hm.textContent=msg; }
   function reset(){
     noodles.forEach(n=>n.el.remove()); noodles=[];
     gulls.forEach(g=>g.el.remove()); gulls=[]; duckT=0; duckHold=false; gullT=mode==='play'?rnd(3.5,5.5):rnd(8,14);
@@ -1275,11 +1474,17 @@
     airborne=false; y=0; vy=0; score=0; over=false; overT=0; pendingQ=false; hardPending=false; closeQuiz(); spawnX=W+40; waveTimer=8+Math.random()*6;
   }
   function setMode(m){
-    mode=m; reset(); beachEl.classList.remove('on'); hb.hidden=true; if(m==='play') newRun();
+    mode=m==='review'?'beach':m; beachT=0; reset(); beachEl.classList.remove('on','b2'); hb.hidden=true; if(m==='review') showBeach(false); if(m==='play') newRun();
     strip.classList.toggle('playing',m==='play');
     hud.classList.toggle('on',m==='play');
-    if(m==='play') paint('Tap / Space = jump noodles · Swipe ↓ / S / ↓ = duck seagulls');
+    if(m==='play') paint(matchMedia('(pointer:coarse)').matches?'JUMP noodles · DIVE under seagulls':'Space / ↑ jump · S / ↓ dive');
+    btns.classList.toggle('on',m==='play'); if(m==='play'&&!helpSeen) openHelp(); else closeHelp();
   }
+  const btns=document.getElementById('duckBtns'), helpEl=document.getElementById('duckHelp');
+  function openHelp(){ helpOpen=true; helpEl.hidden=false; }
+  function closeHelp(){ if(helpOpen) helpSeen=true; helpOpen=false; helpEl.hidden=true; }
+  helpEl.addEventListener('pointerdown',e=>{ e.preventDefault(); closeHelp(); });
+  function showBeach(v2){ beachEl.style.left=(duckX+DW/2-80)+'px'; beachEl.classList.toggle('b2',!!v2); beachEl.classList.add('on'); }
   function endGame(){
     over=true; overT=0;
     if(score>best){ best=score; try{ localStorage.setItem('duckBest',best); }catch(e){} }
@@ -1287,12 +1492,14 @@
   }
   function act(){
     if(mode!=='play'||quizOpen) return;
+    if(helpOpen){ closeHelp(); return; }
     if(over){ if(overT>.5){ reset(); paint(''); } return; }
-    if(!airborne){ airborne=true; g=520; vy=230; hm.textContent=''; }
+    if(!airborne){ airborne=true; duckT=0; g=520; vy=230; hm.textContent=''; splash(duckX+DW/2,8,.8); }
   }
-  function duckDown(sec){
-    if(mode!=='play'||quizOpen||over) return;
-    duckT=sec||.6;
+  function duckDown(sec,touch){
+    if(mode!=='play'||quizOpen||over||helpOpen) return;
+    duckT=sec||.85;
+    if(touch){ const gl=gulls.filter(g=>!g.dead&&g.x+g.w>duckX&&g.x<duckX+DW+520).sort((a,b)=>a.x-b.x)[0]; if(gl) gl.safe=true; }   // touch dive locks onto the next seagull
     if(airborne) vy=Math.min(vy,-260);   // fast-fall so you can duck mid-jump
   }
   let pStart=null;
@@ -1306,7 +1513,7 @@
   strip.addEventListener('pointermove',e=>{
     if(!pStart||e.pointerId!==pStart.id||pStart.swiped) return;
     const dy=e.clientY-pStart.y, dx=e.clientX-pStart.x;
-    if(dy>16 && dy>Math.abs(dx)){ pStart.swiped=true; duckDown(.6); }
+    if(dy>16 && dy>Math.abs(dx)){ pStart.swiped=true; duckDown(0,true); }
   });
   const endP=e=>{
     if(!pStart||e.pointerId!==pStart.id) return;
@@ -1318,14 +1525,20 @@
   const isJump=e=>e.code==='Space'||e.key==='ArrowUp';
   const isDown=e=>e.code==='KeyS'||e.key==='ArrowDown'||e.key==='s'||e.key==='S';
   addEventListener('keydown',e=>{
-    if(mode!=='play'||e.repeat||!(isJump(e)||isDown(e))) return;
-    if(/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if(mode!=='play'||quizOpen||!(isJump(e)||isDown(e))) return;
+    if(/^(A|INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.closest('#islandMenu')) return;
     if(document.getElementById('bookOverlay').classList.contains('open')) return;
-    e.preventDefault();
-    if(isDown(e)){ if(!quizOpen) duckHold=true; duckDown(.25); } else act();
+    e.preventDefault(); if(e.repeat) return;
+    if(e.target.tagName==='BUTTON') e.target.blur();   // a focused button no longer swallows the hotkeys
+    if(helpOpen){ closeHelp(); return; }
+    if(isDown(e)){ duckHold=true; duckDown(); } else act();
   });
   addEventListener('keyup',e=>{ if(isDown(e)) duckHold=false; });
   addEventListener('blur',()=>{ duckHold=false; });
+  const bj=document.getElementById('btnJump'), bd=document.getElementById('btnDive');
+  bj.addEventListener('pointerdown',e=>{ e.preventDefault(); act(); });
+  bd.addEventListener('pointerdown',e=>{ e.preventDefault(); if(helpOpen){ closeHelp(); return; } duckHold=true; duckDown(0,e.pointerType!=='mouse'); });
+  ['pointerup','pointercancel','pointerleave'].forEach(v=>bd.addEventListener(v,()=>{ duckHold=false; }));
   /* ---------- quiz: one question after every noodle you clear ----------
      Add more rows any time: [week number, question, CORRECT answer, wrong, wrong, wrong] */
   const QM=[
@@ -1350,8 +1563,31 @@
     [1,"Which orbital looks like a clover leaf?","d","s","p","f"],
     [1,"The f orbital looks like a…","flower","sphere","triangle","star"],
     [1,"How many electrons can the p sublevel hold in total?","6","2","10","14"],
-    [1,"An orbital is a region where the chance of finding an electron is…","highest","zero","always 50%","never known"]
+    [1,"An orbital is a region where the chance of finding an electron is…","highest","zero","always 50%","never known"],
+    [1,"How many orbitals does the d sublevel have?","5","3","7","1"],
+    [1,"How many electrons can the d sublevel hold in total?","10","6","14","2"],
+    [1,"How many electrons can the f sublevel hold in total?","14","10","6","7"],
+    [1,"Which shell is the third energy level?","M","L","N","K"],
+    [1,"Which model pictures electrons as a cloud of probability?","Quantum (Schrödinger) model","Plum pudding model","Solar-system model","Dalton's ball model"],
+    [1,"Which sublevel is shaped like a clover leaf?","d","s","p","f"]
   ];
+  const QE=[
+    [1,"Which tiny particle has a negative charge?","Electron","Proton","Neutron","Nucleus"],
+    [1,"Protons have a ______ charge.","positive","negative","neutral","rainbow"],
+    [1,"Neutrons have ______ charge.","no (neutral)","positive","negative","double"],
+    [1,"Where are electrons found in an atom?","Outside the nucleus","Inside a neutron","Inside a proton","Nowhere"],
+    [1,"Which orbital is round like a ball?","s","p","d","f"],
+    [1,"Which shell is the closest to the nucleus?","K","M","P","Q"],
+    [1,"The K shell holds at most how many electrons?","2","8","18","1"],
+    [1,"An atom is made of protons, neutrons and…","electrons","cells","crystals","molecules"],
+    [1,"How many orbitals does the s sublevel have?","1","3","5","7"],
+    [1,"How many orbitals does the p sublevel have?","3","1","5","7"],
+    [1,"How many electrons can the s sublevel hold?","2","6","10","14"],
+    [1,"What does the letter “f” stand for in sublevels?","fundamental","fast","flat","fluid"],
+    [1,"An orbital can hold at most ___ electrons.","2","1","6","10"],
+    [1,"The nucleus is at the ______ of the atom.","center","edge","top","bottom"]
+  ];
+  const QJ=[['Fun','Why did the duck swim across the sea?','To get to the other side!','To find the world\'s best bread','Because the tide told it a joke','To win the quack-athlon']];
   const QH=[
     [1,"What is the maximum number of electrons in the N shell (n = 4)?","32","16","18","8"],
     [1,"What is the maximum number of electrons in the M shell (n = 3)?","18","9","8","32"],
@@ -1362,36 +1598,63 @@
     [1,"Which idea explains why electrons don't travel in simple fixed paths?","Heisenberg Uncertainty Principle","Newton's Laws of Motion","Boyle's Law","Law of Gravity"],
     [1,"Using 2n², how many electrons can the P shell (n = 6) hold?","72","36","12","98"],
     [1,"In the M shell (s, p and d sublevels), how many orbitals are there in total?","9","3","5","18"],
-    [1,"Which scientist introduced electron orbitals and finalized the modern quantum model?","Erwin Schrödinger","Louis de Broglie","Werner Heisenberg","Niels Bohr"]
+    [1,"Which scientist introduced electron orbitals and finalized the modern quantum model?","Erwin Schrödinger","Louis de Broglie","Werner Heisenberg","Niels Bohr"],
+    [1,"Using 2n², how many electrons can the O shell (n = 5) hold?","50","25","32","18"],
+    [1,"How many sublevels does the N shell (n = 4) have?","4","3","2","5"],
+    [1,"How many orbitals are in the N shell (n = 4) in total?","16","9","7","32"],
+    [1,"How many electrons can the p and d sublevels hold together?","16","8","12","20"],
+    [1,"Which sublevels can the L shell (n = 2) have?","s and p","p and d","s and d","d and f"]
   ];
   const qEl=document.getElementById('quizBack'), qWk=document.getElementById('quizWk'), qQ=document.getElementById('quizQ'),
         qOpts=document.getElementById('quizOpts'), qFb=document.getElementById('quizFb'), qNext=document.getElementById('quizNext');
   const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild;
-  let mDeck=[], hDeck=[], QN=0;
-  const RUN_M=10, RUN_H=3;   // questions per run (keeps it from feeling like too many)
-  function newRun(){ mDeck=shuf(QM.map((_,i)=>i)).slice(0,RUN_M); hDeck=shuf(QH.map((_,i)=>i)).slice(0,RUN_H); QN=mDeck.length+hDeck.length; qOk=0; }
+  let jokeOn=false, bE=QE, bM=QM, bH=QH, eDeck=[], mDeck=[], hDeck=[], QN=0;
+  const RUN_E=16, RUN_M=14, RUN_H=20;   // 50 questions per run   // questions per run (keeps it from feeling like too many)
+  const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹', plain=h=>h.replace(/<sup>(\d+)<\/sup>/g,(m,n)=>[...n].map(d=>SUPD[d]).join(''));
+  function elemQ(z){   // "full electron configuration of element Z", built from the periodic-table data
+    const D=window.ptData, e=D.PT[z-1], w=[];
+    for(const d of [1,-1,2,-2,3]){ const k=z+d; if(k>=1&&k<=118&&w.length<3) w.push(plain(D.cfg(k).full)); }
+    return [2,'What is the full electron configuration of '+e.nm+' ('+e.sy+', Z = '+z+')?',plain(D.cfg(z).full)].concat(w);
+  }
+  function orbQ(z){   // "which orbital diagram is correct for element Z" – options are drawn diagrams
+    const D=window.ptData, e=D.PT[z-1], R=D.orbDiag;
+    const gs=k=>{ let n=0,r=[]; for(const o of D.ORD){ if(n>=k) break; const t=Math.min(D.CAP[o[1]],k-n); n+=t; r.push([o,{s:1,p:3,d:5,f:7}[o[1]],t]); } return r.sort((a,b)=>D.okey(a[0])-D.okey(b[0])); };
+    const base=gs(z), L=base[base.length-1], ok=R(base), cand=[];
+    if(L[1]>1&&L[2]>=2){ const a=Array(L[1]).fill(0); let r=L[2]; for(let i=0;i<L[1];i++){ const t=Math.min(2,r); a[i]=t; r-=t; } cand.push(R(base.slice(0,-1).concat([[L[0],L[1],a]]))); }   // breaks Hund's rule
+    cand.push(R(gs(z+1)),R(gs(z-1)),R(gs(z+2)),R(gs(z-2)),R(gs(z+3)));
+    const w=[]; for(const x of cand) if(x!==ok&&!w.includes(x)&&w.length<3) w.push(x);
+    const q=[2,'Which orbital diagram is correct for '+e.nm+' ('+e.sy+', Z = '+z+')?',ok].concat(w); q.html=true; return q;
+  }
+  function newRun(){
+    const zr=(a,b)=>Array.from({length:b-a+1},(_,i)=>elemQ(a+i));
+    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(orbQ));
+    eDeck=shuf(bE.map((_,i)=>i)).slice(0,RUN_E); mDeck=shuf(bM.map((_,i)=>i)).slice(0,RUN_M); { const nb=bH.length-10, rg=(a,b)=>Array.from({length:b-a},(_,i)=>a+i);   // all 10 orbital-diagram questions + 10 others in each run
+      hDeck=shuf(shuf(rg(nb,nb+10)).concat(shuf(rg(0,nb)).slice(0,RUN_H-10))); }
+    QN=eDeck.length+mDeck.length+hDeck.length; qOk=0;
+  }
   const shuf=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-  function openQuiz(hard){
-    pendingQ=false; quizOpen=true;
-    const q=hard?QH[hDeck.pop()]:QM[mDeck.pop()];
-    qKind.textContent=hard?'🌊 Big wave! Hard question':'🐦 Seagull dodged! Medium question'; qCard.classList.toggle('hard',!!hard); qCard.classList.toggle('medium',!hard);
-    qWk.textContent='Week '+q[0]; qQ.textContent=q[1]; qFb.textContent=''; qNext.hidden=true; qOpts.innerHTML='';
+  function openQuiz(lv){
+    pendingQ=false; quizOpen=true; duckHold=false;
+    jokeOn=lv==='j'; const q=lv==='j'?QJ[0]:lv==='h'?bH[hDeck.pop()]:lv==='e'?bE[eDeck.pop()]:bM[mDeck.pop()];
+    qKind.textContent=lv==='j'?'🏝️ Bonus joke!':lv==='h'?'🌊 Big wave! Hard question':lv==='e'?'🍡 Noodle cleared! Easy question':'🐦 Seagull dodged! Medium question';
+    qCard.classList.toggle('hard',lv==='h'); qCard.classList.toggle('medium',lv==='m'); qCard.classList.toggle('easy',lv==='e'||lv==='j');
+    qWk.textContent=lv==='j'?'Just for fun':'Week '+q[0]; qQ.textContent=q[1]; qFb.textContent=''; qNext.hidden=true; qOpts.innerHTML='';
     shuf(q.slice(2).map((t,i)=>({t,ok:i===0}))).forEach((o,i)=>{
       const b=document.createElement('button'), l=document.createElement('b'), tx=document.createElement('span');
-      b.type='button'; b.dataset.ok=o.ok?'1':'0'; l.textContent='ABCD'[i]; tx.textContent=o.t;
+      b.type='button'; b.dataset.ok=o.ok?'1':'0'; l.textContent='ABCD'[i]; if(q.html) tx.innerHTML=o.t; else tx.textContent=o.t;
       b.append(l,tx); b.onclick=()=>pickAns(b,o.ok); qOpts.appendChild(b);
     });
     qEl.classList.add('on');
   }
   function pickAns(b,ok){
-    qAsked++; if(ok) qOk++;
+    if(!jokeOn){ qAsked++; if(ok) qOk++; }
     [...qOpts.children].forEach(x=>{ x.disabled=true; if(x.dataset.ok==='1') x.classList.add('ok'); });
     if(!ok) b.classList.add('no');
-    qFb.textContent=ok?'Correct! 🎉':'Not quite. The right answer is highlighted.';
+    qFb.textContent=jokeOn?(ok?'Ha! Classic. 🦆 To get to the other side!':'Quack! The answer is: to get to the other side! 😄'):ok?'Correct! 🎉':'Not quite. The right answer is highlighted.';
     qNext.hidden=false; qNext.focus(); paint();
   }
   function closeQuiz(){ qEl.classList.remove('on'); quizOpen=false; }
-  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); if(!mDeck.length&&!hDeck.length) victory(); });
+  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); if(mode==='play'&&!eDeck.length&&!mDeck.length&&!hDeck.length) victory(); });
   addEventListener('keydown',e=>{
     if(!quizOpen||!qNext.hidden||e.key.length!==1) return;
     const b=qOpts.children['abcd'.indexOf(e.key.toLowerCase())]; if(b) b.click();
@@ -1399,29 +1662,26 @@
   function startWave(){ hardPending=true; wst='rise'; crestX=-140; wAmp=0; paint('🌊 Big wave! Hold on…'); }
   function afterClear(){
     const kind=pendingQ; pendingQ=false;
-    const m=mDeck.length, h=hDeck.length;
-    if(!m&&!h){ victory(); return; }
-    if(kind==='gull'){                       // seagull dodged → medium question
-      if(m) openQuiz(false); else startWave();
-    } else if(h && Math.random()<.15){       // noodles only score; rarely a big wave (hard question)
-      startWave();
-    }
+    if(!eDeck.length&&!mDeck.length&&!hDeck.length){ victory(); return; }
+    if(kind==='gull'){ if(mDeck.length) openQuiz('m'); }   // seagull dodged → medium
+    else if(eDeck.length) openQuiz('e');                  // noodle jumped → easy
   }
   function victory(){
     mode='beach'; beachT=0;
     noodles.forEach(n=>n.el.remove()); noodles=[];
     gulls.forEach(g=>g.el.remove()); gulls=[];
     wst='idle'; wAmp=0; crestX=-999; airborne=false; y=0; vy=0; over=false; pendingQ=false; hardPending=false;
-    strip.classList.remove('playing');
-    beachEl.style.left=(duckX+DW/2-80)+'px'; beachEl.classList.add('on');
+    strip.classList.remove('playing'); btns.classList.remove('on');
+    showBeach(true);
     hud.classList.add('on'); hb.hidden=false;
     paint('🏝️ You finished every question! Time to relax.');
+    setTimeout(()=>{ if(mode==='beach'&&!hb.hidden&&!quizOpen) openQuiz('j'); },1500);
   }
   hb.addEventListener('click',()=>setMode('play'));
   window.duckGame={setMode:setMode};
 
   window.addEventListener('resize',resize);
-  resize(); spawnX=W+40;
+  resize(); spawnX=W+40; setMode('review');
   requestAnimationFrame(t0=>{last=t0;frame(t0);});
 })();
 </script>
@@ -1456,6 +1716,31 @@
   fit(); setTimeout(fit,300);
   addEventListener('load',fit); addEventListener('resize',fit);
   if(window.ResizeObserver) new ResizeObserver(fit).observe(document.body);
+
+  /* Bottom cover: sits over the host's injected footer ("This site is open source. Improve this page").
+     Opaque + swallows clicks so the link underneath can't be seen or clicked. */
+  const foot=document.createElement('div');
+  foot.className='sci-cover bottom'; foot.setAttribute('aria-hidden','true');
+  foot.innerHTML='<i style="left:7%">λ</i><i style="left:19%">∑</i><i style="right:19%">∞</i><i style="right:7%">F=ma</i>'+
+    '<svg viewBox="0 0 64 64"><g class="orb" fill="none" stroke="#2E7D6B" stroke-width="1.6"><ellipse cx="32" cy="32" rx="28" ry="10"/><ellipse cx="32" cy="32" rx="28" ry="10" transform="rotate(60 32 32)"/><ellipse cx="32" cy="32" rx="28" ry="10" transform="rotate(120 32 32)"/><circle cx="60" cy="32" r="3" fill="#B5622E" stroke="none"/></g><circle cx="32" cy="32" r="5" fill="#B5622E"/></svg>'+
+    '<div class="sci-cover-text"><b>Keep Exploring</b><small>Science never stops</small></div>';
+  foot.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); },true);
+  document.body.appendChild(foot);
+  function fitFoot(){
+    foot.style.display='none';
+    const total=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+    const bodyBottom=Math.round(document.body.getBoundingClientRect().bottom+window.scrollY);
+    // start a little above the end of the body so nothing peeks out, run to the very bottom of the page
+    let top=Math.max(0,bodyBottom-24);
+    let h=Math.max(total-top,64);
+    foot.style.top=top+'px'; foot.style.height=h+'px'; foot.style.display='flex';
+  }
+  fitFoot(); setTimeout(fitFoot,300); setTimeout(fitFoot,1200); setTimeout(fitFoot,3000);
+  addEventListener('load',fitFoot); addEventListener('resize',fitFoot);
+  if(window.ResizeObserver){ const ro=new ResizeObserver(fitFoot); ro.observe(document.body); ro.observe(document.documentElement); }
+  /* the host injects its footer after load, outside <body>: re-fit whenever anything is added to the page */
+  if(window.MutationObserver) new MutationObserver(m=>{ if(m.some(r=>![...r.addedNodes].every(n=>n===foot||n===cover))) fitFoot(); })
+    .observe(document.documentElement,{childList:true,subtree:false});
 })();
 </script>
 </body>
