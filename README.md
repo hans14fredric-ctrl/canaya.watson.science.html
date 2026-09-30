@@ -455,8 +455,8 @@
   [data-theme="dark"] .island{--sand-a:#d9bf88; --sand-b:#a98a52; --sea-a:#3f8fa1; --sea-b:#245a6b;}
   .island:hover{transform:translateY(-3px); filter:drop-shadow(0 8px 10px rgba(0,0,0,.2));}
   .island:focus-visible{outline:3px solid var(--rust); outline-offset:4px; border-radius:24px;}
-  .island svg{display:block; width:100%; height:auto; overflow:visible; animation:isl-bob 4s ease-in-out infinite;}
-  .island .palm{transform-box:fill-box; transform-origin:50% 100%; animation:isl-sway 4s ease-in-out infinite;}
+  .island svg{display:block; width:100%; height:auto; overflow:visible; animation:isl-bob 3s ease-in-out infinite;}
+  .island .palm{transform-box:fill-box; transform-origin:50% 100%; animation:isl-sway 3s ease-in-out infinite;}
   .isl-label{position:absolute; left:11%; width:55%; bottom:26%; text-align:center; pointer-events:none;
     font:700 .8rem/1 "Iowan Old Style",Georgia,serif; letter-spacing:.02em; color:#6a4620;}
   @keyframes isl-bob{50%{transform:translateY(-3px);}}
@@ -490,7 +490,7 @@
       linear-gradient(90deg,rgba(120,210,185,.09) 1px,transparent 1px) 0 0/24px 24px,
       linear-gradient(180deg,#123832,var(--paper));}
   .sci-cover svg{height:min(60px,72%); width:auto; flex:none;}
-  .sci-cover .orb{transform-box:fill-box; transform-origin:center; animation:sci-spin 28s linear infinite;}
+  .sci-cover .orb{transform-box:fill-box; transform-origin:center; animation:sci-spin 30s linear infinite;}
   .sci-cover-text{display:flex; align-items:baseline; flex-wrap:wrap; gap:.2rem .7rem; font-family:"Iowan Old Style",Georgia,serif; color:var(--ink); line-height:1.15;}
   .sci-cover-text b{font-size:1rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;}
   .sci-cover-text small{font-size:.72rem; opacity:.65; letter-spacing:.06em;}
@@ -550,7 +550,7 @@
   .duck-btns{position:fixed; left:0; right:0; bottom:170px; z-index:62; display:none; justify-content:center; align-items:flex-end; gap:1.3rem; pointer-events:none;}
   .duck-btns.on{display:flex;}
   .beach.b2{filter:saturate(1.25) brightness(1.06);}
-  .beach.b2::before{content:''; position:absolute; right:-4px; top:-40px; width:46px; height:46px; border-radius:50%; background:radial-gradient(circle,#fff6c2 0 38%,#ffcf5c 60%,rgba(255,190,80,0) 72%); animation:sunpulse 3s ease-in-out infinite;}
+  .beach.b2::before{content:''; position:absolute; right:-4px; top:-40px; width:46px; height:46px; border-radius:50%; background:radial-gradient(circle,#fff6c2 0 38%,#ffcf5c 60%,rgba(255,190,80,0) 72%); animation:sunpulse 2.5s ease-in-out infinite;}
   @keyframes sunpulse{50%{transform:scale(1.1); opacity:.85;}}
   .dbtn{width:62px; height:62px; border-radius:50%; border:2px solid rgba(255,255,255,.9); pointer-events:auto; color:#fff; background:#2b7f9c; display:grid; place-content:center; justify-items:center; gap:1px;
     font:700 .56rem Georgia,serif; letter-spacing:.1em; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent; box-shadow:0 3px 10px rgba(0,0,0,.25); transition:transform .1s;}
@@ -560,7 +560,7 @@
 
   /* ---------- Quiz card ---------- */
   .quiz-back{position:fixed; inset:0; z-index:95; display:none; align-items:center; justify-content:center; padding:1rem; background:rgba(10,20,20,.4); backdrop-filter:blur(3px);}
-  .quiz-back.on{display:flex; animation:qfade .5s ease;}
+  .quiz-back.on{display:flex; animation:qfade .8s ease;}
   @keyframes qfade{from{opacity:0;}}
   .quiz-card{width:100%; max-width:440px; background:var(--card-bg); color:var(--card-text); border:1px solid var(--line); border-radius:16px; padding:1.1rem 1.2rem 1.2rem; box-shadow:0 24px 50px rgba(0,0,0,.35); font-family:"Iowan Old Style",Georgia,serif;}
   .quiz-tag{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--orbit); font-weight:700; margin-bottom:.5rem;}
@@ -581,15 +581,15 @@
   [data-theme="dark"] .quiz-card.medium .quiz-tag{color:#7cc4dc;}
   .gull{position:absolute; left:0; bottom:27px; width:46px; height:32px; z-index:3; will-change:transform; pointer-events:none;}
   .gull svg{display:block; overflow:visible; filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.3));}
-  .gull .wing{transform-origin:24px 18px; animation:gflap .42s ease-in-out infinite alternate;}
+  .gull .wing{transform-origin:24px 18px; animation:gflap .5s ease-in-out infinite alternate;}
   @keyframes gflap{from{transform:scaleY(1);} to{transform:scaleY(-.55);}}
   @media (prefers-reduced-motion:reduce){ .gull .wing{animation:none;} }
   .quiz-card.hard{border-color:var(--rust); box-shadow:0 24px 50px rgba(181,98,46,.4);}
   .quiz-card.hard .quiz-tag{color:var(--rust);}
   .beach{position:absolute; bottom:8px; width:160px; z-index:2; display:none; pointer-events:none;}
-  .beach.on{display:block; animation:beach-rise 1s cubic-bezier(.2,.8,.2,1) both;}
+  .beach.on{display:block; animation:beach-rise .8s cubic-bezier(.2,.8,.2,1) both;}
   .beach svg{display:block; width:100%; height:auto; overflow:visible;}
-  .zz text{animation:zz 2.4s ease-in-out infinite;} .zz text:nth-child(2){animation-delay:.7s;}
+  .zz text{animation:zz 2.5s ease-in-out infinite;} .zz text:nth-child(2){animation-delay:.7s;}
   @keyframes beach-rise{from{transform:translateY(46px); opacity:0;}}
   @keyframes zz{0%,100%{opacity:.2;} 50%{opacity:1;}}
   .duck-hud .hb{pointer-events:auto; font:inherit; font-size:.78rem; padding:.35rem .9rem; border:0; border-radius:99px; background:var(--orbit); color:#fff; cursor:pointer;}
@@ -613,8 +613,8 @@
         <ellipse cx="130" cy="94" rx="124" ry="13" fill="url(#seaG)"/>
         <path d="M12 94c22-2 30 4 52 2M196 100c20-2 34 3 54 0" stroke="#fff" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round"/>
         <g class="palm" fill="none" stroke-linecap="round"><g stroke="#ff7f96" stroke-width="7"><path d="M50 80V46M50 64L36 50M50 56L64 42"/></g><g fill="#ffa8b8" stroke="none"><circle cx="50" cy="44" r="5"/><circle cx="35" cy="48" r="4.5"/><circle cx="65" cy="40" r="4.5"/></g></g>
-        <g class="palm" style="animation-delay:-1.3s" fill="none" stroke-linecap="round"><g stroke="#ffb15c" stroke-width="7"><path d="M130 66V22M130 50L112 34M130 42L148 28"/></g><g fill="#ffd08a" stroke="none"><circle cx="130" cy="20" r="5"/><circle cx="111" cy="32" r="4.5"/><circle cx="149" cy="26" r="4.5"/></g></g>
-        <g class="palm" style="animation-delay:-2.4s"><path d="M206 82L180 44Q206 22 232 44Z" fill="#b58cf0"/><path d="M206 82V34M206 82L190 42M206 82L222 42" stroke="#8f63d8" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>
+        <g class="palm" style="animation-delay:-1s" fill="none" stroke-linecap="round"><g stroke="#ffb15c" stroke-width="7"><path d="M130 66V22M130 50L112 34M130 42L148 28"/></g><g fill="#ffd08a" stroke="none"><circle cx="130" cy="20" r="5"/><circle cx="111" cy="32" r="4.5"/><circle cx="149" cy="26" r="4.5"/></g></g>
+        <g class="palm" style="animation-delay:-1.5s"><path d="M206 82L180 44Q206 22 232 44Z" fill="#b58cf0"/><path d="M206 82V34M206 82L190 42M206 82L222 42" stroke="#8f63d8" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>
         <g fill="none" stroke="#fff" stroke-opacity=".7"><circle cx="92" cy="30" r="3"/><circle cx="99" cy="18" r="2"/><circle cx="168" cy="22" r="2.5"/></g>
         <path d="M22 92C40 64 90 60 130 60S220 66 238 92C206 101 54 101 22 92Z" fill="url(#sandG)"/>
         <path d="M56 78c16-8 40-11 62-11" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/>
