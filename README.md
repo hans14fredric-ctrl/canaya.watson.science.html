@@ -1707,7 +1707,7 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     qNext.hidden=false; qNext.focus(); paint();
   }
   function closeQuiz(){ qEl.classList.remove('on'); quizOpen=false; }
-  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); if(mode==='play'&&!eDeck.length&&!mDeck.length&&!hDeck.length) victory(); else if(mode==='play'){ resumeT=1.5; waveTimer=Math.max(waveTimer,3); paint('Get ready… 2'); } });
+  qNext.addEventListener('click',()=>{ closeQuiz(); qNext.blur(); if(mode==='play'&&!eDeck.length&&!mDeck.length&&!hDeck.length) victory(); else if(mode==='play'){ resumeT=0.5; waveTimer=Math.max(waveTimer,3); paint('Get ready…'); } });
   addEventListener('keydown',e=>{
     if(!quizOpen||!qNext.hidden||e.key.length!==1) return;
     const b=qOpts.children['abcd'.indexOf(e.key.toLowerCase())]; if(b) b.click();
