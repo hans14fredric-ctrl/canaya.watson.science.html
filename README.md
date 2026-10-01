@@ -1662,27 +1662,41 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
         qOpts=document.getElementById('quizOpts'), qFb=document.getElementById('quizFb'), qNext=document.getElementById('quizNext');
   const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild;
   let jokeOn=false, bE=QE, bM=QM, bH=QH, eDeck=[], mDeck=[], hDeck=[], QN=0;
-  const RUN_E=16, RUN_M=14, RUN_H=20;   // 50 questions per run   // questions per run (keeps it from feeling like too many)
+  const RUN_E=16, RUN_M=14, RUN_H=30;   // 50 questions per run   // questions per run (keeps it from feeling like too many)
   const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹', plain=h=>h.replace(/<sup>(\d+)<\/sup>/g,(m,n)=>[...n].map(d=>SUPD[d]).join(''));
-  function elemQ(z){   // "full electron configuration of element Z", built from the periodic-table data
+  function elemQ(z,txt){   // "full electron configuration of element Z", built from the periodic-table data
     const D=window.ptData, e=D.PT[z-1], w=[];
     for(const d of [1,-1,2,-2,3]){ const k=z+d; if(k>=1&&k<=118&&w.length<3) w.push(plain(D.cfg(k).full)); }
-    return [2,'What is the full electron configuration of '+e.nm+' ('+e.sy+', Z = '+z+')?',plain(D.cfg(z).full)].concat(w);
+    return [2,txt||('What is the full electron configuration of '+e.nm+' ('+e.sy+', Z = '+z+')?'),plain(D.cfg(z).full)].concat(w);
   }
-  function orbQ(z){   // "which orbital diagram is correct for element Z" – options are drawn diagrams
+  function orbQ(z,txt){   // "which orbital diagram is correct for element Z" – options are drawn diagrams
     const D=window.ptData, e=D.PT[z-1], R=D.orbDiag;
     const gs=k=>{ let n=0,r=[]; for(const o of D.ORD){ if(n>=k) break; const t=Math.min(D.CAP[o[1]],k-n); n+=t; r.push([o,{s:1,p:3,d:5,f:7}[o[1]],t]); } return r.sort((a,b)=>D.ORD.indexOf(a[0])-D.ORD.indexOf(b[0])); };
     const base=gs(z), L=base[base.length-1], ok=R(base), cand=[];
     if(L[1]>1&&L[2]>=2){ const a=Array(L[1]).fill(0); let r=L[2]; for(let i=0;i<L[1];i++){ const t=Math.min(2,r); a[i]=t; r-=t; } cand.push(R(base.slice(0,-1).concat([[L[0],L[1],a]]))); }   // breaks Hund's rule
     cand.push(R(gs(z+1)),R(gs(z-1)),R(gs(z+2)),R(gs(z-2)),R(gs(z+3)));
     const w=[]; for(const x of cand) if(x!==ok&&!w.includes(x)&&w.length<3) w.push(x);
-    const q=[2,'Which orbital diagram is correct for '+e.nm+' ('+e.sy+', Z = '+z+')?',ok].concat(w); q.html=true; return q;
+    const q=[2,txt||('Which orbital diagram is correct for '+e.nm+' ('+e.sy+', Z = '+z+')?'),ok].concat(w); q.html=true; return q;
   }
+  const CL_CFG=[
+    [30,"Mystery element: its 3d sublevel is completely full and two electrons sit in the 4s sublevel. It is used to galvanize steel so it won't rust. What is its full electron configuration?"],
+    [31,"Mystery element: its highest-energy electron is all alone in the 4p sublevel, and it melts in your hand at about 30 °C. (Unrelated fact: it is named after Gaul, the old name for France.) What is its full electron configuration?"],
+    [34,"Mystery element: its 4p sublevel holds four electrons, two short of full. It is used in photocells and to tint glass red. What is its full electron configuration?"],
+    [35,"Mystery element: its 4p sublevel is just one electron short of full, and it is one of only two elements that are liquid at room temperature. (Unrelated fact: its name means 'stench' in Greek.) What is its full electron configuration?"],
+    [40,"Mystery element: it has two electrons in 4d and two in 5s. It is used to wrap the fuel rods inside nuclear reactors. (Unrelated fact: its name comes from a Persian word for 'gold-colored'.) What is its full electron configuration?"]
+  ];
+  const CL_ORB=[
+    [32,"Mystery element: its 4p sublevel has two electrons, each in its own box. It was used in the very first transistors. Which orbital diagram is correct for it?"],
+    [33,"Mystery element: its half-filled 4p sublevel has three unpaired electrons, and it is the famous poison of mystery novels. (Unrelated fact: its compounds once colored green wallpaper.) Which orbital diagram is correct for it?"],
+    [36,"Mystery element: its 4p sublevel is completely full, so it has no unpaired electrons. It is used in bright flash lamps and some lights. (Unrelated fact: a fictional planet with a similar name was Superman's home.) Which orbital diagram is correct for it?"],
+    [38,"Mystery element: its last two electrons fill the 5s sublevel, and the 4d sublevel is still empty. It makes fireworks glow bright red. Which orbital diagram is correct for it?"],
+    [39,"Mystery element: it has one electron in 4d plus two in 5s. It is used in the red phosphors of old color TVs. (Unrelated fact: it is named after Ytterby, a village in Sweden.) Which orbital diagram is correct for it?"]
+  ];
   function newRun(){
     const zr=(a,b)=>Array.from({length:b-a+1},(_,i)=>elemQ(a+i));
-    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(orbQ));
-    eDeck=shuf(bE.map((_,i)=>i)).slice(0,RUN_E); mDeck=shuf(bM.map((_,i)=>i)).slice(0,RUN_M); { const nb=bH.length-10, rg=(a,b)=>Array.from({length:b-a},(_,i)=>a+i);   // all 10 orbital-diagram questions + 10 others in each run
-      hDeck=shuf(shuf(rg(nb,nb+10)).concat(shuf(rg(0,nb)).slice(0,RUN_H-10))); }
+    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>elemQ(c[0],c[1])),CL_ORB.map(c=>orbQ(c[0],c[1])));
+    eDeck=shuf(bE.map((_,i)=>i)).slice(0,RUN_E); mDeck=shuf(bM.map((_,i)=>i)).slice(0,RUN_M); { const nb=bH.length-20, rg=(a,b)=>Array.from({length:b-a},(_,i)=>a+i);   // all 10 orbital-diagram questions + 10 others in each run
+      hDeck=shuf(shuf(rg(nb,nb+20)).concat(shuf(rg(0,nb)).slice(0,RUN_H-20))); }
     QN=eDeck.length+mDeck.length+hDeck.length; qOk=0;
   }
   const shuf=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
