@@ -612,6 +612,8 @@
 @keyframes gflap{from{transform:scaleY(1) rotate(-4deg);} to{transform:scaleY(-.7) rotate(6deg);}}
 .gull .wing{animation:gflap .4s ease-in-out infinite alternate !important;}
 body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/README.md"]){display:none !important;}
+.quiz-opts .osym{display:inline-block; min-width:1.9rem; margin-right:.45rem; font-weight:700; color:var(--rust);}
+.quiz-opts .osym.blk{display:block; margin:0 0 .25rem;}
 </style>
 </head>
 <body>
@@ -1692,9 +1694,14 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     [38,"Mystery element: its last two electrons fill the 5s sublevel, and the 4d sublevel is still empty. It makes fireworks glow bright red. Which orbital diagram is correct for it?"],
     [39,"Mystery element: it has one electron in 4d plus two in 5s. It is used in the red phosphors of old color TVs. (Unrelated fact: it is named after Ytterby, a village in Sweden.) Which orbital diagram is correct for it?"]
   ];
+  function symLab(q,z){   // label each choice with a symbol: the real one for the right answer, random ones for the wrong answers
+    const D=window.ptData, ok=D.PT[z-1].sy, pool=shuf(D.PT.map(e=>e.sy).filter(x=>x!==ok)), blk=q.html?' blk':'';
+    for(let i=2;i<q.length;i++) q[i]='<span class="osym'+blk+'">'+(i===2?ok:pool[i-3])+'</span>'+q[i];
+    q.html=true; return q;
+  }
   function newRun(){
     const zr=(a,b)=>Array.from({length:b-a+1},(_,i)=>elemQ(a+i));
-    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>elemQ(c[0],c[1])),CL_ORB.map(c=>orbQ(c[0],c[1])));
+    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>symLab(elemQ(c[0],c[1]),c[0])),CL_ORB.map(c=>symLab(orbQ(c[0],c[1]),c[0])));
     eDeck=shuf(bE.map((_,i)=>i)).slice(0,RUN_E); mDeck=shuf(bM.map((_,i)=>i)).slice(0,RUN_M); { const nb=bH.length-20, rg=(a,b)=>Array.from({length:b-a},(_,i)=>a+i);   // all 10 orbital-diagram questions + 10 others in each run
       hDeck=shuf(shuf(rg(nb,nb+20)).concat(shuf(rg(0,nb)).slice(0,RUN_H-20))); }
     QN=eDeck.length+mDeck.length+hDeck.length; qOk=0;
