@@ -533,6 +533,39 @@
   .pt-c{position:relative; border:0; border-radius:4px; padding:0; cursor:pointer; color:#1f2b33; display:flex; align-items:center; justify-content:center; transition:transform .12s;}
   .pt-c i{position:absolute; top:1px; left:2px; font:.44rem Georgia,serif; font-style:normal; opacity:.7;} .pt-c b{font:700 .74rem Georgia,serif; margin-top:4px;}
   .pt-c:hover{transform:scale(1.18); z-index:2;} .pt-c.sel{outline:2px solid var(--rust); z-index:3;}
+  /* ---------- Week 3: notation, shielding tables, metal / nonmetal explorer ---------- */
+  .mt-anat{display:grid; grid-template-columns:repeat(3,1fr); gap:.4rem; margin:.3rem 0 .6rem; text-align:center;}
+  .mt-anat > div{border:1px solid var(--line); border-radius:10px; padding:.35rem .3rem; background:rgba(127,127,127,.07); font-size:.8em; line-height:1.3;}
+  .mt-anat .big{display:block; font:700 1.9rem/1.1 Georgia,serif; color:var(--rust);} .mt-anat .big sup{font-size:.55em;}
+  .mt-anat small{display:block; opacity:.8;}
+  .mt-tbl{width:100%; border-collapse:separate; border-spacing:2px; font-size:.78em; text-align:center; margin:.2rem 0 .5rem;}
+  .mt-tbl th{font-weight:700; background:rgba(181,98,46,.2); border-radius:5px; padding:.15rem .25rem;}
+  .mt-tbl td{background:rgba(127,127,127,.1); border-radius:5px; padding:.15rem .25rem;}
+  .mt-tbl td.k{text-align:left; font-weight:600;} .mt-tbl td.hi{background:rgba(46,125,107,.25); font-weight:700;}
+  .mt-sub{display:flex; flex-wrap:wrap; gap:.25rem; margin:.2rem 0 .5rem;}
+  .mt-sub span{padding:.05rem .5rem; border-radius:99px; border:1px solid var(--orbit); background:rgba(46,125,107,.14); font-size:.8em;}
+  .mt-sub span.th{border-style:dashed; background:none; opacity:.75;}
+  .mt-callout{border-left:4px solid var(--rust); background:rgba(181,98,46,.12); padding:.35rem .6rem; border-radius:0 8px 8px 0; margin:.4rem 0 .6rem; font-size:.88em; line-height:1.4;}
+  .mt-callout.ok{border-left-color:var(--orbit); background:rgba(46,125,107,.13);}
+  .mt-note{font-size:.72rem; opacity:.7; margin:.2rem 0 .5rem; text-indent:0 !important;}
+  .mt-info{display:flex; gap:.8rem; align-items:flex-start; padding:.6rem; border-radius:12px; background:rgba(127,127,127,.12); margin-bottom:.5rem; font-size:.8rem; line-height:1.4; min-height:158px;}
+  .mt-swwrap{flex:none; width:84px; text-align:center;} .mt-swwrap small{display:block; font-size:.6rem; opacity:.7; margin-top:.25rem; line-height:1.2;}
+  .mt-sw{width:78px; height:78px; border-radius:12px; display:flex; align-items:center; justify-content:center; font:700 1.6rem Georgia,serif; color:#1f2b33;}
+  .mt-sw.liq{border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;}
+  .mt-sw.gas{border:2px dashed rgba(127,127,127,.7); font-size:.7rem; color:inherit; opacity:.95;}
+  .mt-sw.unk{border:2px dashed rgba(127,127,127,.7); background:repeating-linear-gradient(45deg,rgba(127,127,127,.15) 0 6px,transparent 6px 12px); color:inherit;}
+  .mt-txt h4{margin:0 0 .2rem; font-size:1rem;} .mt-txt div{margin-bottom:.12rem;}
+  .mt-tag{display:inline-block; padding:0 .5rem; border-radius:99px; font-weight:700; font-size:.7rem; color:#1f2b33; margin-right:.3rem;}
+  .mt-leg{display:flex; flex-wrap:wrap; gap:.3rem; margin-bottom:.4rem;} .mt-leg span{padding:.1rem .5rem; border-radius:99px; font:700 .66rem Georgia,serif; color:#1f2b33;}
+  .mt-c{position:relative; border:0; border-radius:4px; padding:0; cursor:pointer; color:#1f2b33; display:flex; align-items:center; justify-content:center; transition:transform .12s;}
+  .mt-c i{position:absolute; top:1px; left:2px; font:.44rem Georgia,serif; font-style:normal; opacity:.7;} .mt-c b{font:700 .74rem Georgia,serif; margin-top:4px;}
+  .mt-c:hover{transform:scale(1.18); z-index:2;} .mt-c.sel{outline:2px solid var(--rust); z-index:3;}
+  .mt-c.u{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.1) 0 3px,transparent 3px 6px);}
+  .mt-grid{grid-template-columns:34px repeat(18,minmax(0,1fr)); min-width:0;} @media(max-width:768px){.mt-grid{min-width:500px;}}
+  .mt-steps{counter-reset:s; list-style:none; padding:0 !important; margin:.2rem 0 .5rem !important;}
+  .mt-steps > li{counter-increment:s; position:relative; padding-left:1.7rem; margin-bottom:.35rem;}
+  .mt-steps > li::before{content:counter(s); position:absolute; left:0; top:.05rem; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--rust); color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center;}
+
 
   /* ---------- Help screen + touch buttons ---------- */
   .duck-help{position:fixed; inset:0; z-index:94; display:flex; align-items:center; justify-content:center; padding:1rem; background:rgba(10,30,36,.45); backdrop-filter:blur(3px);}
@@ -943,7 +976,113 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
           "<p><b>d example – Iron (Z = 26)</b></p>" + orbDiag([['[Ar]',0],['4s',1,2],['3d',5,6]]) +
           "<p><b>f example – Europium (Z = 63)</b> – half-filled 4f</p>" + orbDiag([['[Xe]',0],['6s',1,2],['4f',7,7]]) + "</div>"
       ] },
-    "3": { "label": "No. 03", "title": "Week 3", "pages": ["Add your Week 3 notes or project links here."] },
+    "3": { "label": "No. 03", "title": "Week 3: Shielding & Periodic Trends", "pages": [
+        `<div class='nt'><h3>Electron Configuration: How to Read It</h3>
+          <p class='no-indent'>An <b>electron configuration</b> is the “address” of every electron in an atom: which <b>energy level</b>, which <b>sublevel</b>, and <b>how many</b> electrons are living there.</p>
+          <p class='no-indent'><b>Anatomy of one piece of notation (example: 2p<sup>4</sup>)</b></p>
+          <div class='mt-anat'>
+            <div><span class='big'>2</span><b>Energy level</b><small>which shell (n)</small></div>
+            <div><span class='big'>p</span><b>Sublevel</b><small>the type / shape of region</small></div>
+            <div><span class='big'>4</span><b>Electrons</b><small>how many are inside it</small></div>
+          </div>
+          <div class='mt-callout'>The small raised number is a <b>count</b>, not a power. 2p<sup>4</sup> does <b>not</b> mean “2p × 2p × 2p × 2p”. Read it aloud as: “<i>two-p-four</i> → energy level 2, p sublevel, 4 electrons.”</div>
+          <p class='no-indent'><b>Ground state</b> = the lowest-energy arrangement (all configurations in these notes). If an electron absorbs energy and jumps higher, the atom is <b>excited</b>; it later falls back and releases light.</p>
+          <p class='no-indent'><b>How many sublevels does each shell have?</b> The shell number <span class='ltr'>n</span> equals its number of sublevels.</p>
+          <table class='mt-tbl'><tr><th>n</th><th>Sublevels</th><th>Count</th></tr>
+            <tr><td class='k'>1</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>1s</span></div></td><td>1</td></tr>
+            <tr><td class='k'>2</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>2s</span><span>2p</span></div></td><td>2</td></tr>
+            <tr><td class='k'>3</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>3s</span><span>3p</span><span>3d</span></div></td><td>3</td></tr>
+            <tr><td class='k'>4</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>4s</span><span>4p</span><span>4d</span><span>4f</span></div></td><td>4</td></tr>
+            <tr><td class='k'>5</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>5s</span><span>5p</span><span>5d</span><span>5f</span><span class='th'>5g?</span></div></td><td>5</td></tr>
+            <tr><td class='k'>6</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>6s</span><span>6p</span><span>6d</span><span class='th'>6f?</span><span class='th'>6g?</span><span class='th'>6h?</span></div></td><td>6</td></tr>
+            <tr><td class='k'>7</td><td><div class='mt-sub' style='justify-content:center;margin:0'><span>7s</span><span>7p</span><span class='th'>7d?</span><span class='th'>7f?</span><span class='th'>7g?</span><span class='th'>7h?</span><span class='th'>7i?</span></div></td><td>7</td></tr></table>
+          <p class='mt-note'>Solid chips = sublevels that actually hold electrons in a ground-state atom of a known element (6d is used too, e.g. in the actinides). Dashed chips with “?” = sublevels that exist in theory (g, h, i…), but no known element’s ground state puts electrons there.</p></div>`,
+
+        `<div class='nt'><h3>The Shielding Effect</h3>
+          <p class='no-indent'>The <b>shielding effect</b> is when inner-shell (<b>core</b>) electrons block the outer <b>valence</b> electrons from feeling the full pull of the positive nucleus.</p>
+          <div class='mt-callout ok'><b>Think of a concert crowd.</b> The nucleus is the stage. A fan in the back row (a valence electron) can't see the stage well because the rows in front (core electrons) are in the way.</div>
+          <p class='no-indent'><b>Down a group → shielding increases.</b> Each new period adds a whole new inner shell.</p>
+          <table class='mt-tbl'><tr><th>Group 1</th><th>Protons</th><th>Core e⁻ (shield)</th><th>Valence e⁻</th><th>Shells</th></tr>
+            <tr><td class='k'>Li</td><td>3</td><td>2</td><td>1</td><td>2</td></tr>
+            <tr><td class='k'>Na</td><td>11</td><td class='hi'>10</td><td>1</td><td>3</td></tr>
+            <tr><td class='k'>K</td><td>19</td><td class='hi'>18</td><td>1</td><td>4</td></tr></table>
+          <p class='no-indent'><b>Across a period → shielding stays about the same.</b> New electrons are added to the <i>same</i> shell, and electrons in the same shell shield each other poorly. Meanwhile the number of protons keeps going up.</p>
+          <table class='mt-tbl'><tr><th>Period 3</th><th>Na</th><th>Mg</th><th>Al</th><th>Si</th><th>P</th><th>S</th><th>Cl</th></tr>
+            <tr><td class='k'>Protons</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+            <tr><td class='k'>Core e⁻</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr>
+            <tr><td class='k'>Net pull ≈</td><td class='hi'>+1</td><td class='hi'>+2</td><td class='hi'>+3</td><td class='hi'>+4</td><td class='hi'>+5</td><td class='hi'>+6</td><td class='hi'>+7</td></tr></table>
+          <p class='mt-note'>Simplified: net pull ≈ protons − core electrons. Scientists call this the <b>effective nuclear charge</b>. Real values are a little lower, but the pattern is the same: it rises steadily across a period.</p></div>`,
+
+        `<div class='nt'><h3>Metallic &amp; Non-Metallic Character</h3>
+          <ul class='pts'>
+            <li><b>Metallic character</b> = how readily an atom <b>loses</b> electrons to form <b>positive ions (cations)</b>. Example: Na → Na<sup>+</sup>.</li>
+            <li><b>Non-metallic character</b> = how readily an atom <b>gains</b> electrons to form <b>negative ions (anions)</b>. Example: Cl → Cl<sup>−</sup>.</li></ul>
+          <svg viewBox='0 0 330 150' style='width:100%;max-width:430px;display:block;margin:.2rem auto;color:var(--ink)' role='img' aria-label='Trend maps: metallic character grows toward the bottom-left, non-metallic character grows toward the top-right'>
+            <defs>
+              <linearGradient id='gA' x1='0' y1='1' x2='1' y2='0'><stop offset='0' stop-color='#B5622E'/><stop offset='1' stop-color='#B5622E' stop-opacity='.08'/></linearGradient>
+              <linearGradient id='gB' x1='1' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#2E7D6B'/><stop offset='1' stop-color='#2E7D6B' stop-opacity='.08'/></linearGradient>
+              <marker id='ar' viewBox='0 0 8 8' refX='6' refY='4' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M0 0L8 4L0 8Z' fill='currentColor'/></marker>
+            </defs>
+            <g font-family='Georgia,serif' font-size='9' fill='currentColor' text-anchor='middle'>
+              <text x='83' y='11' font-weight='700' font-size='10'>Metallic character</text>
+              <rect x='22' y='20' width='122' height='80' rx='6' fill='url(#gA)' stroke='currentColor' stroke-opacity='.4'/>
+              <text x='40' y='93' font-size='8' fill='#fff' stroke='#000' stroke-width='.3'>Cs / Fr</text>
+              <text x='124' y='34' font-size='8'>F</text>
+              <line x1='11' y1='26' x2='11' y2='96' stroke='currentColor' stroke-width='1.5' marker-end='url(#ar)'/>
+              <text x='7' y='62' transform='rotate(-90 7 62)' font-size='8'>↓ increases</text>
+              <line x1='140' y1='110' x2='28' y2='110' stroke='currentColor' stroke-width='1.5' marker-end='url(#ar)'/>
+              <text x='83' y='123'>← increases (right to left)</text>
+              <text x='248' y='11' font-weight='700' font-size='10'>Non-metallic character</text>
+              <rect x='187' y='20' width='122' height='80' rx='6' fill='url(#gB)' stroke='currentColor' stroke-opacity='.4'/>
+              <text x='290' y='34' font-size='8' fill='#fff' stroke='#000' stroke-width='.3'>F</text>
+              <text x='208' y='93' font-size='8'>Cs / Fr</text>
+              <line x1='176' y1='96' x2='176' y2='26' stroke='currentColor' stroke-width='1.5' marker-end='url(#ar)'/>
+              <text x='172' y='62' transform='rotate(-90 172 62)' font-size='8'>↑ increases</text>
+              <line x1='193' y1='110' x2='305' y2='110' stroke='currentColor' stroke-width='1.5' marker-end='url(#ar)'/>
+              <text x='248' y='123'>increases → (left to right)</text>
+              <text x='165' y='144' font-size='8' opacity='.75'>Opposite trends: strong in one corner = weak in the other</text>
+            </g></svg>
+          <p class='no-indent'><b>Why do the trends happen?</b></p>
+          <ul class='pts'>
+            <li><b>Down a group:</b> more shells → valence electrons are farther away and more shielded → they are easier to remove. <span class='hl'>Metallic ↑ · Non-metallic ↓</span></li>
+            <li><b>Across a period:</b> shielding stays about the same but protons increase → stronger pull on outer electrons → harder to lose, easier to attract more. <span class='hl'>Metallic ↓ · Non-metallic ↑</span></li></ul>
+          <div class='mt-callout'><b>Exception:</b> noble gases (group 18) are left out of the non-metallic trend. Their outer shells are already full, so they neither gain nor lose electrons readily.</div></div>`,
+
+        `<div class='nt'><h3>Explore: Metals, Metalloids &amp; Non-Metals</h3><p class='ptnote'>Tap any element to see its type, state at room temperature, and what it looks like.</p><div id='mtMount'></div></div>`,
+
+        `<div class='nt'><h3>Cheat Sheet: All the Trends</h3>
+          <table class='mt-tbl'><tr><th>Property</th><th>Down a group ↓</th><th>Across a period →</th></tr>
+            <tr><td class='k'>Shielding effect</td><td class='hi'>Increases</td><td>About the same</td></tr>
+            <tr><td class='k'>Net pull on valence e⁻</td><td>About the same</td><td class='hi'>Increases</td></tr>
+            <tr><td class='k'>Distance of valence e⁻ from nucleus</td><td>Increases</td><td>Decreases</td></tr>
+            <tr><td class='k'>Metallic character</td><td class='hi'>Increases</td><td class='hi'>Decreases</td></tr>
+            <tr><td class='k'>Non-metallic character</td><td class='hi'>Decreases</td><td class='hi'>Increases</td></tr></table>
+          <p class='no-indent'><b>Metals vs. non-metals at a glance</b></p>
+          <table class='mt-tbl'><tr><th></th><th>Metals</th><th>Metalloids</th><th>Non-metals</th></tr>
+            <tr><td class='k'>Ions</td><td>Lose e⁻ → cations (+)</td><td>Can go either way</td><td>Gain e⁻ → anions (−)</td></tr>
+            <tr><td class='k'>Look</td><td>Shiny (lustrous)</td><td>Shiny but brittle</td><td>Usually dull as solids</td></tr>
+            <tr><td class='k'>Strength</td><td>Malleable, ductile</td><td>Brittle</td><td>Brittle as solids</td></tr>
+            <tr><td class='k'>Conduct</td><td>Heat &amp; electricity well</td><td>Semiconductors</td><td>Poor (insulators)</td></tr>
+            <tr><td class='k'>Where</td><td>Left &amp; center</td><td>Along the staircase</td><td>Upper right</td></tr></table>
+          <p class='no-indent'><b>Common mistakes to avoid</b></p>
+          <ul><li>“More electrons means more shielding.” <b>Not always.</b> Only electrons in <i>inner</i> shells shield well, and same-shell electrons barely shield each other.</li>
+          <li>“Metallic and non-metallic character both go up the same way.” <b>No, they are opposites.</b></li>
+          <li>“Noble gases are the most non-metallic.” <b>No.</b> They are excluded from the trend, and fluorine is the top.</li>
+          <li>“The raised number in 2p<sup>4</sup> is an exponent.” <b>No, it is an electron count.</b></li></ul></div>`,
+
+        `<div class='nt'><h3>Worked Examples: Comparing Elements</h3>
+          <p class='no-indent'><b>The 3-step method</b></p>
+          <ol class='mt-steps'>
+            <li><b>Locate</b> each element: period (row) and group (column).</li>
+            <li><b>Compare</b> positions: lower = more shielding; further left = weaker pull.</li>
+            <li><b>Apply</b> the trend: lower or further left → <b>more metallic</b>; higher or further right → <b>more non-metallic</b>.</li></ol>
+          <div class='mt-callout ok'><b>Example 1: Na vs. K.</b> Same group. K is below Na, so K has more shielding (4 shells vs. 3). K = [Ar] 4s<sup>1</sup> loses its outer electron more easily than Na = [Ne] 3s<sup>1</sup>. <b>K is more metallic.</b></div>
+          <div class='mt-callout ok'><b>Example 2: Mg vs. Cl.</b> Same period, so shielding is about equal. Cl has 17 protons vs. Mg's 12, so it pulls harder. <b>Mg is more metallic; Cl is more non-metallic.</b></div>
+          <div class='mt-callout ok'><b>Example 3: Rank Ca, K, Rb by metallic character.</b> Rb is in period 5; K and Ca are in period 4. Rb is lowest, so it is most metallic. K is left of Ca. <b>Rb &gt; K &gt; Ca.</b></div>
+          <div class='mt-callout ok'><b>Example 4: Which is more non-metallic, S or Cl?</b> Same period, Cl is further right. <b>Cl.</b></div>
+          <div class='mt-callout ok'><b>Example 5: What ion does 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>5</sup> form?</b> Its 2p sublevel is one electron short of full (6). It is non-metallic and gains 1 e⁻ → <b>F<sup>−</sup></b>.</div>
+          <div class='mt-callout'><b>Watch out:</b> comparing diagonal elements (e.g. Li vs. Mg) is tricky because the two trends pull in opposite directions. Start with the examples that share a group or period.</div></div>`
+      ] },
     "4": { "label": "No. 04", "title": "Week 4", "pages": ["Add your Week 4 notes or project links here."] },
     "5": { "label": "No. 05", "title": "Week 5", "pages": ["Add your Week 5 notes or project links here."] },
     "6": { "label": "No. 06", "title": "Week 6", "pages": ["Add your Week 6 notes or project links here."] },
@@ -1045,6 +1184,153 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     document.querySelectorAll('.pt-c').forEach(x=>x.classList.toggle('sel',+x.dataset.z===ptSel));
   }
   function ptInit(){ const m=document.getElementById('ptMount'); if(!m) return; if(!ptCache) ptCache=ptBuild(); m.innerHTML=ptCache; ptShow(); }
+  /* ---------- Metals / metalloids / non-metals explorer (Week 3) ---------- */
+  const MT_RAW=`H|n|g|#dfe9f2|Colorless, odorless gas. The lightest element.
+He|n|g|#dfe9f2|Colorless, odorless gas. Glows pale pink-orange in a discharge tube.
+Li|m|s|#cfd3d6|Soft, silvery-white metal that tarnishes gray in air. Soft enough to cut with a knife, and light enough to float on oil.
+Be|m|s|#9aa1a6|Hard, brittle, steel-gray metal. Very light for a metal.
+B|l|s|#3b3330|Hard, brittle, dark solid. Crystalline boron is black and shiny; amorphous boron is a brown powder.
+C|n|s|#3a3a3c|Depends on the form. Graphite is soft, dark gray and slightly shiny. Diamond is clear and extremely hard.
+N|n|g|#dfe9f2|Colorless, odorless gas that makes up about 78% of air.
+O|n|g|#dfe9f2|Colorless, odorless gas. Liquid and solid oxygen are pale blue.
+F|n|g|#e9ee9a|Pale yellow gas. Extremely reactive and toxic.
+Ne|n|g|#dfe9f2|Colorless, odorless gas. Glows bright red-orange in a discharge tube (neon signs).
+Na|m|s|#d9dde0|Soft, silvery-white metal that quickly dulls in air. Cut easily with a knife; reacts strongly with water.
+Mg|m|s|#cfd4d8|Shiny, silvery-white, lightweight metal. Burns with a brilliant white flame.
+Al|m|s|#cdd2d6|Silvery-white, lightweight, soft metal. Often looks dull because of a thin oxide coat.
+Si|l|s|#6f7b8a|Hard, brittle, shiny blue-gray crystalline solid with a metallic luster.
+P|n|s|#e8dfa8|Several forms. White phosphorus is a waxy, pale-yellow, toxic solid; red phosphorus is a dark red powder; black phosphorus is a flaky, dark solid.
+S|n|s|#f2d83b|Bright yellow, brittle crystalline solid.
+Cl|n|g|#cfe38a|Pale yellow-green gas with a sharp, choking smell. Toxic.
+Ar|n|g|#dfe9f2|Colorless, odorless gas. Glows lavender-violet in a discharge tube.
+K|m|s|#d6d9dc|Soft, silvery-white metal that tarnishes within moments in air. Reacts vigorously with water.
+Ca|m|s|#c9cbc8|Fairly soft, silvery-gray metal. Dulls in air as a pale oxide layer forms.
+Sc|m|s|#cdccc8|Soft, silvery-white metal that develops a slightly yellowish or pinkish cast in air.
+Ti|m|s|#a9afb5|Lustrous, silvery-gray metal. Strong yet low in density.
+V|m|s|#a7adb3|Hard, silvery-gray metal with a bluish tint.
+Cr|m|s|#b7bfc7|Hard, shiny, blue-silvery metal that takes a mirror-like polish (chrome plating).
+Mn|m|s|#a9a6a8|Hard, brittle, silvery-gray metal.
+Fe|m|s|#a4a9ae|Lustrous, silvery-gray metal. Rusts to a reddish-brown flaky coat in damp air.
+Co|m|s|#9fa6b0|Hard, lustrous, silvery-gray metal with a faint bluish tinge. Magnetic.
+Ni|m|s|#c4c6c4|Lustrous, silvery-white metal with a slight golden tinge.
+Cu|m|s|#c8713a|Reddish-orange metal. Turns green (patina) when weathered.
+Zn|m|s|#b8c3cc|Bluish silvery-white metal. Brittle at room temperature.
+Ga|m|s|#c0cad6|Soft, silvery-blue metal. Melts at about 30 °C, so it can melt in your hand.
+Ge|l|s|#9aa0a6|Shiny, hard, brittle, grayish-white solid.
+As|l|s|#7d8085|The common gray form is a brittle, steel-gray, metallic-looking solid that tarnishes dark. Toxic.
+Se|n|s|#8b8d90|The common gray form is a brittle, metallic-looking gray solid. A red powder form also exists.
+Br|n|l|#7a2b1a|Dark reddish-brown liquid that gives off orange-brown, toxic fumes.
+Kr|n|g|#dfe9f2|Colorless, odorless gas. Glows whitish in a discharge tube.
+Rb|m|s|#d4d6d6|Soft, silvery-white metal that tarnishes almost instantly in air. Reacts violently with water.
+Sr|m|s|#d0d0cc|Soft, silvery-white metal that turns pale yellow as it oxidizes.
+Y|m|s|#c6c9cc|Silvery-white metal.
+Zr|m|s|#b9bcbf|Lustrous, grayish-white metal that resists corrosion.
+Nb|m|s|#a9adb2|Shiny, gray-white, ductile metal.
+Mo|m|s|#a5a9ad|Silvery-gray, hard metal.
+Tc|m|s|#a3a7ab|Silvery-gray, radioactive metal. Not found in meaningful amounts in nature; made artificially.
+Ru|m|s|#bfc3c7|Hard, lustrous, silvery-white metal.
+Rh|m|s|#cfd3d7|Hard, shiny, silvery-white metal (used to plate jewelry).
+Pd|m|s|#cfd1d2|Soft, silvery-white metal.
+Ag|m|s|#e3e5e8|Brilliant white, very shiny metal. Tarnishes black over time.
+Cd|m|s|#bcc6cf|Soft, bluish-white metal. Toxic.
+In|m|s|#cfd2d6|Very soft, silvery-white metal.
+Sn|m|s|#d0d3d6|Soft, silvery-white metal (the common “white tin” form).
+Sb|l|s|#9aa3ad|Shiny, silvery blue-gray, brittle solid.
+Te|l|s|#9ea2a6|Shiny, silvery-gray, brittle solid.
+I|n|s|#3b2a4d|Dark violet-black solid with a metallic sheen. Gives off purple vapor when heated.
+Xe|n|g|#dfe9f2|Colorless, odorless gas. Glows pale blue-lavender in a discharge tube.
+Cs|m|s|#e1c88c|Soft, pale golden-silvery metal. Melts at about 28 °C, so it turns liquid on a warm day. Reacts explosively with water.
+Ba|m|s|#cfcdc4|Soft, silvery-white metal that tarnishes quickly in air.
+La|m|s|#c8cbcd|Soft, silvery-white metal that tarnishes quickly.
+Ce|m|s|#c3c6c8|Soft, silvery-white metal that tarnishes in air.
+Pr|m|s|#c9c9b8|Soft, silvery metal with a slight yellowish tinge.
+Nd|m|s|#c8c8c0|Silvery-white metal with a yellowish tinge. Tarnishes in air; used in strong magnets.
+Pm|m|s|#b9bcc0|Radioactive and very rare. Expected to be a silvery metal; its compounds glow pale blue-green in the dark.
+Sm|m|s|#c3c6c8|Silvery-white metal of moderate hardness.
+Eu|m|s|#c6c8c8|Soft, silvery-white metal that tarnishes very quickly in air.
+Gd|m|s|#c9cdd0|Silvery-white, malleable and ductile metal.
+Tb|m|s|#bfc3c6|Soft, silvery-gray metal.
+Dy|m|s|#bfc3c6|Soft, silvery metal that can be cut with a knife.
+Ho|m|s|#c3c6c8|Soft, silvery-white metal.
+Er|m|s|#c3c6c8|Soft, silvery-white metal.
+Tm|m|s|#bcc0c3|Soft, silvery-gray metal.
+Yb|m|s|#d0c9a8|Soft, silvery metal with a slight golden tint.
+Lu|m|s|#c8cbce|Silvery-white, dense and hard metal.
+Hf|m|s|#aeb3b8|Lustrous, silvery-gray, ductile metal.
+Ta|m|s|#8d98a3|Hard, lustrous, gray-blue metal.
+W|m|s|#9ea3a8|Hard, dense, steel-gray to white metal. It has the highest melting point of all metals.
+Re|m|s|#b5b9bd|Dense, silvery-white metal.
+Os|m|s|#8fa0b5|Hard, brittle, dense, blue-gray metal.
+Ir|m|s|#cfd2d5|Very hard, brittle, silvery-white metal.
+Pt|m|s|#d3d5d8|Dense, soft, silvery-white metal that does not tarnish.
+Au|m|s|#e6b422|Lustrous yellow metal. Very soft and does not tarnish.
+Hg|m|l|#cfd6dc|Heavy, silvery-white liquid metal. Toxic.
+Tl|m|s|#9aa5b0|Soft, bluish-gray metal that tarnishes. Toxic.
+Pb|m|s|#7f8b99|Soft, heavy, dull bluish-gray metal. Shiny when freshly cut.
+Bi|m|s|#d6c8c4|Brittle, silvery-white metal with a pinkish tinge. Its oxide layer can show rainbow colors.
+Po|m|s|#b4b7ba|Silvery, highly radioactive metal. Extremely rare.
+At|u|?|#cfcfcf|Intensely radioactive and extremely rare. No visible sample has ever been made, so its appearance is not known. Often expected to be dark and metal-like.
+Rn|n|g|#dfe9f2|Colorless, odorless, radioactive gas.
+Fr|u|?|#cfcfcf|Extremely radioactive and rare. No visible sample has ever been made, so its appearance is not known. It is expected to be a metal.
+Ra|m|s|#d4d6d4|Silvery-white metal that blackens quickly in air. Radioactive.
+Ac|m|s|#c6c9cc|Silvery-white, radioactive metal that glows faintly blue in the dark.
+Th|m|s|#bcc0c4|Soft, silvery-white metal that tarnishes to black in air. Radioactive.
+Pa|m|s|#bfc3c7|Bright, silvery-gray, radioactive metal.
+U|m|s|#a8acb0|Dense, silvery-gray metal that tarnishes in air. Radioactive.
+Np|m|s|#b5b9bd|Silvery, radioactive metal. Made artificially.
+Pu|m|s|#bdbdb6|Silvery-white, radioactive metal that tarnishes to a dull gray-yellow coat. Made artificially.
+Am|m|s|#cfd3d6|Silvery-white, radioactive metal. Made artificially.
+Cm|m|s|#c3c6c9|Silvery, radioactive metal. Made artificially.
+Bk|m|s|#c0c3c6|Silvery, radioactive metal. Only tiny amounts have been made.
+Cf|m|s|#c0c3c6|Silvery, radioactive metal. Only tiny amounts have been made.
+Es|m|s|#c0c3c6|Radioactive and made only in tiny amounts. Believed to be a silvery metal that glows in the dark.
+Fm|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance is not known. Expected to be a metal.
+Md|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance is not known. Expected to be a metal.
+No|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance is not known. Expected to be a metal.
+Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance is not known. Expected to be a metal.`;
+  const MT={}; MT_RAW.split('\n').forEach(l=>{ const a=l.split('|'); MT[a[0]]={t:a[1],s:a[2],c:a[3],d:a[4]}; });
+  PT.forEach(e=>{ if(!MT[e.sy]){ const nm=e.z<=112?'Expected to be a metal, but this is a prediction.':e.z<118?'Its properties are uncertain; scientists only have predictions.':'It sits in the noble-gas column, but predictions say it may not behave like a noble gas.'; MT[e.sy]={t:'u',s:'?',c:'#cfcfcf',d:'Synthetic and radioactive. Only a few atoms have ever been made, and they last fractions of a second to minutes, so no one has seen a sample. '+nm}; } });
+  const MT_BG={m:'#b9cbe0',l:'#f0cf70',n:'#93d6ab',u:'#d3d0c8'}, MT_NM={m:'Metal',l:'Metalloid',n:'Non-metal',u:'Unconfirmed'};
+  const MT_STATE={g:'Gas',l:'Liquid',s:'Solid','?':'Not observed'};
+  function mtSub(z,t){
+    if(t==='u') return 'Not enough data';
+    if(t==='l') return 'Metalloid';
+    if(t==='n') return z===1?'Hydrogen (in its own class)':[2,10,18,36,54,86].includes(z)?'Noble gas':[9,17,35,53].includes(z)?'Halogen':'Reactive non-metal';
+    if(z>=57&&z<=71) return 'Lanthanide'; if(z>=89&&z<=103) return 'Actinide';
+    if([13,31,49,50,81,82,83,84].includes(z)) return 'Post-transition metal';
+    const g=ptPos(z)[1]; return g===1?'Alkali metal':g===2?'Alkaline-earth metal':'Transition metal';
+  }
+  const mtIon={m:'Tends to <b>lose</b> electrons → positive ions (cations).',l:'In between: can lose or share electrons; acts as a semiconductor.',n:'Tends to <b>gain</b> electrons → negative ions (anions).',u:'Not enough data to say.'};
+  const mtHex=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)), mtMix=(h,t,p)=>'rgb('+mtHex(h).map(v=>Math.round(v+(t-v)*p)).join(',')+')', mtRgba=(h,a)=>'rgba('+mtHex(h).join(',')+','+a+')';
+  function mtSw(m){
+    const c=m.c;
+    if(m.t==='u') return "<div class='mt-sw unk'>?</div>";
+    if(m.s==='g'){ const clr=c==='#dfe9f2'; return "<div class='mt-sw gas' style='background:radial-gradient(circle at 25% 30%,"+mtRgba(c,clr?.35:.75)+" 0 14%,transparent 15%),radial-gradient(circle at 70% 60%,"+mtRgba(c,clr?.3:.7)+" 0 18%,transparent 19%),radial-gradient(circle at 40% 78%,"+mtRgba(c,clr?.3:.7)+" 0 10%,transparent 11%),"+mtRgba(c,clr?.14:.4)+"'>"+(clr?'colorless':'')+"</div>"; }
+    if(m.s==='l') return "<div class='mt-sw liq' style='background:radial-gradient(circle at 32% 28%,#fff 0 7%,transparent 8%),radial-gradient(circle at 40% 35%,"+mtMix(c,255,.35)+","+c+" 55%,"+mtMix(c,0,.45)+")'></div>";
+    const shiny=m.t!=='n'||m.sh;
+    return "<div class='mt-sw' style='background:"+(shiny?"linear-gradient(135deg,"+mtMix(c,255,.55)+" 0%,"+c+" 30%,"+mtMix(c,0,.35)+" 55%,"+c+" 75%,"+mtMix(c,255,.45)+" 100%)":"linear-gradient(135deg,"+mtMix(c,255,.25)+","+c+" 55%,"+mtMix(c,0,.2)+")")+";box-shadow:inset 0 0 0 1px rgba(0,0,0,.25),0 3px 8px rgba(0,0,0,.25)'></div>";
+  }
+  let mtSel=29, mtCache='';
+  function mtBuild(){
+    let h="<div class='mt-info' id='mtInfo'></div><div class='mt-leg'>"+['m','l','n','u'].map(k=>"<span style='background:"+MT_BG[k]+"'>"+MT_NM[k]+"</span>").join('')+"</div><div class='pt-scroll'><div class='pt-grid mt-grid'>";
+    for(let g=1;g<=18;g++) h+="<span class='pt-r' style='grid-row:1;grid-column:"+(g+1)+";text-align:center;padding:0'>"+g+"</span>";
+    for(let p=1;p<=7;p++) h+="<span class='pt-r' style='grid-row:"+(p+1)+";grid-column:1'>"+p+"</span>";
+    h+="<span class='pt-r' style='grid-row:10;grid-column:1'>La–Yb</span><span class='pt-r' style='grid-row:11;grid-column:1'>Ac–No</span>";
+    PT.forEach(e=>{ const q=ptPos(e.z), r=q[0]+1, c=q[1]+1, m=MT[e.sy];
+      h+="<button type='button' class='mt-c"+(m.t==='u'?' u':'')+"' data-z='"+e.z+"' title='"+e.nm+"' style='grid-row:"+r+";grid-column:"+c+";background-color:"+MT_BG[m.t]+"'><i>"+e.z+"</i><b>"+e.sy+"</b></button>"; });
+    return h+"</div></div><p class='mt-note'>Swatches are illustrations of the typical color and finish, not photos. Real samples vary with purity and form. Elements 104–118 (and a few others) have never been seen, so no appearance is shown.</p>";
+  }
+  function mtShow(){
+    const info=document.getElementById('mtInfo'); if(!info) return;
+    const e=PT[mtSel-1], m=MT[e.sy], q=ptPos(e.z), f=q[0]>=9, per=f?(q[0]===9?6:7):q[0];
+    info.innerHTML="<div class='mt-swwrap'>"+mtSw(m)+"<small>"+(m.t==='u'?'No known appearance':'Illustrative color')+"</small></div><div class='mt-txt'><h4>"+e.nm+" ("+e.sy+", Z = "+e.z+")</h4>"+
+      "<div><span class='mt-tag' style='background:"+MT_BG[m.t]+"'>"+MT_NM[m.t]+"</span>"+mtSub(e.z,m.t)+"</div>"+
+      "<div><b>State at room temp:</b> "+MT_STATE[m.s]+"</div><div><b>Looks like:</b> "+m.d+"</div>"+
+      "<div><b>Ions:</b> "+mtIon[m.t]+"</div><div><b>Period:</b> "+per+(f?'':" · <b>Group:</b> "+q[1])+"</div></div>";
+    document.querySelectorAll('.mt-c').forEach(x=>x.classList.toggle('sel',+x.dataset.z===mtSel));
+  }
+  function mtInit(){ const m=document.getElementById('mtMount'); if(!m) return; if(!mtCache) mtCache=mtBuild(); m.innerHTML=mtCache; mtShow(); }
+  document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.mt-c'); if(b){ mtSel=+b.dataset.z; mtShow(); } });
   window.ptData={PT:PT,cfg:cfg,ORD:ORD,CAP:CAP,okey:okey,orbDiag:orbDiag};
   document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.pt-c'); if(b){ ptSel=+b.dataset.z; ptShow(); } });
 
@@ -1134,6 +1420,7 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     nextPageBtn.disabled = currentSpreadIdx >= totalSpreads - 1;
     initAtomSpin();
     ptInit();
+    mtInit();
   }
 
   prevPageBtn.addEventListener('click', () => {
@@ -1361,7 +1648,7 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     strip.insertBefore(el,duck);
     gulls.push({el,x:W+30,w:46,ph:Math.random()*6,scored:false,dead:false,gone:false});
   }
-  function speedNow(){ return Math.min(265,150*(1+.05*spdN)); }
+  function speedNow(){ return Math.min(320,150*(1+.05*spdN)); }
   function noodleClash(){   // don't drop a noodle when a seagull is about to reach the duck
     if(mode!=='play') return false;
     if(gullT<1.5) return true;   // keep the lane clear for the next seagull
@@ -1624,7 +1911,20 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     [1,"How many electrons can the f sublevel hold in total?","14","10","6","7"],
     [1,"Which shell is the third energy level?","M","L","N","K"],
     [1,"Which model pictures electrons as a cloud of probability?","Quantum (Schrödinger) model","Plum pudding model","Solar-system model","Dalton's ball model"],
-    [1,"Which sublevel is shaped like a clover leaf?","d","s","p","f"]
+    [1,"Which sublevel is shaped like a clover leaf?","d","s","p","f"],
+    [3,"Going down a group, the shielding effect…","increases","decreases","stays the same","drops to zero"],
+    [3,"Going across a period (left to right), the shielding effect…","stays relatively constant","increases a lot","decreases a lot","doubles each element"],
+    [3,"Going down a group, metallic character…","increases","decreases","stays the same","disappears"],
+    [3,"Going across a period (left to right), metallic character…","decreases","increases","stays the same","doubles"],
+    [3,"Going across a period (left to right), non-metallic character…","increases","decreases","stays the same","disappears"],
+    [3,"Going down a group, non-metallic character…","decreases","increases","stays the same","doubles"],
+    [3,"Which element has the greatest metallic character?","Caesium (Cs)","Lithium (Li)","Fluorine (F)","Silicon (Si)"],
+    [3,"Excluding the noble gases, which element has the greatest non-metallic character?","Fluorine (F)","Chlorine (Cl)","Oxygen (O)","Iodine (I)"],
+    [3,"Which of these elements is a metalloid?","Silicon (Si)","Sodium (Na)","Sulfur (S)","Chlorine (Cl)"],
+    [3,"Why does metallic character increase going down a group?","Valence electrons are farther away and more shielded, so they are lost more easily","The nucleus gets weaker as protons are added","Atoms lose their inner electrons","Electrons stop moving"],
+    [3,"Which element is a dark reddish-brown liquid at room temperature?","Bromine (Br)","Mercury (Hg)","Iodine (I)","Chlorine (Cl)"],
+    [3,"Which ending describes the 4th energy level, p sublevel, holding 3 electrons?","4p³","3p⁴","4d³","4s²"],
+    [3,"Which group of elements sits along the “staircase” between metals and non-metals?","Metalloids","Alkali metals","Halogens","Noble gases"]
   ];
   const QE=[
     [1,"Which tiny particle has a negative charge?","Electron","Proton","Neutron","Nucleus"],
@@ -1640,7 +1940,18 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     [1,"How many electrons can the s sublevel hold?","2","6","10","14"],
     [1,"What does the letter “f” stand for in sublevels?","fundamental","fast","flat","fluid"],
     [1,"An orbital can hold at most ___ electrons.","2","1","6","10"],
-    [1,"The nucleus is at the ______ of the atom.","center","edge","top","bottom"]
+    [1,"The nucleus is at the ______ of the atom.","center","edge","top","bottom"],
+    [3,"What is an electron configuration?","The arrangement of electrons in an atom's energy levels","The number of neutrons in the nucleus","The total mass of an atom","The charge of the nucleus"],
+    [3,"In the notation 2p⁴, what does the “2” stand for?","The energy level","The sublevel","The number of electrons","The number of orbitals"],
+    [3,"In 2p⁴, what does the small raised “4” tell you?","There are 4 electrons in that sublevel","There are 4 energy levels","It is the 4th sublevel","There are 4 orbitals"],
+    [3,"In 2p⁴, the letter “p” is the…","sublevel","energy level","nucleus","electron count"],
+    [3,"The shielding effect happens when inner electrons ______ outer electrons from the nucleus's pull.","block (shield)","speed up","add mass to","turn into"],
+    [3,"Metallic character is how easily an atom can ______ electrons.","lose","gain","share equally","destroy"],
+    [3,"Metals usually form which kind of ion?","Positive ions (cations)","Negative ions (anions)","Neutral atoms only","Ions made of neutrons"],
+    [3,"Non-metals usually form which kind of ion?","Negative ions (anions)","Positive ions (cations)","Neutral atoms only","Ions made of protons"],
+    [3,"Which element is a liquid metal at room temperature?","Mercury (Hg)","Bromine (Br)","Iron (Fe)","Gold (Au)"],
+    [3,"Which metal has a reddish-orange color?","Copper (Cu)","Silver (Ag)","Iron (Fe)","Aluminium (Al)"],
+    [3,"Which element is a bright yellow solid non-metal?","Sulfur (S)","Chlorine (Cl)","Neon (Ne)","Mercury (Hg)"]
   ];
   const QJ=[['Fun','Why did the duck swim across the sea?','To get to the other side!','To find the world\'s best bread','Because the tide told it a joke','To win the quack-athlon']];
   const QH=[
@@ -1658,13 +1969,27 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
     [1,"How many sublevels does the N shell (n = 4) have?","4","3","2","5"],
     [1,"How many orbitals are in the N shell (n = 4) in total?","16","9","7","32"],
     [1,"How many electrons can the p and d sublevels hold together?","16","8","12","20"],
-    [1,"Which sublevels can the L shell (n = 2) have?","s and p","p and d","s and d","d and f"]
+    [1,"Which sublevels can the L shell (n = 2) have?","s and p","p and d","s and d","d and f"],
+    [3,"Why doesn't shielding increase across a period even though electrons are added?","The new electrons go into the same shell, so the number of inner shells stays the same","Protons are removed as you go across","Same-shell electrons shield each other completely","The inner electrons disappear"],
+    [3,"From Na to Cl in period 3, why does the pull on the outer electrons get stronger?","Nuclear charge increases while shielding stays about the same","Shielding increases while nuclear charge stays the same","Both nuclear charge and shielding decrease","More neutrons are added"],
+    [3,"Which has the greater metallic character, K ([Ar] 4s¹) or Na ([Ne] 3s¹)?","K, because its outer electron is in a higher shell with more shielding","Na, because it has fewer electrons","They are equal because both end in s¹","Na, because it is higher in the group"],
+    [3,"Rank by increasing metallic character: Al, Mg, Na.","Al < Mg < Na","Na < Mg < Al","Mg < Na < Al","Al < Na < Mg"],
+    [3,"Which has the greatest metallic character: Ca, K, Rb or Sr?","Rb","K","Ca","Sr"],
+    [3,"Which has the greatest non-metallic character: S, Se, Cl or Br?","Cl","Br","S","Se"],
+    [3,"An atom's configuration ends in 2p⁵. What is it most likely to do?","Gain 1 electron to form a 1− ion","Lose 5 electrons to form a 5+ ion","Lose 1 electron to form a 1+ ion","Neither gain nor lose electrons"],
+    [3,"Why are noble gases left out of the non-metallic trend?","Their outer shells are full, so they don't readily gain or lose electrons","They have no electrons","They are metals","They have no energy levels"],
+    [3,"Which sublevel exists in theory for n = 5 but is not used by any known element's ground state?","5g","5f","5d","5p"],
+    [3,"How many core (shielding) electrons does potassium (K, Z = 19) have?","18","19","8","1"],
+    [3,"How many electrons shield the valence electron of lithium (Z = 3)?","2","3","1","8"],
+    [3,"Compare Cl and Na in period 3. Which statement is true?","Cl has similar shielding but a stronger nuclear pull, so it is more non-metallic","Na has more shielding, so it is more non-metallic","Cl has more shielding, so it is more metallic","Both have the same nuclear charge"],
+    [3,"Which description is accurate?","Bromine is a red-brown liquid and mercury is a silvery liquid","Chlorine is a red-brown liquid and iodine is a silvery gas","Mercury is a yellow solid and sulfur is a silvery liquid","Neon is a purple solid and bromine is a colorless gas"]
   ];
   const qEl=document.getElementById('quizBack'), qWk=document.getElementById('quizWk'), qQ=document.getElementById('quizQ'),
         qOpts=document.getElementById('quizOpts'), qFb=document.getElementById('quizFb'), qNext=document.getElementById('quizNext');
   const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild;
   let jokeOn=false, bE=QE, bM=QM, bH=QH, eDeck=[], mDeck=[], hDeck=[], QN=0;
-  const RUN_E=16, RUN_M=14, RUN_H=30;   // 50 questions per run   // questions per run (keeps it from feeling like too many)
+  const RUN_E=16, RUN_M=14, RUN_H=30;   // 60 questions from Weeks 1-2 per run
+  const W3_E=7, W3_M=7, W3_H=6;          // + 20 Week 3 questions per run = 80 total (the Q x/N counter updates by itself)
   const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹', plain=h=>h.replace(/<sup>(\d+)<\/sup>/g,(m,n)=>[...n].map(d=>SUPD[d]).join(''));
   function elemQ(z,txt){   // "full electron configuration of element Z", built from the periodic-table data
     const D=window.ptData, e=D.PT[z-1], w=[];
@@ -1702,8 +2027,11 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
   function newRun(){
     const zr=(a,b)=>Array.from({length:b-a+1},(_,i)=>elemQ(a+i));
     bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>symLab(elemQ(c[0],c[1]),c[0])),CL_ORB.map(c=>symLab(orbQ(c[0],c[1]),c[0])));
-    eDeck=shuf(bE.map((_,i)=>i)).slice(0,RUN_E); mDeck=shuf(bM.map((_,i)=>i)).slice(0,RUN_M); { const nb=bH.length-20, rg=(a,b)=>Array.from({length:b-a},(_,i)=>a+i);   // all 10 orbital-diagram questions + 10 others in each run
-      hDeck=shuf(shuf(rg(nb,nb+20)).concat(shuf(rg(0,nb)).slice(0,RUN_H-20))); }
+    const wk=(bk,w)=>bk.map((q,i)=>(q[0]===3)===w?i:-1).filter(i=>i>=0);   // indexes of Week 3 (w=true) or other questions
+    eDeck=shuf(shuf(wk(bE,false)).slice(0,RUN_E).concat(shuf(wk(bE,true)).slice(0,W3_E)));
+    mDeck=shuf(shuf(wk(bM,false)).slice(0,RUN_M).concat(shuf(wk(bM,true)).slice(0,W3_M)));
+    { const nb=bH.length-20, sp=Array.from({length:20},(_,i)=>nb+i);   // all 20 orbital-diagram / mystery questions + other hard ones
+      hDeck=shuf(sp.concat(shuf(wk(bH,false).filter(i=>i<nb)).slice(0,RUN_H-20),shuf(wk(bH,true)).slice(0,W3_H))); }
     QN=eDeck.length+mDeck.length+hDeck.length; qOk=0;
   }
   const shuf=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
