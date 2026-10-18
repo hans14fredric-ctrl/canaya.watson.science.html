@@ -547,6 +547,14 @@
   .mt-sub span.th{border-style:dashed; background:none; opacity:.75;}
   .mt-callout{border-left:4px solid var(--rust); background:rgba(181,98,46,.12); padding:.35rem .6rem; border-radius:0 8px 8px 0; margin:.4rem 0 .6rem; font-size:.88em; line-height:1.4;}
   .mt-callout.ok{border-left-color:var(--orbit); background:rgba(46,125,107,.13);}
+  .en-bars{margin:.2rem 0 .6rem;font-size:.78em;}
+  .en-row{display:grid;grid-template-columns:2.2em 1fr 2.8em;align-items:center;gap:.4rem;margin:.12rem 0;}
+  .en-row b{text-align:left;} .en-row i{font-style:normal;text-align:right;font-variant-numeric:tabular-nums;opacity:.85;}
+  .en-track{height:.85em;border-radius:99px;background:rgba(127,127,127,.14);overflow:hidden;}
+  .en-fill{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#2E7D6B,#B5622E);}
+  .en-spec{display:flex;height:1.5em;border-radius:8px;overflow:hidden;margin:.3rem 0 .1rem;font-size:.72em;font-weight:700;text-align:center;line-height:1.5em;color:#fff;}
+  .en-spec span:nth-child(1){flex:0 0 21%;background:#4C8F7F;} .en-spec span:nth-child(2){flex:1;background:#B08A2E;} .en-spec span:nth-child(3){flex:0 0 31%;background:#B5622E;}
+  .en-scale{display:flex;justify-content:space-between;font-size:.68em;opacity:.75;margin-bottom:.5rem;}
   .mt-note{font-size:.72rem; opacity:.7; margin:.2rem 0 .5rem; text-indent:0 !important;}
   .mt-info{display:flex; gap:.8rem; align-items:flex-start; padding:.6rem; border-radius:12px; background:rgba(127,127,127,.12); margin-bottom:.5rem; font-size:.8rem; line-height:1.4; min-height:158px;}
   .mt-swwrap{flex:none; width:84px; text-align:center;} .mt-swwrap small{display:block; font-size:.6rem; opacity:.7; margin-top:.25rem; line-height:1.2;}
@@ -655,7 +663,7 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
   <button class="theme-toggle" id="theme-toggle">🌓 Theme</button>
   <h1>Ten Weeks of Science</h1>
   <p class="sub">by Canaya Hans &nbsp;·&nbsp; click a folder to open notes</p>
-  <p class="badge">Laguna Science National High School Study Hub</p>
+  <p class="badge">Laguna Science Integrated High School Study Hub</p>
   <div class="island-wrap">
     <button class="island" id="islandBtn" aria-haspopup="true" aria-expanded="false" aria-controls="islandMenu" aria-label="Review or Play">
       <svg viewBox="0 0 260 110" aria-hidden="true">
@@ -1050,13 +1058,88 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
 
         `<div class='nt'><h3>Explore: Metals, Metalloids &amp; Non-Metals</h3><p class='ptnote'>Tap any element to see its type, state at room temperature, and what it looks like.</p><div id='mtMount'></div></div>`,
 
+        `<div class='nt'><h3>Electronegativity: The Pulling Power of Atoms</h3>
+          <p class='no-indent'><b>Electronegativity</b> (symbol <b>χ</b>, the Greek letter “chi”) measures how strongly an atom <b>attracts the shared electrons</b> in a chemical bond. It has <b>no units</b> and is usually given on the <b>Pauling scale</b>.</p>
+          <div class='mt-callout ok'><b>Think of a tug-of-war.</b> Two atoms share a pair of electrons like a rope. The atom with the higher electronegativity is the stronger team: it pulls the rope (the shared electrons) closer to itself.</div>
+          <p class='no-indent'><b>Why do atoms differ?</b> Three ideas from this week decide the pull on bonding electrons:</p>
+          <ul class='pts'>
+            <li><b>Nuclear charge:</b> more protons → stronger pull.</li>
+            <li><b>Distance:</b> the closer the valence electrons are to the nucleus (smaller atom) → stronger pull.</li>
+            <li><b>Shielding:</b> more inner-shell electrons in the way → weaker pull.</li></ul>
+          <table class='mt-tbl'><tr><th>Direction</th><th>Trend</th><th>Main reason</th></tr>
+            <tr><td class='k'>Left → Right (period)</td><td class='hi'>Increases ↑</td><td>More protons, same shell, so shielding stays about equal and the atom gets smaller</td></tr>
+            <tr><td class='k'>Top → Bottom (group)</td><td class='hi'>Decreases ↓</td><td>New shells: bigger atom and more shielding, so a weaker pull on bonding electrons</td></tr></table>
+          <svg viewBox='0 0 330 120' style='width:100%;max-width:400px;display:block;margin:.2rem auto;color:var(--ink)' role='img' aria-label='Electronegativity map: increases toward the top-right of the periodic table, fluorine is the highest and cesium and francium are the lowest'>
+            <defs><linearGradient id='gEN' x1='0' y1='1' x2='1' y2='0'><stop offset='0' stop-color='#2E7D6B' stop-opacity='.1'/><stop offset='1' stop-color='#B5622E'/></linearGradient>
+            <marker id='arEN' viewBox='0 0 8 8' refX='6' refY='4' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M0 0L8 4L0 8Z' fill='currentColor'/></marker></defs>
+            <rect x='40' y='10' width='250' height='90' rx='8' fill='url(#gEN)' stroke='currentColor' stroke-opacity='.4'/>
+            <g font-family='Georgia,serif' fill='currentColor' text-anchor='middle'>
+              <text x='265' y='32' font-size='13' font-weight='700'>F ≈ 4.0</text><text x='265' y='46' font-size='9'>highest</text>
+              <text x='68' y='88' font-size='11' font-weight='700'>Cs, Fr</text><text x='68' y='99' font-size='8'>≈ 0.7–0.8 lowest</text>
+              <text x='165' y='60' font-size='10'>increases →</text>
+              <text x='20' y='58' font-size='9' transform='rotate(-90 20 58)'>↑ up the group</text></g>
+            <line x1='110' y1='80' x2='235' y2='30' stroke='currentColor' stroke-width='1.6' marker-end='url(#arEN)' stroke-dasharray='4 3'/></svg>
+          <p class='mt-note'>Noble gases (group 18) are usually left out because they rarely form bonds. Fluorine’s exact Pauling value is 3.98, rounded to about 4.0 in many notes.</p>
+          <p class='no-indent'><b>Period 2 (left → right)</b></p>
+          <div class='en-bars'><div class='en-row'><b>Li</b><span class='en-track'><span class='en-fill' style='width:24.5%'></span></span><i>0.98</i></div><div class='en-row'><b>Be</b><span class='en-track'><span class='en-fill' style='width:39.2%'></span></span><i>1.57</i></div><div class='en-row'><b>B</b><span class='en-track'><span class='en-fill' style='width:51.0%'></span></span><i>2.04</i></div><div class='en-row'><b>C</b><span class='en-track'><span class='en-fill' style='width:63.7%'></span></span><i>2.55</i></div><div class='en-row'><b>N</b><span class='en-track'><span class='en-fill' style='width:76.0%'></span></span><i>3.04</i></div><div class='en-row'><b>O</b><span class='en-track'><span class='en-fill' style='width:86.0%'></span></span><i>3.44</i></div><div class='en-row'><b>F</b><span class='en-track'><span class='en-fill' style='width:99.5%'></span></span><i>3.98</i></div></div>
+          <p class='no-indent'><b>Period 3 (left → right)</b></p>
+          <div class='en-bars'><div class='en-row'><b>Na</b><span class='en-track'><span class='en-fill' style='width:23.2%'></span></span><i>0.93</i></div><div class='en-row'><b>Mg</b><span class='en-track'><span class='en-fill' style='width:32.8%'></span></span><i>1.31</i></div><div class='en-row'><b>Al</b><span class='en-track'><span class='en-fill' style='width:40.2%'></span></span><i>1.61</i></div><div class='en-row'><b>Si</b><span class='en-track'><span class='en-fill' style='width:47.5%'></span></span><i>1.90</i></div><div class='en-row'><b>P</b><span class='en-track'><span class='en-fill' style='width:54.8%'></span></span><i>2.19</i></div><div class='en-row'><b>S</b><span class='en-track'><span class='en-fill' style='width:64.5%'></span></span><i>2.58</i></div><div class='en-row'><b>Cl</b><span class='en-track'><span class='en-fill' style='width:79.0%'></span></span><i>3.16</i></div></div>
+          <p class='no-indent'><b>Down a group</b></p>
+          <table class='mt-tbl'><tr><th>Group 1</th><th>Li</th><th>Na</th><th>K</th><th>Rb</th><th>Cs</th></tr>
+            <tr><td class='k'>χ</td><td>0.98</td><td>0.93</td><td>0.82</td><td>0.82</td><td class='hi'>0.79</td></tr></table>
+          <table class='mt-tbl'><tr><th>Group 17</th><th>F</th><th>Cl</th><th>Br</th><th>I</th></tr>
+            <tr><td class='k'>χ</td><td class='hi'>3.98</td><td>3.16</td><td>2.96</td><td>2.66</td></tr></table></div>`,
+
+        `<div class='nt'><h3>Electronegativity &amp; Bond Polarity</h3>
+          <p class='no-indent'>What matters in a bond is the <b>difference</b> in electronegativity, <b>ΔEN = |χ₁ − χ₂|</b> (always positive). A bigger difference means the shared electrons are pulled more to one side.</p>
+          <div class='en-spec'><span>Nonpolar</span><span>Polar covalent</span><span>Ionic</span></div>
+          <div class='en-scale'><span>ΔEN 0</span><span>0.4</span><span>1.9</span><span>3.3+</span></div>
+          <table class='mt-tbl'><tr><th>ΔEN</th><th>Bond type</th><th>Electrons</th></tr>
+            <tr><td class='k'>0 to 0.4</td><td>Nonpolar covalent</td><td>Shared equally</td></tr>
+            <tr><td class='k'>0.5 to 1.9</td><td>Polar covalent</td><td>Shared unequally: δ⁻ and δ⁺ poles form</td></tr>
+            <tr><td class='k'>Above 1.9</td><td>Ionic</td><td>Transferred completely: ions form</td></tr></table>
+          <p class='mt-note'>These cut-offs are guidelines. Some books use 1.7 or 2.0 for the ionic border, and real bonds change gradually. Use the ranges your teacher gives.</p>
+          <p class='no-indent'><b>Worked values (Pauling scale)</b></p>
+          <table class='mt-tbl'><tr><th>Bond</th><th>χ values</th><th>ΔEN</th><th>Type</th></tr>
+            <tr><td class='k'>O–O (in O₂)</td><td>3.44, 3.44</td><td>0</td><td>Nonpolar</td></tr>
+            <tr><td class='k'>C–H</td><td>2.55, 2.20</td><td>0.35</td><td>Nonpolar</td></tr>
+            <tr><td class='k'>H–Cl</td><td>3.16, 2.20</td><td>0.96</td><td class='hi'>Polar</td></tr>
+            <tr><td class='k'>H–O</td><td>3.44, 2.20</td><td>1.24</td><td class='hi'>Polar</td></tr>
+            <tr><td class='k'>H–F</td><td>3.98, 2.20</td><td>1.78</td><td class='hi'>Polar</td></tr>
+            <tr><td class='k'>Mg–O</td><td>3.44, 1.31</td><td>2.13</td><td>Ionic</td></tr>
+            <tr><td class='k'>Na–Cl</td><td>3.16, 0.93</td><td>2.23</td><td>Ionic</td></tr></table>
+          <p class='no-indent'><b>Partial charges: δ⁻ and δ⁺</b></p>
+          <p class='no-indent'>In a polar bond the electron cloud shifts toward the more electronegative atom. That atom gets a <b>partial negative charge (δ⁻)</b>; the other gets a <b>partial positive charge (δ⁺)</b>. In H–Cl: <b>H<sup>δ+</sup>–Cl<sup>δ−</sup></b>. The little arrow drawn on a bond (a bond dipole) points toward the δ⁻ atom.</p>
+          <div class='mt-callout ok'><b>3-step method:</b> (1) look up both χ values, (2) subtract the smaller from the larger, (3) match ΔEN to the table. The atom with the larger χ is the δ⁻ end.</div>
+          <div class='mt-callout'><b>Polar bond ≠ polar molecule.</b> CO₂ has two polar C=O bonds, but the molecule is <b>linear</b>, so the two pulls point in opposite directions and cancel: CO₂ is <b>nonpolar</b>. In bent H₂O the pulls do not cancel, so water is <b>polar</b>.</div></div>`,
+
+        `<div class='nt'><h3>Electronegativity: Examples, Mix-ups &amp; Memory Tips</h3>
+          <div class='mt-callout ok'><b>Example 1: Cl or Br?</b> Same group. Cl is higher up (fewer shells, less shielding), so <b>Cl is more electronegative</b>.</div>
+          <div class='mt-callout ok'><b>Example 2: Rank Mg, Si, Cl.</b> Same period, so more protons means more pull: <b>Cl &gt; Si &gt; Mg</b>.</div>
+          <div class='mt-callout ok'><b>Example 3: Which bond is more polar, H–Cl or H–Br?</b> ΔEN(H–Cl) = 0.96 and ΔEN(H–Br) = 0.76. <b>H–Cl is more polar</b>, with Cl as δ⁻.</div>
+          <div class='mt-callout ok'><b>Example 4: What type of bond is K–F?</b> K = 0.82, F = 3.98, so ΔEN = 3.16 → <b>ionic</b> (a metal and the top non-metal).</div>
+          <div class='mt-callout ok'><b>Example 5: In C–O, which atom is δ⁻?</b> O (3.44) beats C (2.55), so <b>O is δ⁻</b> and C is δ⁺.</div>
+          <p class='no-indent'><b>Three ideas that sound alike</b></p>
+          <table class='mt-tbl'><tr><th>Idea</th><th>What it describes</th><th>Where</th></tr>
+            <tr><td class='k'>Electronegativity</td><td>Pull on <i>shared</i> electrons in a bond</td><td>Inside a bond</td></tr>
+            <tr><td class='k'>Ionization energy</td><td>Energy to <i>remove</i> an electron</td><td>Isolated atom</td></tr>
+            <tr><td class='k'>Electron affinity</td><td>Energy change when an atom <i>gains</i> an electron</td><td>Isolated atom</td></tr></table>
+          <p class='no-indent'><b>Common mistakes to avoid</b></p>
+          <ul><li>“Noble gases are the most electronegative.” <b>No.</b> They are left out of the scale; <b>fluorine</b> is the highest.</li>
+          <li>“Electronegativity goes up as you go down a group.” <b>No, it goes down</b> (more shielding, bigger atoms).</li>
+          <li>“Electronegativity has units.” <b>No, it is a plain number</b> (dimensionless).</li>
+          <li>“A big ΔEN always means a polar molecule.” <b>Not always.</b> Shape matters (CO₂).</li>
+          <li>“Ionic and covalent are two separate boxes.” <b>They are the ends of one spectrum</b>; ΔEN tells how far along a bond is.</li></ul>
+          <div class='mt-callout'><b>Memory tips:</b> the top-right corner wins the tug-of-war. Rough order of the champions: <b>F &gt; O &gt; Cl ≈ N</b>. Hydrogen sits in the middle at 2.20, so H–C is nonpolar but H–O is polar. Cs and Fr (bottom-left) are the weakest pullers.</div></div>`,
+
         `<div class='nt'><h3>Cheat Sheet: All the Trends</h3>
           <table class='mt-tbl'><tr><th>Property</th><th>Down a group ↓</th><th>Across a period →</th></tr>
             <tr><td class='k'>Shielding effect</td><td class='hi'>Increases</td><td>About the same</td></tr>
             <tr><td class='k'>Net pull on valence e⁻</td><td>About the same</td><td class='hi'>Increases</td></tr>
             <tr><td class='k'>Distance of valence e⁻ from nucleus</td><td>Increases</td><td>Decreases</td></tr>
             <tr><td class='k'>Metallic character</td><td class='hi'>Increases</td><td class='hi'>Decreases</td></tr>
-            <tr><td class='k'>Non-metallic character</td><td class='hi'>Decreases</td><td class='hi'>Increases</td></tr></table>
+            <tr><td class='k'>Non-metallic character</td><td class='hi'>Decreases</td><td class='hi'>Increases</td></tr>
+            <tr><td class='k'>Electronegativity (χ)</td><td class='hi'>Decreases</td><td class='hi'>Increases</td></tr></table>
           <p class='no-indent'><b>Metals vs. non-metals at a glance</b></p>
           <table class='mt-tbl'><tr><th></th><th>Metals</th><th>Metalloids</th><th>Non-metals</th></tr>
             <tr><td class='k'>Ions</td><td>Lose e⁻ → cations (+)</td><td>Can go either way</td><td>Gain e⁻ → anions (−)</td></tr>
@@ -1068,7 +1151,8 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
           <ul><li>“More electrons means more shielding.” <b>Not always.</b> Only electrons in <i>inner</i> shells shield well, and same-shell electrons barely shield each other.</li>
           <li>“Metallic and non-metallic character both go up the same way.” <b>No, they are opposites.</b></li>
           <li>“Noble gases are the most non-metallic.” <b>No.</b> They are excluded from the trend, and fluorine is the top.</li>
-          <li>“The raised number in 2p<sup>4</sup> is an exponent.” <b>No, it is an electron count.</b></li></ul></div>`,
+          <li>“The raised number in 2p<sup>4</sup> is an exponent.” <b>No, it is an electron count.</b></li>
+          <li>“Electronegativity increases down a group.” <b>No, it decreases.</b> The top-right (fluorine) is highest.</li></ul></div>`,
 
         `<div class='nt'><h3>Worked Examples: Comparing Elements</h3>
           <p class='no-indent'><b>The 3-step method</b></p>
@@ -1528,7 +1612,22 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     const dx=x-crestX;   // gentle back slope, steep front face, small trough ahead of the swell
     return wAmp*((dx>0?Math.exp(-(dx*dx)/900):Math.exp(-(dx*dx)/9000))-.2*Math.exp(-((dx-40)*(dx-40))/500));
   }
-  function splash(x,n,pw){ for(let i=0;i<n&&parts.length<140;i++) parts.push({x:x+rnd(-9,9),y:H-BASE-off(x)-2,vx:rnd(-55,55)*pw,vy:rnd(70,150)*pw,life:1,r:rnd(1,2.4)}); }
+  /* ---------- ripples: the duck and the water push on each other ---------- */
+  const RDX=4; let rH=new Float32Array(4), rV=new Float32Array(4), rAcc=0, pAir=false, pDive=0, pPush=0, pPosX=0;
+  function ripInit(){ const n=Math.ceil(W/RDX)+4; rH=new Float32Array(n); rV=new Float32Array(n); }
+  function ripAt(x){ const f=x/RDX, i=Math.floor(f); if(!(i>=0&&i<rH.length-1)) return 0; const a=f-i; return rH[i]*(1-a)+rH[i+1]*a; }
+  function ripPush(x,amt,w){ const c=x/RDX; w=w||2; const a=Math.max(1,Math.floor(c-w*2.6)), b=Math.min(rH.length-2,Math.ceil(c+w*2.6)); for(let i=a;i<=b;i++){ const d=(i-c)/w; rH[i]+=amt*Math.exp(-d*d); } }
+  function ripHit(v,x){ x=x===undefined?duckPosX+DW/2:x; const a=Math.min(10,v*.05); ripPush(x,-a,1.5); ripPush(x-16,a*.55,2.2); ripPush(x+16,a*.55,2.2); }   // splash: a dip with a raised rim that spreads both ways
+  function ripStep(dt){
+    rAcc=Math.min(rAcc+dt,.1); const L=rH.length, adv=V>0?Math.min(.3,V/60/RDX*.3):0;   // adv: the river carries the ripples behind the duck
+    while(rAcc>=1/60){ rAcc-=1/60;
+      for(let i=1;i<L-1;i++){ rV[i]+=(rH[i-1]+rH[i+1]-2*rH[i])*.34-rH[i]*.004; rV[i]*=.992; }
+      for(let i=1;i<L-1;i++){ let h=rH[i]+rV[i]; if(h>16)h=16; else if(h<-16)h=-16; rH[i]=h; }
+      if(adv>0) for(let i=1;i<L-1;i++) rH[i]+=(rH[i+1]-rH[i])*adv;
+      for(let i=1;i<9;i++){ const k=.86+i*.015; rH[i]*=k; rH[L-1-i]*=k; rV[i]*=k; rV[L-1-i]*=k; }   // soft edges: no echo
+    }
+  }
+  function splash(x,n,pw){ for(let i=0;i<n&&parts.length<140;i++) parts.push({x:x+rnd(-9,9),y:H-BASE-off(x)-ripAt(x)-2,vx:rnd(-55,55)*pw,vy:rnd(70,150)*pw,life:1,r:rnd(1,2.4)}); }
   const SEA=[{x:.04,k:0,c:'#ff7f96',s:16,p:.5},{x:.16,k:1,c:'#f2b544',s:13,p:.5},{x:.28,k:2,c:'#ffb86b',y:22,p:1.6},{x:.4,k:0,c:'#b98be0',s:12,p:.5},{x:.52,k:3,c:'#ee8a5a',s:6,p:.5},{x:.63,k:1,c:'#5cc2a7',s:15,p:.5},{x:.74,k:2,c:'#6bb6ea',y:30,p:1.2},{x:.86,k:0,c:'#ef7fa0',s:18,p:.5},{x:.95,k:4,c:'#fff',p:0}];
   function drawSea(c,k){
     c.save(); c.globalAlpha=k; c.lineCap='round';
@@ -1555,8 +1654,8 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   }
   function drawWater(){
     cB.clearRect(0,0,W,H); cF.clearRect(0,0,W,H);
-    const y0=x=>H-BASE-wv(LY[0],x)-.9*bump(x-14);
-    const y1=x=>H-BASE-wv(LY[1],x)-wv(LY[0],x)*.4-bump(x);
+    const y0=x=>H-BASE-wv(LY[0],x)-.9*bump(x-14)-.6*ripAt(x);
+    const y1=x=>H-BASE-wv(LY[1],x)-wv(LY[0],x)*.4-bump(x)-ripAt(x);
     fillLayer(cB,y0,rgba(cA,.5),rgba(cBc,.65));
     fillLayer(cB,y1,rgba(cA,.72),rgba(cBc,.95));
     cB.beginPath();
@@ -1573,7 +1672,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
       for(let x=crestX-60;x<=crestX+26;x+=3){ const yy=y1(x)-th(x); x===crestX-60?cB.moveTo(x,yy):cB.lineTo(x,yy); }
       cB.strokeStyle='rgba(255,255,255,'+(.9*k)+')'; cB.lineWidth=2; cB.lineCap='round'; cB.stroke();
     }
-    fillLayer(cF,x=>H-9-wv(LY[2],x),rgba(cA,.3),rgba(cBc,.5));
+    fillLayer(cF,x=>H-9-wv(LY[2],x)-.35*ripAt(x),rgba(cA,.3),rgba(cBc,.5));
     if(diveK>.02) fillLayer(cF,y1,rgba(cA,.5*diveK),rgba(cBc,.62*diveK));   // tint starts exactly at the visible waterline
     for(const p of parts){ cF.beginPath(); cF.arc(p.x,p.y,p.r,0,6.3); cF.fillStyle='rgba(255,255,255,'+(.85*p.life)+')'; cF.fill(); }
   }
@@ -1695,7 +1794,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     if(wst==='carry'){
       carryOff*=Math.exp(-dt*8); carryT+=dt;
       duckPosX=crestX+carryOff+6;
-      if(duckPosX>=W-70){ duckPosX=W-70; wst='crash'; crashT=0; washAway(); }
+      if(duckPosX>=W-70){ duckPosX=W-70; wst='crash'; crashT=0; washAway(); ripHit(900); }
     } else if(wst==='crash'){
       crashT+=dt; carryLift*=Math.exp(-dt*5);
       if(crashT>1.1){ wst='return'; retP=0; retFrom=duckPosX; wAmp=0; crestX=-999; }
@@ -1712,7 +1811,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     for(const n of noodles){
       n.x-=V*dt;
       const mid=n.x+n.w/2;
-      n.el.style.transform='translate('+n.x.toFixed(1)+'px,'+(-(off(mid)*.9+bump(mid)*.1)).toFixed(2)+'px)';
+      n.el.style.transform='translate('+n.x.toFixed(1)+'px,'+(-(off(mid)*.9+bump(mid)*.1+ripAt(mid)*.9)).toFixed(2)+'px)';
       if(mode==='play' && !over && wst==='idle'){
         if(n.x+6<duckX+DW-8 && n.x+n.w-6>duckX+10 && y<n.h*.7) endGame();
         else if(!n.scored && n.x+n.w<duckX+8){ n.scored=true; score++; if(pendingQ!=='gull') pendingQ='noodle'; paint(); }
@@ -1745,7 +1844,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     gulls=gulls.filter(g=>{ if(g.gone||g.x+g.w<-30){ g.el.remove(); return false; } return true; });
 
     /* duck jump */
-    if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ y=0; vy=0; airborne=false; squash=1; splash(duckX+DW/2,11,1); } }
+    if(airborne){ vy-=g*dt; y+=vy*dt; if(y<=0){ ripHit(-vy); y=0; vy=0; airborne=false; squash=1; splash(duckX+DW/2,11,1); } }
     squash=Math.max(0,squash-dt*5);
     if(mode==='play' && pendingQ && !over && !quizOpen && wst==='idle') afterClear();
     let sx=1, sy=1, rot=0, flip=1, lift=0;
@@ -1753,7 +1852,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     else{ sx=1+.16*squash; sy=1-.2*squash+Math.sin(t*3)*.012; }
     const dn=ducking(); dvT=dn?dvT+dt:0;
     const tgt=(dn&&dvT>.12)?1:0; diveK+=(tgt-diveK)*Math.min(1,dt*(tgt?9:4.5));
-    if(tgt&&!dSp){ splash(duckX+DW/2,10,.8); dSp=true; } if(!dn) dSp=false;
+    if(tgt&&!dSp){ splash(duckX+DW/2,10,.8); ripHit(75,duckX+DW/2); dSp=true; } if(!dn) dSp=false;
     let dx=0;
     if(dn&&dvT<.2){ lift+=10*Math.sin(Math.PI*dvT/.2); rot=-10; }   // small hop before the plunge
     if(diveK>.02){ const em=tgt?0:Math.sin(Math.PI*(1-diveK));       // em>0 only while surfacing
@@ -1771,19 +1870,34 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
       else endIntro();
     }
     if(lemon&&mode==='beach'){ glass.classList.add('on'); glass.style.transform='translate('+(duckPosX+DW-2).toFixed(1)+'px,'+(-(13+lift)).toFixed(1)+'px)'; } else glass.classList.remove('on');
+    { /* the duck moves the water, and the water moves the duck */
+      const cxd=duckPosX+dx+DW/2, col=Math.round(cxd/RDX), px=duckPosX+dx, push=y+lift;
+      const swim=(mode!=='beach'&&!(mode==='intro'&&introT<iA+.9)&&col>3&&col<rH.length-4);
+      if(swim){
+        if(airborne&&!pAir) ripHit(40,cxd);                                        // take-off kicks the water down
+        if(pDive>.5&&diveK<=.5) ripPush(cxd,6,1.6);                                // surfacing: water bulges up
+        if(!airborne&&push<16){ const dh=Math.max(-14,Math.min(14,push-pPush)); for(let k=-2;k<=2;k++) rV[col+k]+=dh*.09*(1-Math.abs(k)*.25); }   // a dipping / rising duck pumps the surface
+        const mv=Math.abs(px-pPosX)/Math.max(dt,.001);
+        if(!airborne&&diveK<.5&&mv>20) rV[col]+=Math.sin(t*7)*Math.min(mv,400)*.0011;   // swimming leaves a wake
+        else if(!airborne&&wst==='idle'&&diveK<.2) rV[col]+=Math.sin(t*3.1)*.012;      // gentle paddling ripples
+        if(!airborne&&!over&&diveK<.15&&wst!=='carry'){ const sl=(ripAt(cxd+9)-ripAt(cxd-9))/18; rot+=Math.max(-12,Math.min(12,-sl*30)); }   // tilt with the slope of the water
+      }
+      pAir=airborne; pDive=diveK; pPush=push; pPosX=px;
+    }
     if(over){ rot=-28; lift=-3; }
     duck.classList.toggle('fly',airborne||wst==='carry'||(mode==='intro'&&introT>=iA&&introT<iA+.9));
-    const bob=(mode==='beach'||(mode==='intro'&&introT<iA+.9))?0:off(duckPosX+DW/2)*.8;
+    const bob=(mode==='beach'||(mode==='intro'&&introT<iA+.9))?0:off(duckPosX+DW/2)*.8+ripAt(duckPosX+DW/2)*.9;
     duck.style.transform='translate('+(duckPosX-duckX+dx).toFixed(1)+'px,'+(-(y+lift+bob)).toFixed(2)+'px) rotate('+rot.toFixed(1)+'deg) scale('+(sx*flip).toFixed(3)+','+sy.toFixed(3)+')';
 
     if((wst==='rise'||wst==='carry')&&wAmp>8) for(let i=0;i<2;i++) parts.push({x:crestX+rnd(-6,14),y:H-BASE-wAmp-off(crestX),vx:rnd(30,90),vy:rnd(40,110),life:1,r:rnd(1,2.2)});
     for(const q of parts){ q.vy-=380*dt; q.x+=q.vx*dt; q.y-=q.vy*dt; q.life-=dt*1.5; }
     parts=parts.filter(q=>q.life>0&&q.y<H-BASE+6);
+    ripStep(dt);
     drawWater();
     requestAnimationFrame(frame);
   }
   function resize(){
-    W=strip.clientWidth; dpr=Math.min(window.devicePixelRatio||1,2);
+    W=strip.clientWidth; dpr=Math.min(window.devicePixelRatio||1,2); ripInit();
     for(const c of [cvB,cvF]){ c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); }
     cB.setTransform(dpr,0,0,dpr,0,0); cF.setTransform(dpr,0,0,dpr,0,0);
     duckX=duck.offsetLeft; if(wst==='idle') duckPosX=duckX;
@@ -1797,7 +1911,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   function reset(){ resumeT=0; spdN=0;
     noodles.forEach(n=>n.el.remove()); noodles=[];
     gulls.forEach(g=>g.el.remove()); gulls=[]; duckT=0; duckHold=false; gullT=mode==='play'?rnd(3.5,5.5):rnd(8,14);
-    wst='idle'; wAmp=0; crestX=-999; carryLift=0; duckPosX=duckX;
+    wst='idle'; wAmp=0; crestX=-999; carryLift=0; duckPosX=duckX; rH.fill(0); rV.fill(0);
     airborne=false; y=0; vy=0; score=0; over=false; overT=0; pendingQ=false; hardPending=false; closeQuiz(); spawnX=W+40; waveTimer=8+Math.random()*6;
   }
   function setMode(m){
@@ -1924,7 +2038,11 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     [3,"Why does metallic character increase going down a group?","Valence electrons are farther away and more shielded, so they are lost more easily","The nucleus gets weaker as protons are added","Atoms lose their inner electrons","Electrons stop moving"],
     [3,"Which element is a dark reddish-brown liquid at room temperature?","Bromine (Br)","Mercury (Hg)","Iodine (I)","Chlorine (Cl)"],
     [3,"Which ending describes the 4th energy level, p sublevel, holding 3 electrons?","4p³","3p⁴","4d³","4s²"],
-    [3,"Which group of elements sits along the “staircase” between metals and non-metals?","Metalloids","Alkali metals","Halogens","Noble gases"]
+    [3,"Which group of elements sits along the “staircase” between metals and non-metals?","Metalloids","Alkali metals","Halogens","Noble gases"],
+    [3,"Why does electronegativity decrease going down a group?","Valence electrons are farther from the nucleus and more shielded","The nucleus loses protons","Atoms get smaller","Valence electrons are removed"],
+    [3,"Which is more electronegative, magnesium (Mg) or chlorine (Cl)?","Cl, because it has more protons pulling in the same shell","Mg, because it is further left","They are equal because they are in the same period","Mg, because it has more shielding"],
+    [3,"A bond has ΔEN = 0.9 (like H–Cl). What type of bond is it?","Polar covalent","Nonpolar covalent","Ionic","Metallic"],
+    [3,"Which bond is the most polar?","H–F","C–H","N–H","O–H"]
   ];
   const QE=[
     [1,"Which tiny particle has a negative charge?","Electron","Proton","Neutron","Nucleus"],
@@ -1951,7 +2069,10 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     [3,"Non-metals usually form which kind of ion?","Negative ions (anions)","Positive ions (cations)","Neutral atoms only","Ions made of protons"],
     [3,"Which element is a liquid metal at room temperature?","Mercury (Hg)","Bromine (Br)","Iron (Fe)","Gold (Au)"],
     [3,"Which metal has a reddish-orange color?","Copper (Cu)","Silver (Ag)","Iron (Fe)","Aluminium (Al)"],
-    [3,"Which element is a bright yellow solid non-metal?","Sulfur (S)","Chlorine (Cl)","Neon (Ne)","Mercury (Hg)"]
+    [3,"Which element is a bright yellow solid non-metal?","Sulfur (S)","Chlorine (Cl)","Neon (Ne)","Mercury (Hg)"],
+    [3,"What does electronegativity measure?","How strongly an atom attracts shared electrons in a bond","How many protons an atom has","How easily an atom loses all its electrons","How heavy an atom is"],
+    [3,"Which element is the most electronegative?","Fluorine","Cesium","Oxygen","Helium"],
+    [3,"Moving left to right across a period, electronegativity generally…","increases","decreases","stays exactly the same","changes randomly"]
   ];
   const QJ=[['Fun','Why did the duck swim across the sea?','To get to the other side!','To find the world\'s best bread','Because the tide told it a joke','To win the quack-athlon']];
   const QH=[
@@ -1982,14 +2103,17 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     [3,"How many core (shielding) electrons does potassium (K, Z = 19) have?","18","19","8","1"],
     [3,"How many electrons shield the valence electron of lithium (Z = 3)?","2","3","1","8"],
     [3,"Compare Cl and Na in period 3. Which statement is true?","Cl has similar shielding but a stronger nuclear pull, so it is more non-metallic","Na has more shielding, so it is more non-metallic","Cl has more shielding, so it is more metallic","Both have the same nuclear charge"],
-    [3,"Which description is accurate?","Bromine is a red-brown liquid and mercury is a silvery liquid","Chlorine is a red-brown liquid and iodine is a silvery gas","Mercury is a yellow solid and sulfur is a silvery liquid","Neon is a purple solid and bromine is a colorless gas"]
+    [3,"Which description is accurate?","Bromine is a red-brown liquid and mercury is a silvery liquid","Chlorine is a red-brown liquid and iodine is a silvery gas","Mercury is a yellow solid and sulfur is a silvery liquid","Neon is a purple solid and bromine is a colorless gas"],
+    [3,"Rank these by INCREASING electronegativity: Na, Si, S, F.","Na < Si < S < F","F < S < Si < Na","Si < Na < S < F","Na < S < Si < F"],
+    [3,"Carbon dioxide has polar C=O bonds, yet CO₂ is a nonpolar molecule. Why?","The two bond dipoles point in opposite directions and cancel because the molecule is linear","Carbon and oxygen have identical electronegativity","The C=O bonds are actually ionic","Oxygen does not attract electrons in CO₂"],
+    [3,"Na has χ = 0.93 and Cl has χ = 3.16. What are ΔEN and the bond type?","ΔEN = 2.23, ionic","ΔEN = 2.23, polar covalent","ΔEN = 4.09, ionic","ΔEN = 0.93, nonpolar covalent"]
   ];
   const qEl=document.getElementById('quizBack'), qWk=document.getElementById('quizWk'), qQ=document.getElementById('quizQ'),
         qOpts=document.getElementById('quizOpts'), qFb=document.getElementById('quizFb'), qNext=document.getElementById('quizNext');
   const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild;
   let jokeOn=false, bE=QE, bM=QM, bH=QH, eDeck=[], mDeck=[], hDeck=[], QN=0;
-  const RUN_E=16, RUN_M=14, RUN_H=30;   // 60 questions from Weeks 1-2 per run
-  const W3_E=7, W3_M=7, W3_H=6;          // + 20 Week 3 questions per run = 80 total (the Q x/N counter updates by itself)
+  const RUN_E=18, RUN_M=18, RUN_H=24;   // 60 questions from Weeks 1-2 per run (RUN_H includes the 20 orbital/mystery questions)
+  const W3_E=12, W3_M=12, W3_H=6;        // + 30 Week 3 questions per run = 90 total: 30 easy, 30 medium, 30 hard (the Q x/N counter updates by itself)
   const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹', plain=h=>h.replace(/<sup>(\d+)<\/sup>/g,(m,n)=>[...n].map(d=>SUPD[d]).join(''));
   function elemQ(z,txt){   // "full electron configuration of element Z", built from the periodic-table data
     const D=window.ptData, e=D.PT[z-1], w=[];
