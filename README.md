@@ -680,6 +680,24 @@
 body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/README.md"]){display:none !important;}
 .quiz-opts .osym{display:inline-block; min-width:1.9rem; margin-right:.45rem; font-weight:700; color:var(--rust);}
 .quiz-opts .osym.blk{display:block; margin:0 0 .25rem;}
+
+/* ---- quiz card: fits any screen, scrolls when the question is long ---- */
+.quiz-back{overflow:hidden; padding:max(.6rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) max(.6rem,env(safe-area-inset-bottom)) max(.6rem,env(safe-area-inset-left)); box-sizing:border-box;}
+.quiz-card{display:flex; flex-direction:column; box-sizing:border-box; max-height:100%; overflow:hidden; min-height:0;}
+.quiz-tag,.quiz-fb,.quiz-next{flex:none;}
+.quiz-next{align-self:flex-start;}
+.quiz-scroll{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; touch-action:pan-y; scrollbar-width:thin; margin-right:-.4rem; padding-right:.4rem;
+  background:linear-gradient(var(--card-bg) 30%,transparent) top/100% 14px no-repeat local, linear-gradient(transparent,var(--card-bg) 70%) bottom/100% 14px no-repeat local,
+             linear-gradient(rgba(127,127,127,.35),transparent) top/100% 7px no-repeat scroll, linear-gradient(transparent,rgba(127,127,127,.35)) bottom/100% 7px no-repeat scroll;}
+.quiz-q{font-size:clamp(.95rem,.8rem + 1.6vw,1.1rem); overflow-wrap:anywhere;}
+.quiz-opts button{overflow-wrap:anywhere; min-width:0;} .quiz-opts button > span{min-width:0;}
+@media (max-height:560px){
+  .quiz-card{padding:.7rem .9rem .8rem;} .quiz-tag{margin-bottom:.3rem; font-size:.66rem;}
+  .quiz-q{font-size:.92rem; line-height:1.3; margin-bottom:.5rem;} .quiz-opts{gap:.3rem;}
+  .quiz-opts button{font-size:.84rem; padding:.35rem .6rem;} .quiz-opts button b{width:1.35rem; height:1.35rem; font-size:.7rem;}
+  .quiz-fb{margin:.4rem 0 .1rem; font-size:.82rem; min-height:1rem;} .quiz-next{padding:.4rem .9rem; font-size:.82rem;}
+}
+@media (max-width:360px){ .quiz-card{padding:.8rem .8rem .9rem;} .quiz-opts button{font-size:.88rem; padding:.45rem .55rem; gap:.45rem;} }
 </style>
 </head>
 <body>
@@ -1631,7 +1649,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
 </script>
 
 
-<div class="quiz-back" id="quizBack" role="dialog" aria-modal="true" aria-labelledby="quizQ"><div class="quiz-card"><div class="quiz-tag"><span id="quizKind">🦆 Quick question</span> · <span id="quizWk"></span></div><p class="quiz-q" id="quizQ"></p><div class="quiz-opts" id="quizOpts"></div><p class="quiz-fb" id="quizFb"></p><button type="button" class="quiz-next" id="quizNext" hidden>Keep swimming →</button></div></div>
+<div class="quiz-back" id="quizBack" role="dialog" aria-modal="true" aria-labelledby="quizQ"><div class="quiz-card"><div class="quiz-tag"><span id="quizKind">🦆 Quick question</span> · <span id="quizWk"></span></div><div class="quiz-scroll" id="quizScroll"><p class="quiz-q" id="quizQ"></p><div class="quiz-opts" id="quizOpts"></div></div><p class="quiz-fb" id="quizFb"></p><button type="button" class="quiz-next" id="quizNext" hidden>Keep swimming →</button></div></div>
 <div class="duck-hud" id="duckHud" aria-live="polite"><span class="hs"></span><span class="hm"></span><button type="button" class="hb" hidden>Play again</button></div>
 <div class="duck-help" id="duckHelp" hidden><div class="dh-card"><h3>🦆 How to play</h3>
 <div class="dh-row dh-pc"><span><kbd>Space</kbd><kbd>↑</kbd></span><em>Jump</em></div>
@@ -2276,7 +2294,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
       b.type='button'; b.dataset.ok=o.ok?'1':'0'; l.textContent='ABCD'[i]; if(q.html) tx.innerHTML=o.t; else tx.textContent=o.t;
       b.append(l,tx); b.onclick=()=>pickAns(b,o.ok); qOpts.appendChild(b);
     });
-    qEl.classList.add('on');
+    qEl.classList.add('on'); document.getElementById('quizScroll').scrollTop=0;
   }
   function pickAns(b,ok){
     if(!jokeOn){ qAsked++; spdN++; if(ok) qOk++; }
