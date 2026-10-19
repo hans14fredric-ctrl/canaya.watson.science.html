@@ -575,6 +575,31 @@
   .mt-steps > li::before{content:counter(s); position:absolute; left:0; top:.05rem; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--rust); color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center;}
 
 
+
+  /* ---------- Week 2: Atomic radius ---------- */
+  .ar-hero{display:flex; gap:.7rem; align-items:center; padding:.55rem .7rem; border-radius:12px; background:linear-gradient(135deg,rgba(46,125,107,.18),rgba(181,98,46,.16)); border:1px solid var(--line); margin:.3rem 0 .6rem; font-size:.86em; line-height:1.4;}
+  .ar-hero svg{flex:none; width:92px; height:92px;}
+  .ar-trend{border-radius:12px; padding:.45rem .65rem; margin:.4rem 0 .2rem; border:1px solid var(--line); font-size:.88em; line-height:1.4;}
+  .ar-trend.up{background:rgba(46,125,107,.13); border-left:5px solid var(--orbit);} .ar-trend.down{background:rgba(181,98,46,.13); border-left:5px solid var(--rust);}
+  .ar-trend h4{margin:0 0 .15rem; font-size:1em;} .ar-trend .tag{display:inline-block; padding:0 .55rem; border-radius:99px; color:#fff; font-weight:700; font-size:.78em; margin-left:.3rem; vertical-align:1px;}
+  .ar-trend.up .tag{background:var(--orbit);} .ar-trend.down .tag{background:var(--rust);}
+  .ar-map{display:grid; grid-template-columns:1fr 1fr; gap:.4rem; margin:.3rem 0 .6rem; font-size:.82em; text-align:center;}
+  .ar-map > div{border:1px solid var(--line); border-radius:10px; padding:.35rem .3rem; background:rgba(127,127,127,.07);} .ar-map b{display:block; font-size:1.15em; color:var(--rust);}
+  .ar-tabs{display:flex; gap:.35rem; margin:.2rem 0 .5rem;}
+  .ar-tab{flex:1; font:700 .74rem Georgia,serif; padding:.35rem .4rem; border-radius:99px; cursor:pointer; color:inherit; background:rgba(127,127,127,.1); border:1.5px solid var(--line);}
+  .ar-tab.on{background:var(--rust); color:#fff; border-color:var(--rust);}
+  .ar-row{display:grid; gap:.25rem; align-items:end; padding:.5rem .3rem .3rem; border-radius:12px; background:rgba(127,127,127,.1); margin-bottom:.4rem;}
+  .ar-cell{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:.12rem; cursor:pointer; background:none; border:0; padding:0; color:inherit; font:inherit;}
+  .ar-cell .ar-c{aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 35% 30%,rgba(46,125,107,.55),rgba(46,125,107,.2)); border:2px solid var(--orbit); position:relative; transition:transform .15s;}
+  .ar-cell .ar-c::after{content:''; position:absolute; left:50%; top:50%; width:7px; height:7px; margin:-3.5px; border-radius:50%; background:var(--rust);}
+  .ar-cell:hover .ar-c{transform:scale(1.07);} .ar-cell.sel .ar-c{border-color:var(--rust); box-shadow:0 0 0 3px rgba(181,98,46,.35);}
+  .ar-cell b{font:700 .8rem Georgia,serif;} .ar-cell i{font-style:normal; font-size:.62rem; opacity:.8;}
+  .ar-info{padding:.5rem .7rem; border-radius:12px; background:rgba(127,127,127,.12); font-size:.82rem; line-height:1.45; margin-bottom:.4rem;} .ar-info h4{margin:0 0 .15rem; font-size:1rem;}
+  .ar-meter{height:.7em; border-radius:99px; background:rgba(127,127,127,.2); overflow:hidden; margin:.25rem 0;} .ar-meter span{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,#2E7D6B,#B5622E);}
+  .ar-big{display:flex; gap:.4rem; margin:.3rem 0 .6rem;} .ar-big > div{flex:1; text-align:center; border-radius:12px; padding:.45rem .3rem; font-size:.8em; line-height:1.3; color:#1f2b33;}
+  .ar-big b{display:block; font:700 1.8rem/1.1 Georgia,serif;} .ar-big .bg{background:#f6b89a;} .ar-big .sm{background:#9fd8c6;}
+  .ar-det{border:1px dashed var(--line); border-radius:10px; padding:.3rem .6rem; margin:.3rem 0; font-size:.85em;} .ar-det summary{cursor:pointer; font-weight:700; color:var(--rust);}
+
   /* ---------- Help screen + touch buttons ---------- */
   .duck-help{position:fixed; inset:0; z-index:94; display:flex; align-items:center; justify-content:center; padding:1rem; background:rgba(10,30,36,.45); backdrop-filter:blur(3px);}
   .duck-help[hidden]{display:none;}
@@ -982,7 +1007,32 @@ body :has(> a[href*="/edit/main/README.md"]), footer:has(a[href*="/edit/main/REA
           "<p><b>s example – Beryllium (Z = 4)</b></p>" + orbDiag([['1s',1,2],['2s',1,2]]) +
           "<p><b>p example – Nitrogen (Z = 7)</b> – three unpaired 2p electrons (Hund's rule)</p>" + orbDiag([['1s',1,2],['2s',1,2],['2p',3,3]]) +
           "<p><b>d example – Iron (Z = 26)</b></p>" + orbDiag([['[Ar]',0],['4s',1,2],['3d',5,6]]) +
-          "<p><b>f example – Europium (Z = 63)</b> – half-filled 4f</p>" + orbDiag([['[Xe]',0],['6s',1,2],['4f',7,7]]) + "</div>"
+          "<p><b>f example – Europium (Z = 63)</b> – half-filled 4f</p>" + orbDiag([['[Xe]',0],['6s',1,2],['4f',7,7]]) + "</div>",
+
+        `<div class='nt'><h3>Atomic Radius: How Big Is an Atom?</h3>
+          <div class='ar-hero'>${arHero()}<div><b>Atomic radius</b> = the “size” of an atom: the distance from the <b>centre (nucleus)</b> to the <b>outer edge of the electron cloud</b>.<br>Atoms are unimaginably tiny, so we measure them in <b>picometres (pm)</b>. 1 pm is one trillionth of a metre!</div></div>
+          <p class='no-indent'><b>First, the map of the Periodic Table</b></p>
+          <div class='ar-map'><div><b>Periods →</b>rows, left to right<br><small>= energy level (shell) n</small></div><div><b>Groups ↓</b>columns, top to bottom<br><small>= families with the same valence e⁻</small></div></div>
+          <p class='no-indent'><b>The two main trends</b></p>
+          <div class='ar-trend up'><h4>Trend A · Down a group (top → bottom)<span class='tag'>INCREASES ↑</span></h4><b>Why?</b> Each new row adds a brand-new <b>electron shell</b>. Like putting on extra winter jackets: more layers = bigger and bulkier.</div>
+          ${arShells()}
+          <div class='ar-trend down'><h4>Trend B · Across a period (left → right)<span class='tag'>DECREASES ↓</span></h4><b>Why?</b> Even though atoms gain more particles, the extra <b>protons</b> make a stronger positive pull while the electrons go into the <b>same shell</b>. The stronger “magnet” pulls the cloud in, so the atom shrinks.</div>
+          ${arPull()}</div>`,
+
+        `<div class='nt'><h3>Explore: Atomic Radius to Scale</h3><p class='ptnote'>Switch between the two trends and tap an atom to see its radius, protons and shells.</p><div id='arMount'></div></div>`,
+
+        `<div class='nt'><h3>Atomic Radius: Make It Stick</h3>
+          <p class='no-indent'><b>Two analogies</b></p>
+          <ul><li><b>Down a group = stacking hula hoops.</b> Each new hoop around the same centre makes the circle wider.</li>
+          <li><b>Across a period = turning up a vacuum cleaner.</b> Same hoops, but stronger suction pulls everything in tighter toward the centre.</li></ul>
+          <p class='no-indent'><b>Period 3 radius (pm), left → right: it shrinks</b></p>${arBars(arData().p)}
+          <p class='no-indent'><b>Group 1 radius (pm), top → bottom: it grows</b></p>${arBars(arData().g)}
+          <table class='mt-tbl'><tr><th>Direction</th><th>Atomic size</th><th>Why it happens</th></tr>
+            <tr><td class='k'>Down a group ↓</td><td class='hi'>Increases (bigger)</td><td>New electron shells / layers are added</td></tr>
+            <tr><td class='k'>Across a period →</td><td class='hi'>Decreases (smaller)</td><td>More protons = stronger pull, squeezing electrons inward</td></tr></table>
+          <div class='ar-big'><div class='bg'>Biggest atom<b>Fr</b>Francium<br>bottom-left corner</div><div class='sm'>Smallest atom<b>He</b>Helium<br>top-right corner</div></div>
+          <div class='mt-callout ok'><b>Quick memory trick:</b> radius grows toward the <b>bottom-left</b> and shrinks toward the <b>top-right</b>. Find the corner and you have the answer!</div>
+          <details class='ar-det'><summary>Test yourself: tap to reveal</summary><ol><li>Which is bigger, Na or K? → <b>K</b> (one more shell).</li><li>Which is bigger, Mg or Cl? → <b>Mg</b> (Cl has more protons, same shells).</li><li>Why does Fr beat Li? → <b>7 shells vs 2 shells.</b></li></ol></details></div>`
       ] },
     "3": { "label": "No. 03", "title": "Week 3: Shielding & Periodic Trends", "pages": [
         `<div class='nt'><h3>Electron Configuration: How to Read It</h3>
@@ -1418,6 +1468,42 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   window.ptData={PT:PT,cfg:cfg,ORD:ORD,CAP:CAP,okey:okey,orbDiag:orbDiag};
   document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('.pt-c'); if(b){ ptSel=+b.dataset.z; ptShow(); } });
 
+
+  /* ---------- Atomic radius (Week 2) ---------- */
+  function arData(){ return {g:  [['Li','Lithium',3,128,2],['Na','Sodium',11,166,3],['K','Potassium',19,203,4],['Rb','Rubidium',37,220,5],['Cs','Caesium',55,244,6],['Fr','Francium',87,260,7]], p:[['Na','Sodium',11,166,3],['Mg','Magnesium',12,141,3],['Al','Aluminium',13,121,3],['Si','Silicon',14,111,3],['P','Phosphorus',15,107,3],['S','Sulfur',16,105,3],['Cl','Chlorine',17,102,3]]}; }
+  let arMode='g', arSel=0;
+  function arHero(){ return "<svg viewBox='0 0 100 100' role='img' aria-label='Atom with nucleus and electron cloud; radius drawn from centre to edge'><defs><radialGradient id='arCl'><stop offset='0' stop-color='#2E7D6B' stop-opacity='.55'/><stop offset='1' stop-color='#2E7D6B' stop-opacity='.08'/></radialGradient></defs><circle cx='50' cy='50' r='44' fill='url(#arCl)' stroke='#2E7D6B' stroke-width='1.5' stroke-dasharray='3 3'/><circle cx='50' cy='50' r='5' fill='#B5622E'/><line x1='50' y1='50' x2='93' y2='50' stroke='#B5622E' stroke-width='2'/><polygon points='94,50 87,46.5 87,53.5' fill='#B5622E'/><text x='72' y='44' font-size='9' font-weight='700' text-anchor='middle' style='fill:#B5622E'>r</text><text x='50' y='67' font-size='7' text-anchor='middle' style='fill:#B5622E'>nucleus</text></svg>"; }
+  function arShells(){
+    const sc=.21, cy=68, xs=[60,150,245,350], rows=[['Li',128,2],['Na',166,3],['K',203,4],['Rb',220,5]];
+    let h="<figure class='fig'><svg class='diagram' viewBox='0 0 420 150' role='img' aria-label='Lithium, sodium, potassium and rubidium drawn with more electron shells each time you go down group 1'>";
+    rows.forEach((r,i)=>{ const R=r[1]*sc, x=xs[i];
+      for(let k=r[2];k>=1;k--){ const rr=R*k/r[2]; h+="<circle cx='"+x+"' cy='"+cy+"' r='"+rr.toFixed(1)+"' fill='"+(k===r[2]?"rgba(46,125,107,.16)":"none")+"' stroke='#2E7D6B' stroke-width='"+(k===r[2]?1.8:1)+"'/>"; }
+      h+="<circle cx='"+x+"' cy='"+cy+"' r='3' fill='#B5622E'/><line x1='"+x+"' y1='"+cy+"' x2='"+(x+R).toFixed(1)+"' y2='"+cy+"' stroke='#B5622E' stroke-width='1.3'/>";
+      h+="<text x='"+x+"' y='128' font-size='13' font-weight='700' text-anchor='middle'>"+r[0]+"</text><text x='"+x+"' y='141' font-size='9' text-anchor='middle' opacity='.85'>"+r[2]+" shells · "+r[1]+" pm</text>"; });
+    return h+"<text x='210' y='10' font-size='9.5' font-style='italic' text-anchor='middle' opacity='.8'>Group 1 going down: one extra shell each step ↓</text></svg><figcaption>Fig. 4 · Down a group, the atom grows layer by layer</figcaption></figure>"; }
+  function arPull(){
+    const sc=.36, cy=62, a=[['Na',166,11,100],['Cl',102,17,320]];
+    let h="<figure class='fig'><svg class='diagram' viewBox='0 0 420 135' role='img' aria-label='Sodium and chlorine both have three shells but chlorine has more protons so it is smaller'><defs><marker id='arAr' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'><path d='M0,0 L6,3 L0,6 z' fill='#B5622E'/></marker></defs>";
+    a.forEach(r=>{ const R=r[1]*sc, x=r[3];
+      for(let k=3;k>=1;k--){ const rr=R*k/3; h+="<circle cx='"+x+"' cy='"+cy+"' r='"+rr.toFixed(1)+"' fill='"+(k===3?"rgba(46,125,107,.16)":"none")+"' stroke='#2E7D6B' stroke-width='"+(k===3?1.8:1)+"'/>"; }
+      h+="<circle cx='"+x+"' cy='"+cy+"' r='11' fill='#B5622E'/><text x='"+x+"' y='"+(cy+3.5)+"' font-size='9' font-weight='700' text-anchor='middle' style='fill:#fff'>"+r[2]+"+</text>";
+      const len=(r[2]-9)*(r[2]===11?2.2:3.3); [-1,1].forEach(d=>{ h+="<line x1='"+(x+d*(R+14)).toFixed(1)+"' y1='"+cy+"' x2='"+(x+d*(R+14-Math.min(len,R+2))).toFixed(1)+"' y2='"+cy+"' stroke='#B5622E' stroke-width='"+(r[2]===11?1.6:3.2)+"' marker-end='url(#arAr)'/>"; });
+      h+="<text x='"+x+"' y='128' font-size='12' font-weight='700' text-anchor='middle'>"+r[0]+" · "+r[2]+" protons · "+r[1]+" pm</text>"; });
+    return h+"<text x='210' y='66' font-size='20' text-anchor='middle' style='fill:#B5622E'>→</text><text x='210' y='80' font-size='8' text-anchor='middle' opacity='.8'>same 3 shells</text><text x='210' y='12' font-size='9.5' font-style='italic' text-anchor='middle' opacity='.8'>Period 3, left → right: a stronger pull squeezes the cloud</text></svg><figcaption>Fig. 5 · Arrows show the nucleus pulling harder (thicker = stronger)</figcaption></figure>"; }
+  function arBars(list,color){
+    return "<div class='en-bars'>"+list.map(r=>"<div class='en-row'><b>"+r[0]+"</b><span class='en-track'><span class='en-fill' style='width:"+(r[3]/260*100).toFixed(1)+"%'></span></span><i>"+r[3]+"</i></div>").join('')+"</div>"; }
+  function arBuild(){
+    const L=arMode==='g'?arData().g:arData().p, cols=L.length;
+    let h="<div class='ar-tabs'><button type='button' class='ar-tab"+(arMode==='g'?" on":"")+"' data-m='g'>↓ Down Group 1</button><button type='button' class='ar-tab"+(arMode==='p'?" on":"")+"' data-m='p'>→ Across Period 3</button></div>";
+    h+="<div class='ar-row' style='grid-template-columns:repeat("+cols+",1fr)'>"+L.map((r,i)=>"<button type='button' class='ar-cell"+(i===arSel?" sel":"")+"' data-i='"+i+"'><span class='ar-c' style='width:"+(r[3]/260*100).toFixed(1)+"%'></span><b>"+r[0]+"</b><i>"+r[3]+" pm</i></button>").join('')+"</div>";
+    const r=L[arSel], why=arMode==='g'?"<b>"+r[4]+"</b> electron shells → each new shell adds a layer, so the atom is bigger.":"<b>"+r[2]+"</b> protons pulling on the <b>same 3 shells</b> → the stronger the pull, the tighter the cloud.";
+    h+="<div class='ar-info'><h4>"+r[1]+" ("+r[0]+") · "+r[3]+" pm</h4><div class='ar-meter'><span style='width:"+(r[3]/260*100).toFixed(1)+"%'></span></div><div>Protons: <b>"+r[2]+"</b> · Shells: <b>"+r[4]+"</b></div><div>"+why+"</div></div>";
+    h+="<p class='ptnote'>Circles are drawn to scale. Tap one. (Values are approximate covalent radii; different books give slightly different numbers, but the trend is the same.)</p>";
+    return h; }
+  function arInit(){ const m=document.getElementById('arMount'); if(!m) return; m.innerHTML=arBuild(); }
+  document.addEventListener('click',e=>{ const t=e.target.closest&&e.target.closest('.ar-tab'), c=e.target.closest&&e.target.closest('.ar-cell');
+    if(t){ arMode=t.dataset.m; arSel=0; arInit(); } else if(c){ arSel=+c.dataset.i; arInit(); } });
+
   function aufChart(){
     const ord=['1s','2s','2p','3s','3p','4s','3d','4p','5s','4d','5p','6s','4f','5d','6p','7s','5f','6d','7p'];
     let h="<div class='auf'><span></span>"+'spdf'.split('').map(l=>"<b>"+l+"</b>").join('');
@@ -1505,6 +1591,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     initAtomSpin();
     ptInit();
     mtInit();
+    arInit();
   }
 
   prevPageBtn.addEventListener('click', () => {
@@ -1717,7 +1804,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     strip.insertBefore(el,duck);
     const x=Math.max(spawnX,W+20);
     noodles.push({el,x,w:n.w,h:n.h,done:false,dead:false,gone:false});
-    spawnX=x+n.w+(mode==='play'?Math.max(V,150)*(2.4+Math.random()*1.2):GAP_MIN+Math.random()*180);
+    spawnX=x+n.w+(mode==='play'?Math.max(V,185)*(2.4+Math.random()*1.2):GAP_MIN+Math.random()*180);
   }
   function washAway(){
     for(const n of noodles){
@@ -1747,7 +1834,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     strip.insertBefore(el,duck);
     gulls.push({el,x:W+30,w:46,ph:Math.random()*6,scored:false,dead:false,gone:false});
   }
-  function speedNow(){ return Math.min(320,150*(1+.05*spdN)); }
+  function speedNow(){ return Math.min(320,185*(1+.05*spdN)); }
   function noodleClash(){   // don't drop a noodle when a seagull is about to reach the duck
     if(mode!=='play') return false;
     if(gullT<1.5) return true;   // keep the lane clear for the next seagull
@@ -1771,7 +1858,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   function frame(now){
     const dt=Math.min((now-last)/1000||0,.05); last=now; t+=dt*1.9;
     if(resumeT>0&&!quizOpen&&!helpOpen){ const was=Math.ceil(resumeT); resumeT=Math.max(0,resumeT-dt); const now=Math.ceil(resumeT); if(now!==was) paint(now>0?'Get ready… '+now:'Go! 🦆'); }
-    V = (mode==='beach'||mode==='intro') ? 0 : mode==='play' ? ((over||quizOpen||helpOpen||resumeT>0)?0:speedNow()) : 150;
+    V = (mode==='beach'||mode==='intro') ? 0 : mode==='play' ? ((over||quizOpen||helpOpen||resumeT>0)?0:speedNow()) : 185;
     if(over) overT+=dt;
     if(mode==='beach') beachT+=dt;
     if(++colT>40){ colT=0; const cs=getComputedStyle(strip); cA=hex(cs.getPropertyValue('--water-a')); cBc=hex(cs.getPropertyValue('--water-b')); }
@@ -1907,7 +1994,7 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   /* ---------- game mode (Review = duck plays itself, Play = you jump) ---------- */
   const hud=document.getElementById('duckHud'), hs=hud.querySelector('.hs'), hm=hud.querySelector('.hm'), hb=hud.querySelector('.hb'), beachEl=document.getElementById('beach');
   let best=0; try{ best=+localStorage.getItem('duckBest')||0; }catch(e){}
-  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+' · Q '+(QN-eDeck.length-mDeck.length-hDeck.length)+'/'+QN+' · ⚡×'+(speedNow()/150).toFixed(2); if(msg!==undefined) hm.textContent=msg; }
+  function paint(msg){ hs.textContent='Score '+score+' · Best '+best+' · ✔ '+qOk+' · Q '+(QN-eDeck.length-mDeck.length-hDeck.length)+'/'+QN+' · ⚡×'+(speedNow()/185).toFixed(2); if(msg!==undefined) hm.textContent=msg; }
   function reset(){ resumeT=0; spdN=0;
     noodles.forEach(n=>n.el.remove()); noodles=[];
     gulls.forEach(g=>g.el.remove()); gulls=[]; duckT=0; duckHold=false; gullT=mode==='play'?rnd(3.5,5.5):rnd(8,14);
@@ -2074,6 +2161,24 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
     [3,"Which element is the most electronegative?","Fluorine","Cesium","Oxygen","Helium"],
     [3,"Moving left to right across a period, electronegativity generally…","increases","decreases","stays exactly the same","changes randomly"]
   ];
+  /* ---------- Atomic radius questions (Week 2): 4 easy · 3 medium · 3 hard ---------- */
+  const rq=a=>a.map(q=>{ q.r=true; return q; });
+  const QRE=rq([
+    [2,"What does atomic radius measure?","The size of an atom: from the nucleus to the edge of the electron cloud","The number of protons in the nucleus","The mass of the atom","The charge of the electron cloud"],
+    [2,"Atomic radius is usually measured in…","picometres (pm)","kilograms (kg)","litres (L)","degrees (°)"],
+    [2,"Going DOWN a group (top → bottom), the atomic radius…","increases","decreases","stays exactly the same","changes randomly"],
+    [2,"Which element has the biggest atoms on the periodic table?","Francium (Fr)","Helium (He)","Neon (Ne)","Lithium (Li)"]
+  ]);
+  const QRM=rq([
+    [2,"Why does atomic radius DECREASE from left to right across a period?","More protons pull the electrons in the same shell closer to the nucleus","Electron shells are removed","The atoms lose all their neutrons","The electrons become heavier"],
+    [2,"Which atom is bigger: Na or Cl?","Na, because Cl's extra protons pull its 3 shells in tighter","Cl, because it has more protons","Cl, because it has more electrons","They are equal because both have 3 shells"],
+    [2,"Which corner of the periodic table holds the largest atoms?","Bottom-left","Top-right","Top-left","Bottom-right"]
+  ]);
+  const QRH=rq([
+    [2,"Arrange by INCREASING atomic radius: Mg, Na, Cl.","Cl < Mg < Na","Na < Mg < Cl","Mg < Cl < Na","Cl < Na < Mg"],
+    [2,"Rb has 37 protons and Li has only 3. Which statement about their sizes is correct?","Rb is bigger because it has 5 shells compared with Li's 2","Li is bigger because it has fewer protons","Rb is smaller because it has more protons","They are the same size because both are in group 1"],
+    [2,"Which of these atoms has the LARGEST atomic radius: F, Cl, S or Si?","Si","F","Cl","S"]
+  ]);
   const QJ=[['Fun','Why did the duck swim across the sea?','To get to the other side!','To find the world\'s best bread','Because the tide told it a joke','To win the quack-athlon']];
   const QH=[
     [1,"What is the maximum number of electrons in the N shell (n = 4)?","32","16","18","8"],
@@ -2113,7 +2218,8 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   const qKind=document.getElementById('quizKind'), qCard=qEl.firstElementChild;
   let jokeOn=false, bE=QE, bM=QM, bH=QH, eDeck=[], mDeck=[], hDeck=[], QN=0;
   const RUN_E=18, RUN_M=18, RUN_H=24;   // 60 questions from Weeks 1-2 per run (RUN_H includes the 20 orbital/mystery questions)
-  const W3_E=12, W3_M=12, W3_H=6;        // + 30 Week 3 questions per run = 90 total: 30 easy, 30 medium, 30 hard (the Q x/N counter updates by itself)
+  const R_E=4, R_M=3, R_H=3;            // + 10 Atomic Radius questions (Week 2) per run
+  const W3_E=12, W3_M=12, W3_H=6;        // + 30 Week 3 questions + 10 Atomic Radius = 100 total: 34 easy, 33 medium, 33 hard (the Q x/N counter updates by itself)
   const SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹', plain=h=>h.replace(/<sup>(\d+)<\/sup>/g,(m,n)=>[...n].map(d=>SUPD[d]).join(''));
   function elemQ(z,txt){   // "full electron configuration of element Z", built from the periodic-table data
     const D=window.ptData, e=D.PT[z-1], w=[];
@@ -2150,12 +2256,12 @@ Lr|u|?|#cfcfcf|Radioactive. Made only a few atoms at a time, so its appearance i
   }
   function newRun(){
     const zr=(a,b)=>Array.from({length:b-a+1},(_,i)=>elemQ(a+i));
-    bE=QE.concat(zr(1,20)); bM=QM.concat(zr(21,40)); bH=QH.concat(zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>symLab(elemQ(c[0],c[1]),c[0])),CL_ORB.map(c=>symLab(orbQ(c[0],c[1]),c[0])));
-    const wk=(bk,w)=>bk.map((q,i)=>(q[0]===3)===w?i:-1).filter(i=>i>=0);   // indexes of Week 3 (w=true) or other questions
-    eDeck=shuf(shuf(wk(bE,false)).slice(0,RUN_E).concat(shuf(wk(bE,true)).slice(0,W3_E)));
-    mDeck=shuf(shuf(wk(bM,false)).slice(0,RUN_M).concat(shuf(wk(bM,true)).slice(0,W3_M)));
+    bE=QE.concat(QRE,zr(1,20)); bM=QM.concat(QRM,zr(21,40)); bH=QH.concat(QRH,zr(41,60),[5,6,7,8,9,10,12,14,15,16].map(z=>orbQ(z)),CL_CFG.map(c=>symLab(elemQ(c[0],c[1]),c[0])),CL_ORB.map(c=>symLab(orbQ(c[0],c[1]),c[0])));
+    const wk=(bk,w)=>bk.map((q,i)=>(!q.r&&(q[0]===3)===w)?i:-1).filter(i=>i>=0), rd=bk=>bk.map((q,i)=>q.r?i:-1).filter(i=>i>=0);   // indexes of Week 3 (w=true) or other questions
+    eDeck=shuf(shuf(wk(bE,false)).slice(0,RUN_E).concat(shuf(wk(bE,true)).slice(0,W3_E),rd(bE).slice(0,R_E)));
+    mDeck=shuf(shuf(wk(bM,false)).slice(0,RUN_M).concat(shuf(wk(bM,true)).slice(0,W3_M),rd(bM).slice(0,R_M)));
     { const nb=bH.length-20, sp=Array.from({length:20},(_,i)=>nb+i);   // all 20 orbital-diagram / mystery questions + other hard ones
-      hDeck=shuf(sp.concat(shuf(wk(bH,false).filter(i=>i<nb)).slice(0,RUN_H-20),shuf(wk(bH,true)).slice(0,W3_H))); }
+      hDeck=shuf(sp.concat(shuf(wk(bH,false).filter(i=>i<nb)).slice(0,RUN_H-20),shuf(wk(bH,true)).slice(0,W3_H),shuf(rd(bH)).slice(0,R_H))); }
     QN=eDeck.length+mDeck.length+hDeck.length; qOk=0;
   }
   const shuf=a=>{ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
